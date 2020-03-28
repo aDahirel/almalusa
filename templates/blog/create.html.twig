@@ -1,22 +1,25 @@
 {% extends "base.html.twig" %}
 {% block body %}
-<h1>Création d'un article</h1>
+	<!-- Creation title -->
+	<h1>Création d'un article</h1>
 
-{{ form_start(formArticle) }}
+	<!-- Creation form -->
+	{{ form_start(formArticle) }}
 
-    {# {{ form_error() }} #}
-    {{ form_row(formArticle.title, {'attr' : {'placeholder': "Titre de l'article"}}) }}
-    {{ form_row(formArticle.category) }}
-    {{ form_row(formArticle.content, {'attr' : {'placeholder': "Contenu de l'article"}}) }}
-    {{ form_row(formArticle.imageFile) }}
+	{# {{ form_error() }} #}
+	{{ form_row(formArticle.title, {'attr' : {'placeholder': "Titre de l'article"}}) }}
+	{{ form_row(formArticle.category) }}
+	{{ form_row(formArticle.content, {'attr' : {'placeholder': "Contenu de l'article"}}) }}
+	{{ form_row(formArticle.imageFile) }}
 
-    <button type="submit" class="btn btn-success">
-        {% if editMode %}
-            Enregistrer
-        {% else %}
-        Ajouter l'article
-        {% endif %}
-    </button>
-    
-{{ form_end(formArticle) }}
+	<button type="submit" class="btn btn-success">
+		<!-- If editMode, display the appropriate button -->
+		{% if editMode %}
+			Enregistrer
+		{% else %}
+			Ajouter l'article
+		{% endif %}
+	</button>
+
+	{{ form_end(formArticle) }}
 {% endblock %}

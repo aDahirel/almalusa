@@ -1,17 +1,34 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<section class="articles">
-    {% for article in articles %}
-    <article class="mb-5">
-        <h2>{{ article.title }}</h2>
-        <div class="content">
-            <img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="" width="50%" height="50%">
-            <p>{{ article.content | raw }}</p>
-            <div class="metadata">Ecrit le {{ article.createdAt | date('d/m/y') }} à {{ article.createdAt | date('H:i') }} dans la catégorie Politique</div><br>
-            <a href="{{ path('blog_show', {'id' : article.id}) }}" class="btn btn-primary">Lire la suite</a>
-        </div>
-    </article>
-    {% endfor %}
-</section>
+	<!-- Articles section -->
+	<section
+		class="articles">
+		<!-- Display all the articles in database -->
+		{% for article in articles %}
+			<article
+				class="mb-5">
+				<!-- Article title -->
+				<h2>{{ article.title }}</h2>
+				<!-- Article content -->
+				<div
+					class="content">
+					<!-- Article picture -->
+					<img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="" width="50%" height="50%">
+					<p>{{ article.content | raw }}</p>
+					<!-- Article date -->
+					<div class="metadata">Ecrit le
+						{{ article.createdAt | date('d/m/y') }}
+						à
+						{{ article.createdAt | date('H:i') }}
+						<!-- Article category -->
+						dans la catégorie
+						{{ article.category.title }}</div><br>
+					<!-- Article page button -->
+					<a href="{{ path('blog_show', {'id' : article.id}) }}" class="btn btn-primary">Lire la suite</a>
+				</div>
+			</article>
+		{% endfor %}
+	</section>
+	<!-- / Articles section -->
 {% endblock %}

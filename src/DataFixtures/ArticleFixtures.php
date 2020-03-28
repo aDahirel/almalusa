@@ -16,8 +16,7 @@ class ArticleFixtures extends Fixture
         
         $faker = \Faker\Factory::create('fr_FR');
 
-        // Créer 3 catégories fakées
-
+        // Create 3 fake categories
         for($i = 1; $i <= 3; $i++){
             $category = new Category();
             $category->setTitle($faker->sentence())
@@ -26,8 +25,7 @@ class ArticleFixtures extends Fixture
                 
             $manager->persist($category);
             
-            // Créer entre 4 et 6 articles
-
+            // Create 4, 6 random articles
             for($j = 1; $j <= mt_rand(4,6); $j++){
                 $article = new Article();
 
