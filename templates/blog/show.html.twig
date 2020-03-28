@@ -4,12 +4,15 @@
 <article class="my-4">
     <h2>{{ article.title }}</h2>
     <div class="content">
-        <img src="{{ article.image }}" alt="">
+        <img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="" width="50%" height="50%">
         <p>{{ article.content | raw }}</p>
         <div class="metadata">Ecrit le {{ article.createdAt | date('d/m/y') }} à {{ article.createdAt | date('H:i') }} 
             dans la catégorie {{ article.category.title }}</div>
     </div>
     <a href="{{ path('blog') }}"><button type="button" class="btn btn-outline-primary my-4">Retour</button></a>
+    {% if app.user %}
+    <a href="{{ path('blog_edit', {'id' : article.id }) }}"><button type="button" class="btn btn-outline-primary my-4">Modifier</button></a>
+    {% endif %}
 </article>
 <hr>
 <section id="commentaires">
@@ -34,7 +37,7 @@
     {{ form_end(commentForm) }}
     {% else %}
         <h2>Se connecter pour commenter</h2>
-        <a href="{{ path('security_login') }}" class="btn btn-primary">Connexion</a>
+        <a href="{{ path('security_login') }}" class="btn btn-primary mb-5">Connexion</a>
     {% endif %}
 </section>
 
