@@ -1,8 +1,8 @@
 <?php
+
 /**
  * Blog Controller with article functions
  */
-
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,10 +27,11 @@ class BlogController extends AbstractController
      */
     public function index()
     {
+        // Grab all the articles from the database
         $repo = $this->getDoctrine()->getRepository(Article::class);
-        
         $articles = $repo->findAll();
 
+        // Return the articles list view with the articles
         return $this->render('blog/index.html.twig', [
             'controller_name' => 'BlogController',
             'articles' => $articles
@@ -42,40 +43,48 @@ class BlogController extends AbstractController
      */
     public function home()
     {
+        // Return the home view with a title variable
         return $this->render('blog/home.html.twig', [
             'title' => "Alma Lusa",
         ]);
     }
 
-
+    // Function to Create or Edit an article
     /**
      * @Route("/blog/new", name="blog_create")
      * @Route("/blog/{id}/edit", name="blog_edit")
      */
     public function form(Article $article = null, Request $request, ManagerRegistry $managerRegistry)
     {
+        // If the article variable empty, build a new Article
         if(!$article){
             $article = new Article();
         }
 
+        // Create the ArticleType form
         $form = $this->createForm(ArticleType::class, $article);
 
+        // Process the form data
         $form->handleRequest($request);
 
+        // If the submit button is pressed
         if($form->isSubmitted() && $form->isValid()){
 
+            // Save the created date if the article doesnt exist
             if(!$article->getId()){
                 $article->setCreatedAt(new \DateTime());
             }
 
+            // Process the form data and send it
             $em = $managerRegistry->getManager();
             $em->persist($article);
             $em->flush();
-
+            
+            // Redirect to the new article
             return $this->redirectToRoute('blog_show', ['id' => $article->getId
             ()]);
         }
-
+        // Create the article view with the 'editMode'
         return $this->render('blog/create.html.twig', [
             'formArticle' => $form->createView(),
             'editMode' => $article->getId() !== null
@@ -88,11 +97,13 @@ class BlogController extends AbstractController
      */
     public function show($id, Article $article, Request $request, ManagerRegistry $managerRegistry)
     {
+        // Create a new comment
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
 
         $form->handleRequest($request);
 
+        // If submit button pressed create a new comment
         if($form->isSubmitted() && $form->isValid())
         {
             $comment->setCreatedAt(new \DateTime())
@@ -102,14 +113,16 @@ class BlogController extends AbstractController
             $em->persist($comment);
             $em->flush();
 
+            // redirect to the same page
             return $this->redirectToRoute('blog_show', ['id' => $article->getId()]);
 
         }
 
+        // Search the article id
         $repo = $this->getDoctrine()->getRepository(Article::class);
-
         $article  = $repo->find($id);
 
+        //return the same page with a new comment
         return $this->render('blog/show.html.twig', [
             'article' => $article,
             'commentForm' => $form->createView()
