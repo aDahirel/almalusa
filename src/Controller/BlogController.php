@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 use App\Entity\Article;
 use App\Entity\Comment;
@@ -53,6 +55,8 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog/new", name="blog_create")
      * @Route("/blog/{id}/edit", name="blog_edit")
+     * 
+     * @IsGranted("ROLE_ADMIN")
      */
     public function form(Article $article = null, Request $request, ManagerRegistry $managerRegistry)
     {
@@ -85,7 +89,7 @@ class BlogController extends AbstractController
             ()]);
         }
         // Create the article view with the 'editMode'
-        return $this->render('blog/create.html.twig', [
+        return $this->render('admin/create.html.twig', [
             'formArticle' => $form->createView(),
             'editMode' => $article->getId() !== null
         ]);
