@@ -19,7 +19,7 @@ class ArticleFixtures extends Fixture
         // Create 3 fake categories
         for($i = 1; $i <= 3; $i++){
             $category = new Category();
-            $category->setTitle($faker->sentence())
+            $category->setTitle($faker->name())
                      ->setDescription($faker->paragraph());
 
                 
@@ -30,11 +30,12 @@ class ArticleFixtures extends Fixture
                 $article = new Article();
 
                 $content = '<p>' . join($faker->paragraphs(5), '</p><p>') . '</p>';
-
+                $now = new \DateTime();
                 $article->setTitle($faker->sentence())
                         ->setContent($content)
-                        ->setImage($faker->imageUrl())
                         ->setCreatedAt($faker->dateTimeBetween('-6 months'))
+                        ->setFileName($faker->imageUrl($width = 640, $height = 480))
+                        ->setUpdatedAt(new \DateTime(sprintf('-%d days', rand(1, 100))))
                         ->setCategory($category);
     
                 $manager->persist($article);

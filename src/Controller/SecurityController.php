@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-
 use App\Entity\User;
 
 class SecurityController extends AbstractController
@@ -43,7 +42,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('security_login');
         }
         // Return the inscription page
-        return $this->render('security/registration.html.twig', [
+        return $this->render('blog/registration.html.twig', [
             'form' => $form->createview()
         ]);
     }
@@ -53,11 +52,12 @@ class SecurityController extends AbstractController
      */
     public function login(){
         // return to the connexion page
-        return $this->render('security/login.html.twig');
+        return $this->render('blog/login.html.twig');
     }
 
     /**
      * @Route("/deconnexion", name="security_logout")
      */
     public function logout(){}
+
 }

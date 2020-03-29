@@ -27,16 +27,20 @@
 							<a class="nav-link" href="{{ path('blog') }}">Articles</a>
 						</li>
 						<!-- Check if a user is logged in to display appropriate features -->
-						{% if not app.user %}
-							<li class="nav-item">
-								<a class="nav-link" href="{{ path('security_login') }}">Connexion</a>
-							</li>
-						{% else %}
+						{% if is_granted('ROLE_ADMIN') %}
 							<li class="nav-item">
 								<a class="nav-link" href="{{ path('blog_create') }}">Créer un article</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="{{ path('security_logout') }}">Deconnexion</a>
+							</li>
+						{% elseif is_granted('ROLE_USER') %}
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('security_logout') }}">Deconnexion</a>
+							</li>
+						{% else %}
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('security_login') }}">Connexion</a>
 							</li>
 						{% endif %}
 					</ul>

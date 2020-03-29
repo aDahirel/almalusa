@@ -1,0 +1,44 @@
+{% extends "base.html.twig" %}
+{% block body %}
+	<!-- Creation title -->
+	<h1>Création d'un article</h1>
+
+	<!-- Creation form -->
+	{{ form_start(formArticle) }}
+
+	{# {{ form_error() }} #}
+
+	<div class="form-group">
+		<label for="">Titre</label>
+		{{ form_widget(formArticle.title, {'attr' : {'placeholder': "Titre de l'article"}}) }}
+	</div>
+	<div class="form-group">
+		<label for="">Catégorie</label>
+		{{ form_widget(formArticle.category) }}
+	</div>
+	<div class="form-group">
+		<label for="">Contenu</label>
+		{{ form_widget(formArticle.content, {'attr' : {'placeholder': "Contenu de l'article"}}) }}
+	</div>
+	<div class="form-group">
+		<label for="">Image</label>
+		{# Bootstrap issue to see selected file on the input, not resolved yet -> check the style#}
+		{{ form_widget(formArticle.imageFile ) }}
+	</div>
+
+	<button type="submit" class="btn btn-success">
+		<!-- If editMode, display the appropriate button -->
+		{% if editMode %}
+			Enregistrer
+		{% else %}
+			Ajouter l'article
+		{% endif %}
+	</button>
+
+	{{ form_end(formArticle) }}
+	<style>
+		{#  #}
+		.custom-file-label { opacity: 0; }
+		.custom-file-input { opacity: 1; }
+	</style>
+{% endblock %}
