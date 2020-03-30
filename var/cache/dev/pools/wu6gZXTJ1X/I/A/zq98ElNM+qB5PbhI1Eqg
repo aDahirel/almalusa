@@ -17,6 +17,14 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
                 'blog_create',
                 'blog_edit',
             ],
+            'methods' => [
+                [
+                    'GET|POST',
+                ],
+                [
+                    'GET|POST',
+                ],
+            ],
         ],
         'Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\IsGranted' => [
             'attributes' => [

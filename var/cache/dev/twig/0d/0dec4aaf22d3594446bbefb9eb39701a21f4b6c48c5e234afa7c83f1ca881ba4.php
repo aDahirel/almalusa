@@ -105,7 +105,7 @@ class __TwigTemplate_4aed4c837df1a610b70c0e6a223770a468b09f8f76208136e35eb92bee7
             // line 23
             echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["article"], "createdAt", [], "any", false, false, false, 23), "H:i"), "html", null, true);
             echo "
-\t\t\t\t\t\t<!-- Article category -->
+\t\t\t\t\t\t<!-- Article wording -->
 \t\t\t\t\t\tdans les libellés :
 \t\t\t\t\t\t";
             // line 26
@@ -190,7 +190,7 @@ class __TwigTemplate_4aed4c837df1a610b70c0e6a223770a468b09f8f76208136e35eb92bee7
 \t\t\t\t\t\t{{ article.createdAt | date('d/m/y') }}
 \t\t\t\t\t\tà
 \t\t\t\t\t\t{{ article.createdAt | date('H:i') }}
-\t\t\t\t\t\t<!-- Article category -->
+\t\t\t\t\t\t<!-- Article wording -->
 \t\t\t\t\t\tdans les libellés :
 \t\t\t\t\t\t{% for wording in article.wordings %}
 \t\t\t\t\t\t

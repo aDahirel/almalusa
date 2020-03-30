@@ -27,7 +27,6 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/blog", name="blog")
-     * 
      */
     public function index()
     {
@@ -59,8 +58,8 @@ class BlogController extends AbstractController
 
     // Function to Create or Edit an article
     /**
-     * @Route("/blog/new", name="blog_create")
-     * @Route("/blog/{id}/edit", name="blog_edit")
+     * @Route("/blog/new", name="blog_create", methods="GET|POST")
+     * @Route("/blog/{id}/edit", name="blog_edit", methods="GET|POST")
      * 
      * @IsGranted("ROLE_ADMIN")
      */
@@ -137,5 +136,18 @@ class BlogController extends AbstractController
             'article' => $article,
             'commentForm' => $form->createView()
         ]);
+    }
+
+    // Function to Delete an article
+    /**
+     * @Route("/blog/{id}/delete", name="blog_delete", methods="DELETE")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function delete(Article $article, Request $request, ManagerRegistry $managerRegistry)
+    {
+        $em = $managerRegistry->getManager();
+        $em->remove($article);
+        $em->flush();
+        return $this->redirectToRoute('blog');
     }
 }

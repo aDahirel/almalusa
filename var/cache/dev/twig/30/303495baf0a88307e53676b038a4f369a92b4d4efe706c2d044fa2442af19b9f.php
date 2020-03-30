@@ -74,66 +74,80 @@ class __TwigTemplate_ee96f97972ed4e06aa82186257b6cb97ec4e2a9bbe0a97203835d8ffd33
 \t\t\t\t<button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarColor01\" aria-controls=\"navbarColor01\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
 \t\t\t\t\t<span class=\"navbar-toggler-icon\"></span>
 \t\t\t\t</button>
-
 \t\t\t\t<div class=\"collapse navbar-collapse\" id=\"navbarColor01\">
 \t\t\t\t\t<ul class=\"navbar-nav mr-auto\">
 \t\t\t\t\t\t<li class=\"nav-item\">
 \t\t\t\t\t\t\t<a class=\"nav-link\" href=\"";
-        // line 27
+        // line 26
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("blog");
         echo "\">Articles</a>
 \t\t\t\t\t\t</li>
 \t\t\t\t\t\t<!-- Check if a user is logged in to display appropriate features -->
 \t\t\t\t\t\t";
-        // line 30
+        // line 29
         if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN")) {
-            // line 31
+            // line 30
             echo "\t\t\t\t\t\t\t<li class=\"nav-item\">
 \t\t\t\t\t\t\t\t<a class=\"nav-link\" href=\"";
-            // line 32
+            // line 31
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("blog_create");
             echo "\">Créer un article</a>
 \t\t\t\t\t\t\t</li>
-\t\t\t\t\t\t\t<li class=\"nav-item\">
-\t\t\t\t\t\t\t\t<a class=\"nav-link\" href=\"";
-            // line 35
-            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("security_logout");
-            echo "\">Deconnexion</a>
-\t\t\t\t\t\t\t</li>
 \t\t\t\t\t\t";
-        } elseif ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_USER")) {
+        }
+        // line 34
+        echo "\t\t\t\t\t</ul>
+\t\t\t\t\t<ul class=\"navbar-nav\">
+\t\t\t\t\t\t<!-- Check if a user is logged in to display appropriate features -->
+\t\t\t\t\t\t";
+        // line 37
+        if (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN") || $this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_USER"))) {
             // line 38
             echo "\t\t\t\t\t\t\t<li class=\"nav-item\">
+\t\t\t\t\t\t\t\t<a class=\"nav-link text-capitalize\" href=\"\">
+\t\t\t\t\t\t\t\t\t";
+            // line 40
+            if (twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 40, $this->source); })()), "user", [], "any", false, false, false, 40)) {
+                // line 41
+                echo "\t\t\t\t\t\t\t\t\t\t";
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 41, $this->source); })()), "user", [], "any", false, false, false, 41), "username", [], "any", false, false, false, 41), "html", null, true);
+                echo "
+\t\t\t\t\t\t\t\t\t";
+            }
+            // line 43
+            echo "\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t</li>
+\t\t\t\t\t\t\t<li class=\"nav-item\">
 \t\t\t\t\t\t\t\t<a class=\"nav-link\" href=\"";
-            // line 39
+            // line 46
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("security_logout");
             echo "\">Deconnexion</a>
 \t\t\t\t\t\t\t</li>
 \t\t\t\t\t\t";
         } else {
-            // line 42
+            // line 49
             echo "\t\t\t\t\t\t\t<li class=\"nav-item\">
 \t\t\t\t\t\t\t\t<a class=\"nav-link\" href=\"";
-            // line 43
+            // line 50
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("security_login");
             echo "\">Connexion</a>
 \t\t\t\t\t\t\t</li>
 \t\t\t\t\t\t";
         }
-        // line 46
+        // line 53
         echo "\t\t\t\t\t</ul>
 \t\t\t\t</div>
 \t\t\t</nav>
 \t\t\t<!-- / Navbar -->
 \t\t\t<div class=\"container\"> ";
-        // line 50
+        // line 57
         $this->displayBlock('body', $context, $blocks);
-        // line 51
+        // line 58
         echo "\t\t\t\t</div>
 \t\t\t\t";
-        // line 52
+        // line 59
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 53
+        // line 60
         echo "\t\t\t</body>
 \t\t</html>
 ";
@@ -183,7 +197,7 @@ class __TwigTemplate_ee96f97972ed4e06aa82186257b6cb97ec4e2a9bbe0a97203835d8ffd33
 
     }
 
-    // line 50
+    // line 57
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -201,7 +215,7 @@ class __TwigTemplate_ee96f97972ed4e06aa82186257b6cb97ec4e2a9bbe0a97203835d8ffd33
 
     }
 
-    // line 52
+    // line 59
     public function block_javascripts($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -231,7 +245,7 @@ class __TwigTemplate_ee96f97972ed4e06aa82186257b6cb97ec4e2a9bbe0a97203835d8ffd33
 
     public function getDebugInfo()
     {
-        return array (  205 => 52,  187 => 50,  169 => 14,  149 => 10,  137 => 53,  135 => 52,  132 => 51,  130 => 50,  124 => 46,  118 => 43,  115 => 42,  109 => 39,  106 => 38,  100 => 35,  94 => 32,  91 => 31,  89 => 30,  83 => 27,  72 => 19,  66 => 15,  64 => 14,  60 => 12,  58 => 10,  47 => 1,);
+        return array (  219 => 59,  201 => 57,  183 => 14,  163 => 10,  151 => 60,  149 => 59,  146 => 58,  144 => 57,  138 => 53,  132 => 50,  129 => 49,  123 => 46,  118 => 43,  112 => 41,  110 => 40,  106 => 38,  104 => 37,  99 => 34,  93 => 31,  90 => 30,  88 => 29,  82 => 26,  72 => 19,  66 => 15,  64 => 14,  60 => 12,  58 => 10,  47 => 1,);
     }
 
     public function getSourceContext()
@@ -258,7 +272,6 @@ class __TwigTemplate_ee96f97972ed4e06aa82186257b6cb97ec4e2a9bbe0a97203835d8ffd33
 \t\t\t\t<button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarColor01\" aria-controls=\"navbarColor01\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
 \t\t\t\t\t<span class=\"navbar-toggler-icon\"></span>
 \t\t\t\t</button>
-
 \t\t\t\t<div class=\"collapse navbar-collapse\" id=\"navbarColor01\">
 \t\t\t\t\t<ul class=\"navbar-nav mr-auto\">
 \t\t\t\t\t\t<li class=\"nav-item\">
@@ -269,10 +282,18 @@ class __TwigTemplate_ee96f97972ed4e06aa82186257b6cb97ec4e2a9bbe0a97203835d8ffd33
 \t\t\t\t\t\t\t<li class=\"nav-item\">
 \t\t\t\t\t\t\t\t<a class=\"nav-link\" href=\"{{ path('blog_create') }}\">Créer un article</a>
 \t\t\t\t\t\t\t</li>
+\t\t\t\t\t\t{% endif %}
+\t\t\t\t\t</ul>
+\t\t\t\t\t<ul class=\"navbar-nav\">
+\t\t\t\t\t\t<!-- Check if a user is logged in to display appropriate features -->
+\t\t\t\t\t\t{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
 \t\t\t\t\t\t\t<li class=\"nav-item\">
-\t\t\t\t\t\t\t\t<a class=\"nav-link\" href=\"{{ path('security_logout') }}\">Deconnexion</a>
+\t\t\t\t\t\t\t\t<a class=\"nav-link text-capitalize\" href=\"\">
+\t\t\t\t\t\t\t\t\t{% if app.user %}
+\t\t\t\t\t\t\t\t\t\t{{ app.user.username }}
+\t\t\t\t\t\t\t\t\t{% endif %}
+\t\t\t\t\t\t\t\t</a>
 \t\t\t\t\t\t\t</li>
-\t\t\t\t\t\t{% elseif is_granted('ROLE_USER') %}
 \t\t\t\t\t\t\t<li class=\"nav-item\">
 \t\t\t\t\t\t\t\t<a class=\"nav-link\" href=\"{{ path('security_logout') }}\">Deconnexion</a>
 \t\t\t\t\t\t\t</li>

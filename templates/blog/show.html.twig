@@ -35,6 +35,10 @@
 			<a href="{{ path('blog_edit', {'id' : article.id }) }}">
 				<button type="button" class="btn btn-outline-primary my-4">Modifier</button>
 			</a>
+			<form method="post" action="{{ path('blog_delete', {id: article.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+				<input type="hidden" name="_method" value="DELETE">
+				<button class="btn btn-danger">Supprimer</button>
+			</form>
 		{% endif %}
 	</article>
 	<!-- / Article page -->
