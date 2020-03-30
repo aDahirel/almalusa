@@ -14,3 +14,9 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+.idea/almalusa.iml
+.idea/misc.xml
+.idea/php.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
