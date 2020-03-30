@@ -4,7 +4,7 @@ namespace App\DataFixtures;
 
 use App\DataFixtures\Faker;
 use App\Entity\Article;
-use App\Entity\Category;
+use App\Entity\Wording;
 use App\Entity\Comment;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -16,14 +16,14 @@ class ArticleFixtures extends Fixture
         
         $faker = \Faker\Factory::create('fr_FR');
 
-        // Create 3 fake categories
+        // Create 3 fake wordings
         for($i = 1; $i <= 3; $i++){
-            $category = new Category();
-            $category->setTitle($faker->name())
+            $wording = new Wording();
+            $wording->setTitle($faker->name())
                      ->setDescription($faker->paragraph());
 
                 
-            $manager->persist($category);
+            $manager->persist($wording);
             
             // Create 4, 6 random articles
             for($j = 1; $j <= mt_rand(4,6); $j++){
@@ -36,7 +36,7 @@ class ArticleFixtures extends Fixture
                         ->setCreatedAt($faker->dateTimeBetween('-6 months'))
                         ->setFileName($faker->imageUrl($width = 640, $height = 480))
                         ->setUpdatedAt(new \DateTime(sprintf('-%d days', rand(1, 100))))
-                        ->setCategory($category);
+                        ->addWording($wording);
     
                 $manager->persist($article);
 

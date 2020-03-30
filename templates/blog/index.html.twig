@@ -21,9 +21,14 @@
 						{{ article.createdAt | date('d/m/y') }}
 						à
 						{{ article.createdAt | date('H:i') }}
-						<!-- Article category -->
-						dans la catégorie
-						{{ article.category.title }}</div><br>
+						<!-- Article wording -->
+						dans les libellés :
+						{% for wording in article.wordings %}
+						
+						{{ wording.title }}
+
+						{% endfor %}
+					</div><br>
 					<!-- Article page button -->
 					<a href="{{ path('blog_show', {'id' : article.id}) }}" class="btn btn-primary">Lire la suite</a>
 				</div>

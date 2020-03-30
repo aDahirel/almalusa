@@ -18,8 +18,12 @@
 				{{ article.createdAt | date('d/m/y') }}
 				à
 				{{ article.createdAt | date('H:i') }}
-				dans la catégorie
-				{{ article.category.title }}
+				avec les libellés : 
+				{% for wording in article.wordings %}
+					
+					{{ wording.title }}
+
+				{% endfor %}
 			</div>
 		</div>
 		<!-- Redirection to articles -->

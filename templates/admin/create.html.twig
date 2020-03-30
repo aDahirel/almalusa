@@ -13,10 +13,6 @@
 		{{ form_widget(formArticle.title, {'attr' : {'placeholder': "Titre de l'article"}}) }}
 	</div>
 	<div class="form-group">
-		<label for="">Catégorie</label>
-		{{ form_widget(formArticle.category) }}
-	</div>
-	<div class="form-group">
 		<label for="">Contenu</label>
 		{{ form_widget(formArticle.content, {'attr' : {'placeholder': "Contenu de l'article"}}) }}
 	</div>
@@ -24,6 +20,10 @@
 		<label for="">Image</label>
 		{# Bootstrap issue to see selected file on the input, not resolved yet -> check the style#}
 		{{ form_widget(formArticle.imageFile ) }}
+	</div>
+	<div class="form-group">
+		<label for="">Libellés</label>
+		{{ form_widget(formArticle.wordings) }}
 	</div>
 
 	<button type="submit" class="btn btn-success">
@@ -37,7 +37,6 @@
 
 	{{ form_end(formArticle) }}
 	<style>
-		{#  #}
 		.custom-file-label { opacity: 0; }
 		.custom-file-input { opacity: 1; }
 	</style>
