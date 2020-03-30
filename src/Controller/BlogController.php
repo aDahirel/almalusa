@@ -17,6 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 use App\Entity\Article;
 use App\Entity\Comment;
+use App\Entity\Wording;
 use App\Form\ArticleType;
 use App\Form\CommentType;
 use App\Repository\ArticleRepository;
@@ -26,6 +27,7 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/blog", name="blog")
+     * 
      */
     public function index()
     {
@@ -33,10 +35,14 @@ class BlogController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Article::class);
         $articles = $repo->findAll();
 
+        $repo = $this->getDoctrine()->getRepository(Wording::class);
+        $wordings = $repo->findAll();
+
         // Return the articles list view with the articles
         return $this->render('blog/index.html.twig', [
             'controller_name' => 'BlogController',
-            'articles' => $articles
+            'articles' => $articles,
+            'wordings' => $wordings
         ]);
     }
 

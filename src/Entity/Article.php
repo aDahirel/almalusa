@@ -57,11 +57,6 @@ class Article
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="articles")
-     */
-    private $category;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="article", orphanRemoval=true)
      */
     private $comments;
@@ -71,9 +66,15 @@ class Article
      */
     private $updated_at;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Wording", inversedBy="articles")
+     */
+    private $wordings;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->wordings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -116,19 +117,7 @@ class Article
 
         return $this;
     }
-
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): self
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
+    
     /**
      * @return Collection|Comment[]
      */
@@ -221,4 +210,33 @@ class Article
 
         return $this;
     }
+
+    /**
+     * @return Collection|Wording[]
+     */
+    public function getWordings(): Collection
+    {
+        return $this->wordings;
+    }
+
+    public function addWording(Wording $wording): self
+    {
+        if (!$this->wordings->contains($wording)) {
+            $this->wordings[] = $wording;
+            $wording->addArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWording(Wording $wording): self
+    {
+        if ($this->wordings->contains($wording)) {
+            $this->wordings->removeElement($wording);
+            $wording->removeArticle($this);
+        }
+
+        return $this;
+    }
+
 }
