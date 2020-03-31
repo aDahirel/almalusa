@@ -15,6 +15,11 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
-###> liip/imagine-bundle ###
-/public/media/cache/
 ###< liip/imagine-bundle ###
+.idea/almalusa.iml
+.idea/misc.xml
+.idea/php.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
+composer.lock
