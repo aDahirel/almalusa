@@ -18,3 +18,6 @@
 ###> liip/imagine-bundle ###
 /public/media/cache/
 ###< liip/imagine-bundle ###
+var/log/dev.log
+var/cache/dev/profiler/index.csv
+.idea/workspace.xml
