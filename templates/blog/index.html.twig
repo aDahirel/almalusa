@@ -5,6 +5,7 @@
 	<section
 		class="articles">
 		<!-- Display all the articles in database -->
+		
 		{% for article in articles %}
 			<article
 				class="mb-5">
@@ -17,7 +18,7 @@
 					<img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="" width="50%" height="50%">
 					<p>{{ article.content | raw }}</p>
 					<!-- Article date -->
-					<div class="metadata">Ecrit le
+					<div class="metadata font-weight-bold">Ecrit le
 						{{ article.createdAt | date('d/m/y') }}
 						à
 						{{ article.createdAt | date('H:i') }}
@@ -34,6 +35,17 @@
 				</div>
 			</article>
 		{% endfor %}
+		<div class="btn-group">{{ knp_pagination_render(articles) }}</div>
 	</section>
+	<style>
+		.page-link:hover{
+			background-color: grey;
+			border-color: grey;
+		}
+		.page-item.active .page-link{
+			background-color: grey;
+			border-color: grey;
+		}
+	</style>
 	<!-- / Articles section -->
 {% endblock %}

@@ -60,7 +60,6 @@ class ComposerStaticInitafe746e0aea761626afb3c7ea8dfbc2c
             'Symfony\\Component\\VarDumper\\' => 28,
             'Symfony\\Component\\Validator\\' => 28,
             'Symfony\\Component\\Translation\\' => 30,
-            'Symfony\\Component\\Templating\\' => 29,
             'Symfony\\Component\\String\\' => 25,
             'Symfony\\Component\\Stopwatch\\' => 28,
             'Symfony\\Component\\Serializer\\' => 29,
@@ -124,13 +123,10 @@ class ComposerStaticInitafe746e0aea761626afb3c7ea8dfbc2c
             'Monolog\\' => 8,
             'Metadata\\' => 9,
         ),
-        'L' => 
+        'K' => 
         array (
-            'Liip\\ImagineBundle\\' => 19,
-        ),
-        'I' => 
-        array (
-            'Imagine\\' => 8,
+            'Knp\\Component\\' => 14,
+            'Knp\\Bundle\\PaginatorBundle\\' => 27,
         ),
         'F' => 
         array (
@@ -264,10 +260,6 @@ class ComposerStaticInitafe746e0aea761626afb3c7ea8dfbc2c
         'Symfony\\Component\\Translation\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/translation',
-        ),
-        'Symfony\\Component\\Templating\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/templating',
         ),
         'Symfony\\Component\\String\\' => 
         array (
@@ -493,13 +485,13 @@ class ComposerStaticInitafe746e0aea761626afb3c7ea8dfbc2c
         array (
             0 => __DIR__ . '/..' . '/jms/metadata/src',
         ),
-        'Liip\\ImagineBundle\\' => 
+        'Knp\\Component\\' => 
         array (
-            0 => __DIR__ . '/..' . '/liip/imagine-bundle',
+            0 => __DIR__ . '/..' . '/knplabs/knp-components/src/Knp/Component',
         ),
-        'Imagine\\' => 
+        'Knp\\Bundle\\PaginatorBundle\\' => 
         array (
-            0 => __DIR__ . '/..' . '/imagine/imagine/src',
+            0 => __DIR__ . '/..' . '/knplabs/knp-paginator-bundle/src',
         ),
         'Faker\\' => 
         array (

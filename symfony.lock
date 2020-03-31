@@ -108,27 +108,17 @@
     "fzaninotto/faker": {
         "version": "v1.9.1"
     },
-    "imagine/imagine": {
-        "version": "1.2.3"
-    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
     "jms/metadata": {
         "version": "2.1.0"
     },
-    "liip/imagine-bundle": {
-        "version": "1.8",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "1.8",
-            "ref": "1d42bc3f713130582e6e0c475c49bc327ab0a2a2"
-        },
-        "files": [
-            "config/packages/liip_imagine.yaml",
-            "config/routes/liip_imagine.yaml"
-        ]
+    "knplabs/knp-components": {
+        "version": "v2.3.3"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.1.1"
     },
     "monolog/monolog": {
         "version": "2.0.2"
@@ -466,9 +456,6 @@
     },
     "symfony/string": {
         "version": "v5.0.5"
-    },
-    "symfony/templating": {
-        "version": "v5.0.6"
     },
     "symfony/test-pack": {
         "version": "v1.0.6"

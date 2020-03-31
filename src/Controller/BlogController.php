@@ -14,7 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-
+use Knp\Component\Pager\PaginatorInterface;
 use App\Entity\Article;
 use App\Entity\Comment;
 use App\Entity\Wording;
@@ -28,18 +28,22 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog", name="blog")
      */
-    public function index()
+    public function index(Request $request, PaginatorInterface $paginator)
     {
         // Grab all the articles from the database
         $repo = $this->getDoctrine()->getRepository(Article::class);
-        $articles = $repo->findAll();
+
+        $articles = $paginator->paginate(
+            $order = $repo->findAllDesc(),
+            $request->query->getInt('page', 1),
+            5
+        );
 
         $repo = $this->getDoctrine()->getRepository(Wording::class);
         $wordings = $repo->findAll();
 
         // Return the articles list view with the articles
         return $this->render('blog/index.html.twig', [
-            'controller_name' => 'BlogController',
             'articles' => $articles,
             'wordings' => $wordings
         ]);
@@ -51,9 +55,7 @@ class BlogController extends AbstractController
     public function home()
     {
         // Return the home view with a title variable
-        return $this->render('blog/home.html.twig', [
-            'title' => "Alma Lusa",
-        ]);
+        return $this->render('blog/home.html.twig');
     }
 
     // Function to Create or Edit an article
@@ -88,7 +90,6 @@ class BlogController extends AbstractController
             $em = $managerRegistry->getManager();
             $em->persist($article);
             $em->flush();
-            
             // Redirect to the new article
             return $this->redirectToRoute('blog_show', ['id' => $article->getId
             ()]);

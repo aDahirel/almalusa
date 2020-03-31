@@ -14,7 +14,7 @@
 			<!-- Article content -->
 			<p>{{ article.content | raw }}</p>
 			<!-- Article date -->
-			<div class="metadata">Ecrit le
+			<div class="metadata font-weight-bold">Ecrit le
 				{{ article.createdAt | date('d/m/y') }}
 				à
 				{{ article.createdAt | date('H:i') }}
@@ -31,7 +31,7 @@
 			<button type="button" class="btn btn-outline-primary my-4">Retour</button>
 		</a>
 		<!-- If a user is connected dislay the modify button -->
-		{% if app.user %}
+		{% if is_granted('ROLE_ADMIN') %}
 			<a href="{{ path('blog_edit', {'id' : article.id }) }}">
 				<button type="button" class="btn btn-outline-primary my-4">Modifier</button>
 			</a>
