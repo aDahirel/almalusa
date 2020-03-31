@@ -1,41 +1,87 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<article class="my-4">
-    <h2>{{ article.title }}</h2>
-    <div class="content">
-        <img src="{{ article.image }}" alt="">
-        <p>{{ article.content | raw }}</p>
-        <div class="metadata">Ecrit le {{ article.createdAt | date('d/m/y') }} à {{ article.createdAt | date('H:i') }} 
-            dans la catégorie {{ article.category.title }}</div>
-    </div>
-    <a href="{{ path('blog') }}"><button type="button" class="btn btn-outline-primary my-4">Retour</button></a>
-</article>
-<hr>
-<section id="commentaires">
-    <h1 class="mb-5">{{ article.comments | length }} Commentaires : </h1>
-    {% for comment in article.comments %}
-        <div class="comment mb-5">
-            <div class="row">
-                <div class="col-3">
-                    {{ comment.author }} (<small>{{ comment.createdAt | date('d/m/Y à H:i')}}</small>)
-                </div>
-                <div class="col">
-                    {{comment.content | raw}}
-                </div>
-            </div>
-        </div>
-    {% endfor %}
-    {% if app.user %}
-    {{ form_start(commentForm) }}
-    {{ form_row(commentForm.author, {'attr': {'placeholder': "Votre nom"}}) }}
-    {{ form_row(commentForm.content, {'attr': {'placeholder': "Votre commentaire"}}) }}
-    <button type="submit" class="btn btn-success mb-5">Envoyer</button>
-    {{ form_end(commentForm) }}
-    {% else %}
-        <h2>Se connecter pour commenter</h2>
-        <a href="{{ path('security_login') }}" class="btn btn-primary">Connexion</a>
-    {% endif %}
-</section>
+	<!-- Article page -->
+	<article
+		class="my-4">
+		<!-- Article title -->
+		<h2>{{ article.title }}</h2>
+		<div
+			class="content">
+			<!-- Article picture -->
+			<img
+			src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="" width="50%" height="50%">
+			<!-- Article content -->
+			<p>{{ article.content | raw }}</p>
+			<!-- Article date -->
+			<div class="metadata font-weight-bold">Ecrit le
+				{{ article.createdAt | date('d/m/y') }}
+				à
+				{{ article.createdAt | date('H:i') }}
+				avec les libellés : 
+				{% for wording in article.wordings %}
+					
+					{{ wording.title }}
+
+				{% endfor %}
+			</div>
+		</div>
+		<!-- Redirection to articles -->
+		<a href="{{ path('blog') }}">
+			<button type="button" class="btn btn-outline-primary my-4">Retour</button>
+		</a>
+		<!-- If a user is connected dislay the modify button -->
+		{% if is_granted('ROLE_ADMIN') %}
+			<a href="{{ path('blog_edit', {'id' : article.id }) }}">
+				<button type="button" class="btn btn-outline-primary my-4">Modifier</button>
+			</a>
+			<form method="post" action="{{ path('blog_delete', {id: article.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+				<input type="hidden" name="_method" value="DELETE">
+				<button class="btn btn-danger">Supprimer</button>
+			</form>
+		{% endif %}
+	</article>
+	<!-- / Article page -->
+	<hr>
+	<!-- Comment section -->
+	<section
+		id="commentaires">
+		<!-- Display the amount of comments -->
+		<h1 class="mb-5">{{ article.comments | length }}
+			Commentaires :
+		</h1>
+		<!-- Display the comments -->
+		{% for comment in article.comments %}
+			<div class="comment mb-5">
+				<div class="row">
+					<div
+						class="col-3">
+						<!-- Author of the comment -->
+						{{ comment.author }}
+						<!-- Date of the comment -->
+						(<small>{{ comment.createdAt | date('d/m/Y à H:i')}}</small>)
+					</div>
+					<div
+						class="col">
+						<!-- Content of the comment -->
+						{{comment.content | raw}}
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+		<!-- If a user is connected, display the comment form -->
+		{% if app.user %}
+			{{ form_start(commentForm) }}
+			{{ form_row(commentForm.author, {'attr': {'placeholder': "Votre nom"}}) }}
+			{{ form_row(commentForm.content, {'attr': {'placeholder': "Votre commentaire"}}) }}
+			<button type="submit" class="btn btn-success mb-5">Envoyer</button>
+			{{ form_end(commentForm) }}
+			<!-- Else display a connexion button -->
+		{% else %}
+			<h2>Se connecter pour commenter</h2>
+			<a href="{{ path('security_login') }}" class="btn btn-primary mb-5">Connexion</a>
+		{% endif %}
+	</section>
+	<!-- / Comment section -->
 
 {% endblock %}

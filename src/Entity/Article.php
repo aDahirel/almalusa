@@ -3,12 +3,16 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
+ * @Vich\Uploadable
  */
 class Article
 {
@@ -18,6 +22,22 @@ class Article
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", length=255)
+     */
+    private $fileName;
+
+    /**
+     * @var File|null
+     * @Assert\Image(
+     *    mimeTypes = {"image/jpeg", "image/png", "image/gif", "image/jpg", "image/pdf"},
+     *    mimeTypesMessage = "Ce fichier doit être de format jpeg, png gif ou jpg."
+     * )
+     * @Vich\UploadableField(mapping="article_image", fileNameProperty="fileName")
+     */
+    private $imageFile;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -32,29 +52,30 @@ class Article
     private $content;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Url
-     */
-    private $image;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="articles")
-     */
-    private $category;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="article", orphanRemoval=true)
+     * @ORM\OrderBy({"createdAt" = "ASC"})
      */
     private $comments;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Wording", inversedBy="articles")
+     */
+    private $wordings;
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->wordings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -86,18 +107,6 @@ class Article
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -109,19 +118,7 @@ class Article
 
         return $this;
     }
-
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): self
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
+    
     /**
      * @return Collection|Comment[]
      */
@@ -152,4 +149,95 @@ class Article
 
         return $this;
     }
+
+    /**
+     * Get the value of fileName
+     *
+     * @return  string|null
+     */ 
+    public function getFileName()
+    {
+        return $this->fileName;
+    }
+
+    /**
+     * Set the value of fileName
+     *
+     * @param  string|null  $fileName
+     *
+     * @return  self
+     */ 
+    public function setFileName($fileName)
+    {
+        $this->fileName = $fileName;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of imageFile
+     *
+     * @return  File|null
+     */ 
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * Set the value of imageFile
+     *
+     * @param  File|null  $imageFile
+     *
+     * @return  self
+     */ 
+    public function setImageFile($imageFile)
+    {
+        $this->imageFile = $imageFile;
+        if($this->imageFile instanceof UploadedFile){
+            $this->updated_at = new \DateTime('now');
+        }
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Wording[]
+     */
+    public function getWordings(): Collection
+    {
+        return $this->wordings;
+    }
+
+    public function addWording(Wording $wording): self
+    {
+        if (!$this->wordings->contains($wording)) {
+            $this->wordings[] = $wording;
+            $wording->addArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWording(Wording $wording): self
+    {
+        if ($this->wordings->contains($wording)) {
+            $this->wordings->removeElement($wording);
+            $wording->removeArticle($this);
+        }
+
+        return $this;
+    }
+
 }

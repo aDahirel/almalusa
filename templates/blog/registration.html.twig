@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<!-- Title of the page -->
+<h1>Inscription</h1>
+
+<!-- Inscription form -->
+{{ form_start(form) }}
+{{ form_row(form.username, {'label': 'Nom d\'utilisateur'}) }}
+{{ form_row(form.email, {'attr': {'placeholder': 'exemple@mail.com'}}) }}
+{{ form_row(form.password) }}
+{{ form_row(form.confirm_password) }}
+<button type="submit" class="btn btn-success">Inscription</button>
+{{ form_end(form) }}
+<!-- / Inscription form -->
+{% endblock %}

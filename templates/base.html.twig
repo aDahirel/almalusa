@@ -1,44 +1,61 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css">
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
-            <a class="navbar-brand" href="{{ path('home') }}">Alma Lusa</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-          
-            <div class="collapse navbar-collapse" id="navbarColor01">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ path('blog') }}">Articles</a>
-                </li>
-                {% if not app.user %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ path('security_registration') }}">Inscription</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ path('security_login') }}">Connexion</a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ path('blog_create') }}">Créer un article</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ path('security_logout') }}">Deconnexion</a>
-                </li>
-                {% endif %}
-              </ul>
-            </div>
-          </nav>
-        <div class="container">
-            {% block body %}{% endblock %}
-        </div>
-        {% block javascripts %}{% endblock %}
-    </body>
-</html>
+<html lang="fr">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="UTF-8">
+		<meta
+		name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- Website title -->
+		<title>
+			{% block title %}Alma Lusa
+			{% endblock %}
+		</title>
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css"> {% block stylesheets %}{% endblock %}
+		</head>
+		<body>
+			<!-- Navbar -->
+			<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+				<a class="navbar-brand" href="{{ path('home') }}">Alma Lusa</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarColor01">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('blog') }}">Articles</a>
+						</li>
+						<!-- Check if a user is logged in to display appropriate features -->
+						{% if is_granted('ROLE_ADMIN') %}
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('blog_create') }}">Créer un article</a>
+							</li>
+						{% endif %}
+					</ul>
+					<ul class="navbar-nav">
+						<!-- Check if a user is logged in to display appropriate features -->
+						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
+							<li class="nav-item">
+								<a class="nav-link text-capitalize" href="">
+									{% if app.user %}
+										{{ app.user.username }}
+									{% endif %}
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('security_logout') }}">Deconnexion</a>
+							</li>
+						{% else %}
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('security_login') }}">Connexion</a>
+							</li>
+						{% endif %}
+					</ul>
+				</div>
+			</nav>
+			<!-- / Navbar -->
+			<div class="container"> {% block body %}{% endblock %}
+				</div>
+				{% block javascripts %}{% endblock %}
+			</body>
+		</html>
