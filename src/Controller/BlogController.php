@@ -39,7 +39,7 @@ class BlogController extends AbstractController
 
         // Return the articles list view with the articles
         return $this->render('blog/index.html.twig', [
-            'controller_name' => 'BlogController',
+            //'controller_name' => 'BlogController',
             'articles' => $articles,
             'wordings' => $wordings
         ]);
@@ -87,6 +87,7 @@ class BlogController extends AbstractController
             // Process the form data and send it
             $em = $managerRegistry->getManager();
             $em->persist($article);
+            // send article
             $em->flush();
             
             // Redirect to the new article
