@@ -33,6 +33,8 @@ class ArticleType extends AbstractType
                 'constraints' => [
                     new Image([
                         'maxSize' => '4M',
+                        'mimeTypes' => 'image/*',
+                        'mimeTypesMessage' => 'Le fichier ne correspond pas à une photo.'
                     ]),
                 ],
             ]);
@@ -46,15 +48,3 @@ class ArticleType extends AbstractType
     }
 }
 
-/*
- *
-                'constraints' => [
-                    new File([
-                        'maxSize' => '10k',
-                        'mimeTypes' => [
-                            "image/jpeg", "image/png", "image/jpg", "image/gif",
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid image document',
-                    ])
-                ]
- */
