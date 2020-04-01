@@ -24,3 +24,9 @@ var/log/dev.log
 .idea/workspace.xml
 *.iml
 var/log/dev.log
+.idea/almalusa.iml
+.idea/php.xml
+.idea/workspace.xml
+composer.lock
+config/bundles.php
+symfony.lock
