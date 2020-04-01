@@ -2,27 +2,22 @@
 
 {% block body %}
     <!-- Article page -->
-    <article
-            class="my-4">
+    <article class="my-4">
         <!-- Article title -->
         <h2>{{ article.title }}</h2>
-        <div
-                class="content">
+        <div class="content">
             <!-- Article picture -->
-            <img
-                    src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="" width="50%" height="50%">
+            <img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="" width="50%" height="50%">
             <!-- Article content -->
-            <p>{{ article.content | raw }}</p>
+            <span>{{ article.content | raw }}</span>
             <!-- Article date -->
-            <div class="metadata">Ecrit le
+            <div class="metadata font-weight-bold">Ecrit le
                 {{ article.createdAt | date('d/m/y') }}
                 à
                 {{ article.createdAt | date('H:i') }}
-                avec les libellés :
+                <br>Libellés :
                 {% for wording in article.wordings %}
-
-                    {{ wording.title }}
-
+                    <li style="list-style-type: none;"><a href="">{{ wording.title }}</a></li>
                 {% endfor %}
             </div>
         </div>
@@ -31,7 +26,7 @@
             <button type="button" class="btn btn-outline-primary my-4">Retour</button>
         </a>
         <!-- If a user is connected dislay the modify button -->
-        {% if app.user %}
+        {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path('blog_edit', {'id' : article.id }) }}">
                 <button type="button" class="btn btn-outline-primary my-4">Modifier</button>
             </a>
@@ -45,35 +40,27 @@
     <!-- / Article page -->
     <hr>
     <!-- Comment section -->
-    <section
-            id="commentaires">
+    <section id="commentaires">
         <!-- Display the amount of comments -->
         <h1 class="mb-5">{{ article.comments | length }}
             Commentaires :
         </h1>
         <!-- Display the comments -->
         {% for comment in article.comments %}
-            <div class="comment mb-5">
-                <div class="row">
-                    <div
-                            class="col-3">
-                        <!-- Author of the comment -->
-                        {{ comment.author }}
-                        <!-- Date of the comment -->
-                        (<small>{{ comment.createdAt | date('d/m/Y à H:i') }}</small>)
-                    </div>
-                    <div
-                            class="col">
-                        <!-- Content of the comment -->
-                        {{ comment.content | raw }}
-                    </div>
+            <div class="media border p-3">
+                <img src="img_avatar3.png" alt="{{ comment.user.username }} picture" class="mr-3 mt-3 rounded-circle"
+                     style="width:60px;">
+                <div class="media-body">
+                    <h4 class="text-capitalize">{{ comment.user.username }}<small><i>
+                                (<small>{{ comment.createdAt | date('d/m/Y à H:i') }}</small>)</i></small></h4>
+                    <p>{{ comment.content | raw }}</p>
                 </div>
             </div>
         {% endfor %}
+        <hr>
         <!-- If a user is connected, display the comment form -->
         {% if app.user %}
             {{ form_start(commentForm) }}
-            {{ form_row(commentForm.author, {'attr': {'placeholder': "Votre nom"}}) }}
             {{ form_row(commentForm.content, {'attr': {'placeholder': "Votre commentaire"}}) }}
             <button type="submit" class="btn btn-success mb-5">Envoyer</button>
             {{ form_end(commentForm) }}
@@ -84,4 +71,9 @@
         {% endif %}
     </section>
     <!-- / Comment section -->
+    <style>
+        a:hover {
+            text-decoration: none;
+        }
+    </style>
 {% endblock %}

@@ -1,4 +1,4 @@
-###> symfony/framework-bundle ###
+
 /.env.local
 /.env.local.php
 /.env.*.local
@@ -6,17 +6,9 @@
 /public/bundles/
 /var/
 /vendor/
-###< symfony/framework-bundle ###
-
-###> symfony/phpunit-bridge ###
 .phpunit
 .phpunit.result.cache
 /phpunit.xml
-###< symfony/phpunit-bridge ###
-
-###> liip/imagine-bundle ###
-/public/media/cache/
-###< liip/imagine-bundle ###
 var/log/dev.log
 var/cache/dev/profiler/index.csv
 .idea/workspace.xml
@@ -26,10 +18,9 @@ var/cache/dev/profiler/index.csv
 *.log
 var/cache/dev/profiler/index.csv
 *.xml
-.idea/workspace.xml
-.idea/workspace.xml
-.idea/workspace.xml
 var/cache/dev/profiler/index.csv
 var/log/dev.log
 var/log/dev.log
 .idea/workspace.xml
+*.iml
+var/log/dev.log

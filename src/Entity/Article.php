@@ -46,7 +46,8 @@ class Article
     private $title;
 
     /**
-     * @ORM\Column(type="text")
+     * @var Text|null
+     * @ORM\Column(type="text", nullable=true)
      * @Assert\Length(min=10)
      */
     private $content;

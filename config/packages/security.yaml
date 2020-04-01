@@ -2,6 +2,7 @@ security:
     encoders:
         App\Entity\User:
             algorithm: bcrypt
+            cost: 15
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
