@@ -9,7 +9,7 @@
 	{# {{ form_error() }} #}
 
 	<div class="form-group">
-		<label for="">Titre</label>
+		<label for="">Titre :</label>
 		{{ form_widget(formArticle.title, {'attr' : {'placeholder': "Titre de l'article"}}) }}
 	</div>
 	<div class="form-group">
@@ -22,7 +22,7 @@
 		{{ form_widget(formArticle.imageFile ) }}
 	</div>
 	<div class="form-group">
-		<label for="">Libellés</label>
+		<label for="">Libellé(s)</label>
 		{{ form_widget(formArticle.wordings) }}
 	</div>
 

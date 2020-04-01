@@ -12,21 +12,20 @@
 				<!-- Article title -->
 				<h2>{{ article.title }}</h2>
 				<!-- Article content -->
-				<div
-					class="content">
+				<div class="content">
 					<!-- Article picture -->
 					<img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="" width="50%" height="50%">
-					<p>{{ article.content | raw }}</p>
+					<span> {{ article.content | raw}} </span>
 					<!-- Article date -->
 					<div class="metadata font-weight-bold">Ecrit le
 						{{ article.createdAt | date('d/m/y') }}
 						à
 						{{ article.createdAt | date('H:i') }}
 						<!-- Article wording -->
-						dans les libellés :
+						<br>Libellés :
 						{% for wording in article.wordings %}
 						
-						{{ wording.title }}
+						<li style="list-style-type: none;"><a href="">{{ wording.title}}</a></li>
 
 						{% endfor %}
 					</div><br>
@@ -43,8 +42,8 @@
 			border-color: grey;
 		}
 		.page-item.active .page-link{
-			background-color: grey;
-			border-color: grey;
+			background-color: #5a5a5a;
+			border-color: #5a5a5a;
 		}
 	</style>
 	<!-- / Articles section -->

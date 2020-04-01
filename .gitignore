@@ -15,3 +15,7 @@
 ###< symfony/phpunit-bridge ###
 composer.lock
 symfony.lock
+*.iml
+*.log
+*.xml
+var/log/dev.log
