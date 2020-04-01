@@ -56,6 +56,17 @@ class BlogController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/adhesion", name="subscribtion")
+     */
+    public function Subscription()
+    {
+        // Return the home view with a title variable
+        return $this->render('admin/subscription.html.twig', [
+            'title' => "Rejoignez-nous",
+        ]);
+    }
+
     // Function to Create or Edit an article
     /**
      * @Route("/blog/new", name="blog_create", methods="GET|POST")
