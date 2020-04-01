@@ -123,11 +123,6 @@ class ComposerStaticInitafe746e0aea761626afb3c7ea8dfbc2c
             'Monolog\\' => 8,
             'Metadata\\' => 9,
         ),
-        'K' => 
-        array (
-            'Knp\\Component\\' => 14,
-            'Knp\\Bundle\\PaginatorBundle\\' => 27,
-        ),
         'F' => 
         array (
             'Faker\\' => 6,
@@ -484,14 +479,6 @@ class ComposerStaticInitafe746e0aea761626afb3c7ea8dfbc2c
         'Metadata\\' => 
         array (
             0 => __DIR__ . '/..' . '/jms/metadata/src',
-        ),
-        'Knp\\Component\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/knplabs/knp-components/src/Knp/Component',
-        ),
-        'Knp\\Bundle\\PaginatorBundle\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/knplabs/knp-paginator-bundle/src',
         ),
         'Faker\\' => 
         array (

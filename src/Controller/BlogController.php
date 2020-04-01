@@ -44,6 +44,7 @@ class BlogController extends AbstractController
 
         // Return the articles list view with the articles
         return $this->render('blog/index.html.twig', [
+            //'controller_name' => 'BlogController',
             'articles' => $articles,
             'wordings' => $wordings
         ]);
@@ -56,6 +57,17 @@ class BlogController extends AbstractController
     {
         // Return the home view with a title variable
         return $this->render('blog/home.html.twig');
+    }
+
+    /**
+     * @Route("/adhesion", name="subscribtion")
+     */
+    public function Subscription()
+    {
+        // Return the home view with a title variable
+        return $this->render('admin/subscription.html.twig', [
+            'title' => "Rejoignez-nous",
+        ]);
     }
 
     // Function to Create or Edit an article
@@ -89,6 +101,7 @@ class BlogController extends AbstractController
             // Process the form data and send it
             $em = $managerRegistry->getManager();
             $em->persist($article);
+            // send article
             $em->flush();
             // Redirect to the new article
             return $this->redirectToRoute('blog_show', ['id' => $article->getId

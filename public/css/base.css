@@ -1,0 +1,29 @@
+/* FOOTER */
+
+.footer-a {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.footer-a:hover {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.footer-tittle {
+    color: #FFFFFF;
+}
+
+.footer-p {
+    color: #FFFFFF;
+}
+
+.flex-input{
+    display: flex;
+    justify-content: center;
+}
+
+@media (min-width: 768px) {
+    .flex-input {
+        justify-content: left;
+    }
+}

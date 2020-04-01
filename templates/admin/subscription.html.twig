@@ -1,0 +1,91 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="css/subscribtion.css">
+    {% endblock %}
+    <!-- Creation title -->
+    <div class="container">
+        <h1>Vous voulez nous rejoindre ?</h1>
+        <p>Créée à RENNES le 14 décembre 2012, <b>L'Association Culturelle Portugaise ALMA LUSA</b> a pour objectif de
+            promouvoir la langue portugaise et la culture lusophone à travers des activités culturelles diversifiées:
+            expositions, conférences, chant, voyages, etc.
+            Si vous êtes sensible à la diffusion de la langue portugaise et intéressé(e) par les actions visant à faire
+            connaître la culture du Portugal ainsi que celle des autres pays de langue portugaise.
+            Si vous souhaitez soutenir l'association dans ses manifestations, être informé(e) de ses activités et
+            participer aux actions de promotion qu'elle organisera.
+            Alors, merci d'imprimer et de nous renvoyer ce <b>bulletin d'adhésion</b> accompagné de votre cotisation
+            annuelle
+            :
+        </p>
+        <div class="d-flex flex-row justify-content-around">
+            <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                <div class="card-header text-uppercase text-center">S'inscrire en ligne</div>
+                <div class="card-body">
+                    <h4 class="card-title">Plus rapide et payement en ligne</h4>
+                    <p class="card-text">Afin de vous inscrire ta capter tu clique en bas et la tu rempli le formulaire
+                        et tu paye ewa</p>
+                </div>
+                <div class="d-flex justify-content- pl-3 pb-3">
+                    <button onclick="showOnline()" type="button" class="btn btn-primary">Cliquez ici !</button>
+                </div>
+            </div>
+            <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
+                <div class="card-header text-uppercase text-center">S'inscire par voie postal</div>
+                <div class="card-body">
+                    <h4 class="card-title">Payement par chèque et envoie par la poste</h4>
+                    <p class="card-text">gors flemmard tu va devoir acheter un timbre ya zebi ta capté igo</p>
+                </div>
+                <div class="d-flex justify-content- pl-3 pb-3">
+                    <button onclick="showPdf()" type="button" class="btn btn-secondary">Cliquez ici !</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="thePdf" class="container pdf-view pb-5">
+            <object type="application/pdf" width="100%" height="100%">
+                <param name="src" value="{{ asset('pdf/subsSheet.pdf') }}"/>
+
+                <p>Votre navigateur ne peux pas afficher de pdf...
+                    Télécharger simplement le pdf <a href="{{ asset('pdf/subsSheet.pdf') }}"> ici</a>
+                </p>
+
+            </object>
+
+            <p class="p-subs-postal-adr">
+                <b>Adresse postale de l’Association :</b>
+                A.C.P. Alma Lusa
+                13 rue Isaac Le Chapelier
+                35000 Rennes
+            </p>
+        </div>
+
+        <div id="online" class="online-view">
+            <h1>Le futur formulaire</h1>
+        </div>
+
+        <!-- Creation title
+        <embed src="public/pdf/subsSheet.pdf" width="500" height="400" type='application/pdf'>
+        -->
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        function showPdf() {
+            var thePdf = document.getElementById("thePdf");
+            var online = document.getElementById("online");
+            online.style.display = "none";
+            thePdf.style.display = "block";
+        }
+
+        function showOnline() {
+            var thePdf = document.getElementById("thePdf");
+            var online = document.getElementById("online");
+            thePdf.style.display = "none";
+            online.style.display = "block";
+        }
+    </script>
+
+{% endblock %}
