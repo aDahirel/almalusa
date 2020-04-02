@@ -3240,6 +3240,14 @@
         <argument>!Framework</argument>
       </call>
       <call method="addPath">
+        <argument>F:\CODE\almalusa/templates/bundles/TwigBundle</argument>
+        <argument>Twig</argument>
+      </call>
+      <call method="addPath">
+        <argument>F:\CODE\almalusa/templates/bundles/TwigBundle</argument>
+        <argument>!Twig</argument>
+      </call>
+      <call method="addPath">
         <argument>F:\CODE\almalusa\vendor\symfony\web-profiler-bundle/Resources/views</argument>
         <argument>WebProfiler</argument>
       </call>
