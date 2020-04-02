@@ -1,13 +1,26 @@
 {% extends "base.html.twig" %}
+{% block stylesheets %}
+    <style>
+        .back-photo {
+            background-image: url('/images/hero-portugal.jpg');
+        }
+    </style>
+{% endblock %}
 {% block body %}
-	<!-- Home title -->
-	<h1>🇵🇹 Bem vindo</h1>
-	<!-- Home Content -->
-	{% if app.user %}
-	{% endif %}
-	<p>
-		Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a pour objectif
-		     de promouvoir la langue portugaise et la culture lusophone à travers des activités culturelles 
-		     diversifiées: expositions, conférences, chant, voyages, etc.
-	</p>
+    <div class="jumbotron jumbotron-fluid back-photo">
+        <div class="container container-fluid ">
+            <h1 class="display-4">Fluid jumbotron</h1>
+            <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+        </div>
+    </div>
+    <!-- Home title -->
+    <h1>🇵🇹 Bem vindo</h1>
+    <!-- Home Content -->
+    {% if app.user %}
+    {% endif %}
+    <p>
+        Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a pour objectif
+        de promouvoir la langue portugaise et la culture lusophone à travers des activités culturelles
+        diversifiées: expositions, conférences, chant, voyages, etc.
+    </p>
 {% endblock %}
