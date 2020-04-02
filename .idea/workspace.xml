@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b58c941a-6190-4976-a14e-ef13c8f7b9de" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/subscription.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/subscription.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/profiler/index.csv" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/profiler/index.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/log/dev.log" beforeDir="false" afterPath="$PROJECT_DIR$/var/log/dev.log" afterDir="false" />
     </list>
@@ -216,7 +215,7 @@
       <workItem from="1585663994860" duration="2169000" />
       <workItem from="1585666378784" duration="14120000" />
       <workItem from="1585727559184" duration="15693000" />
-      <workItem from="1585815035938" duration="11364000" />
+      <workItem from="1585815035938" duration="11456000" />
     </task>
     <servers />
   </component>

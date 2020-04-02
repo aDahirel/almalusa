@@ -28,6 +28,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('blog') }}">Articles</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('subscribtion') }}">Adhésion</a>
+            </li>
             <!-- Check if a user is logged in to display appropriate features -->
             {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">
