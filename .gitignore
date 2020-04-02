@@ -8,6 +8,7 @@
 .phpunit.result.cache
 /phpunit.xml
 .idea/*
+.idea\*
 *.log
 *.xml
 *.iml
