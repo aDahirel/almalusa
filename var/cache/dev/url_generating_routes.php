@@ -20,7 +20,6 @@ return [
     'subscribtion' => [[], ['_controller' => 'App\\Controller\\BlogController::Subscription'], [], [['text', '/adhesion']], [], []],
     'blog_create' => [[], ['_controller' => 'App\\Controller\\BlogController::form'], [], [['text', '/blog/new']], [], []],
     'blog_edit' => [['id'], ['_controller' => 'App\\Controller\\BlogController::form'], [], [['text', '/edit'], ['variable', '/', '[^/]++', 'id', true], ['text', '/blog']], [], []],
-    'quatre' => [[], ['_controller' => 'App\\Controller\\BlogController::quatreCentQuatre'], [], [['text', '/']], [], []],
     'blog_show' => [['id'], ['_controller' => 'App\\Controller\\BlogController::show'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/blog']], [], []],
     'blog_delete' => [['id'], ['_controller' => 'App\\Controller\\BlogController::delete'], [], [['text', '/delete'], ['variable', '/', '[^/]++', 'id', true], ['text', '/blog']], [], []],
     'security_registration' => [[], ['_controller' => 'App\\Controller\\SecurityController::registration'], [], [['text', '/inscription']], [], []],

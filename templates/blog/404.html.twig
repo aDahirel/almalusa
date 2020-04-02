@@ -2,15 +2,24 @@
 
 {% block body %}
     </div>
+
     <div class="container">
-        <h1>Page not found</h1>
-
+        <span style="font-size: 15rem">404</span>
+        <h1>La page n'existe pas</h1>
         <p>
-            The requested page couldn't be located. Checkout for any URL
-            misspelling or <a href="{{ path('home') }}">return to the homepage</a>.
+            La page recherchée n'existe pas... Nous sommes désolés, mais vous pouvez toujours voir nos dernier article.
         </p>
+        <div class="d-flex justify-content- pl-3 pb-3">
+            <button onclick="redirectTemplate()" type="button" class="btn btn-secondary">voir les article</button>
+        </div>
     </div>
-
-
-
 {% endblock %}
+
+{% block javascripts %}
+    <script>
+        function redirectTemplate() {
+            document.location.href = "{{ path('blog') }}";
+        }
+    </script>
+{% endblock %}
+
