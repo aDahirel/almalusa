@@ -19,4 +19,10 @@ symfony.lock
 /.web-server-pid
 ###< symfony/web-server-bundle ###
 *.iml
-.idea/workspace.xml
+var/cache/dev/App_KernelDevDebugContainer.php
+var/cache/dev/App_KernelDevDebugContainer.php.meta
+var/cache/dev/App_KernelDevDebugContainer.xml.meta
+var/cache/dev/App_KernelDevDebugContainer.xml
+var/cache/dev/App_KernelDevDebugContainer.preload.php
+var/cache/dev/profiler/index.csv
+var/log/dev.log
