@@ -1,41 +1,3 @@
-/.env.local
-/.env.local.php
-/.env.*.local
-/config/secrets/prod/prod.decrypt.private.php
-/public/bundles/*
-/var/*
-.phpunit
-.phpunit.result.cache
-/phpunit.xml
-.idea/*
-.idea\workspace.xml
-*\workspace.xml
-*.log
-*.xml
-*.iml
-composer.lock
-config/bundles.php
-symfony.lock
-/vendor/*
-
-/app/config/parameters.yml
-/build/
-/phpunit.xml
-/var/
-!/var/cache
-/var/cache/
-!var/cache/.gitkeep
-!/var/logs
-/var/logs/
-!var/logs/.gitkeep
-!/var/sessions
-/var/sessions/
-!var/sessions/.gitkeep
-!var/SymfonyRequirements.php
-/vendor/
-/web/bundles/
-
-
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -47,7 +9,6 @@ symfony.lock
 ###< symfony/framework-bundle ###
 .idea/misc.xml
 .idea/modules.xml
-.idea/thomascazottes2.iml
 .idea/vcs.xml
 .idea/php.xml
 composer.json
@@ -58,4 +19,3 @@ symfony.lock
 /.web-server-pid
 ###< symfony/web-server-bundle ###
 *.iml
-
