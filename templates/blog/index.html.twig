@@ -1,50 +1,52 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<!-- Articles section -->
-	<section
-		class="articles">
-		<!-- Display all the articles in database -->
-		
-		{% for article in articles %}
-			<article
-				class="mb-5">
-				<!-- Article title -->
-				<h2>{{ article.title }}</h2>
-				<!-- Article content -->
-				<div class="content">
-					<!-- Article picture -->
-					<img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="" width="50%" height="50%">
-					<span> {{ article.content | raw}} </span>
-					<!-- Article date -->
-					<div class="metadata font-weight-bold">Ecrit le
-						{{ article.createdAt | date('d/m/y') }}
-						à
-						{{ article.createdAt | date('H:i') }}
-						<!-- Article wording -->
-						Libellés :
-						{% for wording in article.wordings %}
-						
-						<li style="list-style-type: none;"><a href="">{{ wording.title}}</a></li>
+    <!-- Articles section -->
+    <section
+            class=" container articles">
+        <!-- Display all the articles in database -->
 
-						{% endfor %}
-					</div><br>
-					<!-- Article page button -->
-					<a href="{{ path('blog_show', {'id' : article.id}) }}" class="btn btn-primary">Lire la suite</a>
-				</div>
-			</article>
-		{% endfor %}
-		<div class="btn-group">{{ knp_pagination_render(articles) }}</div>
-	</section>
-	<style>
-		.page-link:hover{
-			background-color: grey;
-			border-color: grey;
-		}
-		.page-item.active .page-link{
-			background-color: #5a5a5a;
-			border-color: #5a5a5a;
-		}
-	</style>
-	<!-- / Articles section -->
+        {% for article in articles %}
+            <article
+                    class="mb-5">
+                <!-- Article title -->
+                <h2>{{ article.title }}</h2>
+                <!-- Article content -->
+                <div class="content">
+                    <!-- Article picture -->
+                    <img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="" width="50%" height="50%">
+                    <span> {{ article.content | raw }} </span>
+                    <!-- Article date -->
+                    <div class="metadata font-weight-bold">Ecrit le
+                        {{ article.createdAt | date('d/m/y') }}
+                        à
+                        {{ article.createdAt | date('H:i') }}
+                        <!-- Article wording -->
+                        Libellés :
+                        {% for wording in article.wordings %}
+
+                            <li style="list-style-type: none;"><a href="">{{ wording.title }}</a></li>
+
+                        {% endfor %}
+                    </div>
+                    <br>
+                    <!-- Article page button -->
+                    <a href="{{ path('blog_show', {'id' : article.id}) }}" class="btn btn-primary">Lire la suite</a>
+                </div>
+            </article>
+        {% endfor %}
+        <div class="btn-group">{{ knp_pagination_render(articles) }}</div>
+    </section>
+    <style>
+        .page-link:hover {
+            background-color: grey;
+            border-color: grey;
+        }
+
+        .page-item.active .page-link {
+            background-color: #5a5a5a;
+            border-color: #5a5a5a;
+        }
+    </style>
+    <!-- / Articles section -->
 {% endblock %}

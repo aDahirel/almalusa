@@ -2,6 +2,16 @@
 <html lang="fr">
 <head>
     <!-- Required meta tags -->
+    <!--
+     _   U _____ u   _     _   _        U _____ u _____          _     __  __ U _____ u _
+  U |"| u\| ___"|U  /"\  u| \ |"|       \| ___"|/|_ " _|     U  /"\  u \ \/"/ \| ___"|/|"|
+ _ \| |/  |  _|"  \/ _ \/<|  \| |>       |  _|"    | |        \/ _ \/  /\  /\  |  _|"U | | u
+| |_| |_,-| |___  / ___ \U| |\  |u       | |___   /| |\       / ___ \ U /  \ u | |___ \| |/__
+ \___/-(_/|_____|/_/   \_\|_| \_|        |_____| u |_|U      /_/   \_\ /_/\_\  |_____| |_____|
+  _//     <<   >> \\    >>||   \\,-.     <<   >> _// \\_      \\    >,-,>> \\_ <<   >> //  \\
+ (__)    (__) (__(__)  (__(_")  (_/     (__) (__(__) (__)    (__)  (__\_)  (__(__) (__(_")("_)
+  -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Website title -->
@@ -16,9 +26,7 @@
 </head>
 <body>
 {%  include 'blog/navbar.html.twig' %}
-<div class="container">
     {% block body %}{% endblock %}
-</div>
 {%  include 'blog/footer.html.twig' %}
 {% block javascripts %}{% endblock %}
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

@@ -1,8 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    {{article.title | slice(0, 10)}}
+{% endblock %}
+
 {% block body %}
     <!-- Article page -->
-    <article class="my-4">
+    <article class="container my-4">
         <!-- Article title -->
         <h2>{{ article.title }}</h2>
         <div class="content">
@@ -40,7 +44,7 @@
     <!-- / Article page -->
     <hr>
     <!-- Comment section -->
-    <section id="commentaires">
+    <section class="container" id="commentaires">
         <!-- Display the amount of comments -->
         <h1 class="mb-5">{{ article.comments | length }}
             Commentaires :
