@@ -1821,6 +1821,12 @@
           <argument key="sw" type="collection">
             <argument>/Applications/MAMP/htdocs/almalusa/vendor/knplabs/knp-paginator-bundle/translations/KnpPaginatorBundle.sw.xliff</argument>
           </argument>
+          <argument key="ky" type="collection">
+            <argument>F:\CODE\almalusa\vendor\knplabs\knp-paginator-bundle/translations\KnpPaginatorBundle.ky.xliff</argument>
+          </argument>
+          <argument key="sw" type="collection">
+            <argument>F:\CODE\almalusa\vendor\knplabs\knp-paginator-bundle/translations\KnpPaginatorBundle.sw.xliff</argument>
+          </argument>
         </argument>
         <argument key="scanned_directories" type="collection">
           <argument>/Applications/MAMP/htdocs/almalusa/vendor/symfony/validator/Resources/translations</argument>
