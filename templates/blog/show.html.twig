@@ -1,8 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    {{article.title | slice(0, 10)}}
+{% endblock %}
+
 {% block body %}
     <!-- Article page -->
-    <article class="my-4">
+    <article class="container my-4">
         <!-- Article title -->
         <h2>{{ article.title }}</h2>
         <div class="content">
@@ -40,7 +44,7 @@
     <!-- / Article page -->
     <hr>
     <!-- Comment section -->
-    <section id="commentaires">
+    <section class="container" id="commentaires">
         <!-- Display the amount of comments -->
         <h1 class="mb-5">{{ article.comments | length }}
             Commentaires :
@@ -48,7 +52,8 @@
         <!-- Display the comments -->
         {% for comment in article.comments %}
             <div class="media border p-3">
-                <img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="{{ comment.user.username }} picture" class="mr-3 mt-3 rounded-circle"
+                <img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="{{ comment.user.username }} picture"
+                     class="mr-3 mt-3 rounded-circle"
                      style="width:60px;">
                 <div class="media-body">
                     <h4 class="text-capitalize">{{ comment.user.username }}<small><i>

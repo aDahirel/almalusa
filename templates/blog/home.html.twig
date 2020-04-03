@@ -7,19 +7,23 @@
     </style>
 {% endblock %}
 {% block body %}
-    <div class="jumbotron jumbotron-fluid back-photo">
-        <div class="container container-fluid ">
-            <h1 class="display-4">Fluid jumbotron</h1>
-            <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+    <div class="container">
+        <div class="jumbotron jumbotron-fluid back-photo">
+            <div class="container container-fluid ">
+                <h1 class="display-4">Fluid jumbotron</h1>
+                <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its
+                    parent.</p>
+            </div>
         </div>
+        <!-- Home title -->
+        <!-- Home Content -->
+        {% if app.user %}
+        {% endif %}
+        <p>
+            Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a pour objectif
+            de promouvoir la langue portugaise et la culture lusophone à travers des activités culturelles
+            diversifiées: expositions, conférences, chant, voyages, etc.
+        </p>
     </div>
-    <!-- Home title -->
-    <!-- Home Content -->
-    {% if app.user %}
-    {% endif %}
-    <p>
-        Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a pour objectif
-        de promouvoir la langue portugaise et la culture lusophone à travers des activités culturelles
-        diversifiées: expositions, conférences, chant, voyages, etc.
-    </p>
+
 {% endblock %}

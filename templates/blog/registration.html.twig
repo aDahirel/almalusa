@@ -1,27 +1,30 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-<!-- Title of the page -->
-<h1>Inscription</h1>
+<div class="container">
+    <h1>Inscription</h1>
 
-<!-- Inscription form -->
-{{ form_start(form) }}
-{{ form_row(form.username, {'label': 'Nom d\'utilisateur'}) }}
-{{ form_row(form.email, {'attr': {'placeholder': 'exemple@mail.com'}}) }}
-{{ form_row(form.imageFile ) }}
-{{ form_row(form.password) }}
-{{ form_row(form.confirm_password) }}
-<button type="submit" class="btn btn-success">
-    {% if editMode %}
-    Enregistrer
-    {% else %}
-    Inscription
-    {% endid %}
-</button>
-{{ form_end(form) }}<br>
-<!-- / Inscription form -->
+    <!-- Inscription form -->
+    {{ form_start(form) }}
+    {{ form_row(form.username, {'label': 'Nom d\'utilisateur'}) }}
+    {{ form_row(form.email, {'attr': {'placeholder': 'exemple@mail.com'}}) }}
+    {{ form_row(form.imageFile ) }}
+    {{ form_row(form.password) }}
+    {{ form_row(form.confirm_password) }}
+    <button type="submit" class="btn btn-success">
+        {% if editMode %}
+        Enregistrer
+        {% else %}
+        Inscription
+        {% endid %}
+    </button>
+    {{ form_end(form) }}<br>
+    <!-- / Inscription form -->
     <style>
         .custom-file-label { opacity: 0; }
         .custom-file-input { opacity: 1; }
     </style>
+</div>
+<!-- Title of the page -->
+
 {% endblock %}
