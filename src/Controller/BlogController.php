@@ -6,6 +6,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ArticleRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 use Knp\Component\Pager\PaginatorInterface;
@@ -24,6 +25,20 @@ use App\Form\CommentType;
 
 class BlogController extends AbstractController
 {
+    /**
+     * @Route("/", name="home")
+     */
+    public function home(Request $request)
+    {
+        // Grab all the articles from the database
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+
+        $articles = $repo->findBy([], ['createdAt' => 'DESC']);
+        // Return the home view with a title variable
+        return $this->render('blog/home.html.twig', [
+            'articles' => $articles
+        ]);
+    }
 
     /**
      * @Route("/blog", name="blog")
@@ -48,15 +63,6 @@ class BlogController extends AbstractController
             'articles' => $articles,
             'wordings' => $wordings
         ]);
-    }
-
-    /**
-     * @Route("/", name="home")
-     */
-    public function home()
-    {
-        // Return the home view with a title variable
-        return $this->render('blog/home.html.twig');
     }
 
     /**
