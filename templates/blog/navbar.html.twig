@@ -1,46 +1,52 @@
 {% block body %}
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
-    <a class="navbar-brand" href="{{ path('home') }}">Alma Lusa</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
-            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarColor01">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('blog') }}">Articles</a>
-            </li>
-            <!-- Check if a user is logged in to display appropriate features -->
-            {% if is_granted('ROLE_ADMIN') %}
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+        <a class="navbar-brand" href="{{ path('home') }}">
+            <img src="images/alma_lusa_logo.png" alt="" width="70px">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('blog_create') }}">Créer un article</a>
+                    <a class="nav-link" href="{{ path('blog') }}">Articles</a>
                 </li>
-            {% endif %}
-        </ul>
-        <ul class="navbar-nav">
-            <!-- Check if a user is logged in to display appropriate features -->
-            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
-                {% if app.user %}
-                    <li class="nav-item d-flex">
-                    <img class="my-auto rounded-circle" src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="User picture"
-                         width="30px" height="30px" style="margin-left: 0.5rem; margin-right: 0.5rem;">
-
-                        <a class="nav-link text-capitalize" href="">
-                            {{ app.user.username }}
-                        </a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('subscribtion') }}">Adhésion</a>
+                </li>
+                <!-- Check if a user is logged in to display appropriate features -->
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('blog_create') }}">Créer un article</a>
                     </li>
                 {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('security_logout') }}">Deconnexion</a>
-                </li>
-            {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('security_login') }}">Connexion</a>
-                </li>
-            {% endif %}
-        </ul>
-    </div>
-</nav>
-<!-- / Navbar -->
+            </ul>
+            <ul class="navbar-nav">
+                <!-- Check if a user is logged in to display appropriate features -->
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
+                    {% if app.user %}
+                        <li class="nav-item d-flex">
+                            <img class="my-auto rounded-circle" src="{{ vich_uploader_asset(app.user, 'imageFile') }}"
+                                 alt="User picture"
+                                 width="30px" height="30px" style="margin-left: 0.5rem; margin-right: 0.5rem;">
+
+                            <a class="nav-link text-capitalize" href="">
+                                {{ app.user.username }}
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('security_logout') }}">Deconnexion</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('security_login') }}">Connexion</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <!-- / Navbar -->
 {% endblock %}

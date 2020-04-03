@@ -1,4 +1,4 @@
-
+###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
 /.env.*.local
@@ -6,39 +6,23 @@
 /public/bundles/
 /var/
 /vendor/
-.phpunit
-.phpunit.result.cache
-/phpunit.xml
-var/log/dev.log
-var/cache/dev/profiler/index.csv
-.idea/workspace.xml
-.idea/workspace.xml
-var/log/dev.log
-var/cache/dev/profiler/index.csv
-*.log
-var/cache/dev/profiler/index.csv
-*.xml
-var/cache/dev/profiler/index.csv
-var/log/dev.log
-var/log/dev.log
-.idea/workspace.xml
+###< symfony/framework-bundle ###
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/php.xml
+composer.json
+composer.lock
+symfony.lock
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###
 *.iml
-var/log/dev.log
-.idea/workspace.xml
-*.xml
 var/cache/dev/App_KernelDevDebugContainer.php
-var/cache/dev/App_KernelDevDebugContainerDeprecations.log
+var/cache/dev/App_KernelDevDebugContainer.php.meta
+var/cache/dev/App_KernelDevDebugContainer.xml.meta
 var/cache/dev/App_KernelDevDebugContainer.xml
 var/cache/dev/App_KernelDevDebugContainer.preload.php
-var/cache/dev/App_KernelDevDebugContainer.xml.meta
-var/cache/dev/App_KernelDevDebugContainerCompiler.log
-var/cache/dev/App_KernelDevDebugContainer.php.meta
 var/cache/dev/profiler/index.csv
-var/cache/dev/url_generating_routes.php.meta
-var/cache/dev/url_matching_routes.php.meta
-var/cache/dev/vich_uploader/App-Entity-Article.cache.php
 var/log/dev.log
-vendor/composer/autoload_psr4.php
-vendor/composer/autoload_static.php
-vendor/composer/installed.json
-vendor/ocramius/package-versions/src/PackageVersions/Versions.php

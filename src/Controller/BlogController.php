@@ -34,7 +34,7 @@ class BlogController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Article::class);
 
         $articles = $paginator->paginate(
-            $order = $repo->findAllDesc(),
+            $repo->findBy([], ['createdAt' => 'DESC']),
             $request->query->getInt('page', 1),
             5
         );
