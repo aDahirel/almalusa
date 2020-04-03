@@ -4,9 +4,11 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Validator\Constraints\Image;
 
 class RegistrationType extends AbstractType
 {
@@ -15,6 +17,16 @@ class RegistrationType extends AbstractType
         $builder
             ->add('email')
             ->add('username')
+            ->add('imageFile', FileType::class, [
+                'required' => false,
+                'constraints' => [
+                    new Image([
+                        'maxSize' => '4M',
+                        'mimeTypes' => 'image/*',
+                        'mimeTypesMessage' => 'Le fichier ne correspond pas à une photo.'
+                    ]),
+                ],
+            ])
             ->add('password', PasswordType::class)
             ->add('confirm_password', PasswordType::class)
         ;

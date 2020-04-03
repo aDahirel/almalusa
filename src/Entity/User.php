@@ -5,12 +5,16 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @Vich\Uploadable
  * @UniqueEntity(
  * fields={"email"},
  * message="Email déjà utilisé"
@@ -24,6 +28,23 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", length=255)
+     */
+    private $fileName;
+
+    /**
+     * @var File|null
+     * @Assert\Image(
+     *    mimeTypes = {"image/jpeg", "image/png", "image/gif", "image/jpg", "image/pdf"},
+     *    mimeTypesMessage = "Ce fichier doit être de format jpeg, png gif ou jpg."
+     * )
+     * @Vich\UploadableField(mapping="user_image", fileNameProperty="fileName")
+     */
+    private $imageFile;
+
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -61,6 +82,7 @@ class User implements UserInterface
     {
         $this->roles = array('ROLE_USER');
         $this->comments = new ArrayCollection();
+        $this->fileName = "default_user.png";
     }
 
     public function getId(): ?int
@@ -91,6 +113,8 @@ class User implements UserInterface
 
         return $this;
     }
+
+
 
     public function getPassword(): ?string
     {
@@ -146,6 +170,56 @@ class User implements UserInterface
             }
         }
 
+        return $this;
+    }
+
+    /**
+     * Get the value of fileName
+     *
+     * @return  string|null
+     */
+    public function getFileName()
+    {
+        return $this->fileName;
+    }
+
+    /**
+     * Set the value of fileName
+     *
+     * @param  string|null  $fileName
+     *
+     * @return  self
+     */
+    public function setFileName($fileName)
+    {
+        $this->fileName = $fileName;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of imageFile
+     *
+     * @return  File|null
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * Set the value of imageFile
+     *
+     * @param  File|null  $imageFile
+     *
+     * @return  self
+     */
+    public function setImageFile($imageFile)
+    {
+        $this->imageFile = $imageFile;
+        if($this->imageFile instanceof UploadedFile){
+            $this->updated_at = new \DateTime('now');
+        }
         return $this;
     }
 }

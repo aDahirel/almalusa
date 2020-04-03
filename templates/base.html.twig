@@ -16,116 +16,11 @@
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
-    <a class="navbar-brand" href="{{ path('home') }}">Alma Lusa</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
-            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarColor01">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('blog') }}">Articles</a>
-            </li>
-            <!-- Check if a user is logged in to display appropriate features -->
-            {% if is_granted('ROLE_ADMIN') %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('blog_create') }}">Créer un article</a>
-                </li>
-            {% endif %}
-        </ul>
-        <ul class="navbar-nav">
-            <!-- Check if a user is logged in to display appropriate features -->
-            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
-                <li class="nav-item">
-                    <a class="nav-link text-capitalize" href="">
-                        {% if app.user %}
-                            {{ app.user.username }}
-                        {% endif %}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('security_logout') }}">Deconnexion</a>
-                </li>
-            {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('security_login') }}">Connexion</a>
-                </li>
-            {% endif %}
-        </ul>
-    </div>
-</nav>
-<!-- / Navbar -->
+{%  include 'blog/navbar.html.twig' %}
 <div class="container">
     {% block body %}{% endblock %}
 </div>
-<!-- Footer -->
-<footer class="page-footer font-small bg-primary pt-4">
-    <!-- Footer Links -->
-    <div class="container-fluid text-center text-md-left">
-        <!-- Grid row -->
-        <div class="row justify-content-between">
-            <!-- Grid column -->
-            <div class=" col-md-4 col-lg-6 col-xs-4 mb-2">
-                <!-- Content -->
-                <h5 class="text-uppercase footer-tittle">Alma Lusa</h5>
-                <p class="footer-p">Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a
-                    pour objectif de promouvoir la langue portugaise et la culture lusophone à travers des activités
-                    culturelles diversifiées: expositions, conférences, chant, voyages, etc.</p>
-            </div>
-            <!-- Grid column -->
-            <hr class="clearfix w-100 d-md-none pb-3">
-            <!-- Grid column -->
-            <div class=" col-lg-2 col-md-4 col-xs-4 mb-2">
-                <!-- Links -->
-                <div class="footer-link-div">
-                    <h5 class="text-uppercase footer-tittle">A Propos</h5>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a class="footer-a" href="/adhesion">Rejoignez-nous</a>
-                        </li>
-                        <li>
-                            <a class="footer-a" href="#!">Plan du site</a>
-                        </li>
-                        <li>
-                            <a class="footer-a" href="#!">Mentions légals</a>
-                        </li>
-                        <li>
-                            <a class="footer-a" href="#!">Link 1</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <hr class="clearfix w-100 d-md-none pb-3">
-            <!-- Grid column -->
-            <div class=" col-md-4 col-lg-4  col-xs-4 mb-2">
-                <h5 class="text-uppercase footer-tittle">S'inscire a la newsletter </h5>
-                <div class="form-group">
-                    <div class="form-group">
-                        <div class="input-group mb-3 flex-input">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">@</span>
-                            </div>
-                            <input type="email" class="form-control" style="max-width: 300px;" placeholder="Votre Email">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Grid row -->
-    </div>
-    <!-- Footer Links -->
-    <!-- Copyright -->
-    <div class="footer-copyright text-center py-3" style="color: white">© 2020 Copyright:
-        <a class="footer-a" href="https://axeldahirel.fr/"> Axel Dahirel</a>
-        &
-        <a class="footer-a" href="https://www.youtube.com/watch?v=WtO3AHMBePY"> Jean Lagniaux</a>
-    </div>
-    <!-- Copyright -->
-
-</footer>
-<!-- Footer -->
+{%  include 'blog/footer.html.twig' %}
 {% block javascripts %}{% endblock %}
 </body>
 </html>

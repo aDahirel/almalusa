@@ -48,7 +48,7 @@
         <!-- Display the comments -->
         {% for comment in article.comments %}
             <div class="media border p-3">
-                <img src="img_avatar3.png" alt="{{ comment.user.username }} picture" class="mr-3 mt-3 rounded-circle"
+                <img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="{{ comment.user.username }} picture" class="mr-3 mt-3 rounded-circle"
                      style="width:60px;">
                 <div class="media-body">
                     <h4 class="text-capitalize">{{ comment.user.username }}<small><i>
