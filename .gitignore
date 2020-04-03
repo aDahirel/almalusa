@@ -34,3 +34,28 @@ symfony.lock
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
+
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+.idea/misc.xml
+.idea/modules.xml
+.idea/thomascazottes2.iml
+.idea/vcs.xml
+.idea/php.xml
+composer.json
+composer.lock
+symfony.lock
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###
+*.iml
+
