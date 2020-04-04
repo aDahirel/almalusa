@@ -106,6 +106,7 @@ return array(
     'Doctrine\\Bundle\\MigrationsBundle\\' => array($vendorDir . '/doctrine/doctrine-migrations-bundle'),
     'Doctrine\\Bundle\\FixturesBundle\\' => array($vendorDir . '/doctrine/doctrine-fixtures-bundle'),
     'Doctrine\\Bundle\\DoctrineBundle\\' => array($vendorDir . '/doctrine/doctrine-bundle'),
+    'Cocur\\Slugify\\' => array($vendorDir . '/cocur/slugify/src'),
     'App\\Tests\\' => array($baseDir . '/tests'),
     'App\\' => array($baseDir . '/src'),
 );

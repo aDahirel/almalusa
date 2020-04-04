@@ -9,8 +9,6 @@
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
       <path value="$PROJECT_DIR$/vendor/fzaninotto/faker" />
-      <path value="$PROJECT_DIR$/vendor/zendframework/zend-eventmanager" />
-      <path value="$PROJECT_DIR$/vendor/zendframework/zend-code" />
       <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
       <path value="$PROJECT_DIR$/vendor/psr/log" />
       <path value="$PROJECT_DIR$/vendor/psr/link" />
@@ -114,6 +112,11 @@
       <path value="$PROJECT_DIR$/vendor/symfony/twig-bundle" />
       <path value="$PROJECT_DIR$/vendor/vich/uploader-bundle" />
       <path value="$PROJECT_DIR$/vendor/jms/metadata" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-paginator-bundle" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-components" />
+      <path value="$PROJECT_DIR$/vendor/zendframework/zend-code" />
+      <path value="$PROJECT_DIR$/vendor/zendframework/zend-eventmanager" />
+      <path value="$PROJECT_DIR$/vendor/cocur/slugify" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

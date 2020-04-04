@@ -155,6 +155,10 @@ class ComposerStaticInitafe746e0aea761626afb3c7ea8dfbc2c
             'Doctrine\\Bundle\\FixturesBundle\\' => 31,
             'Doctrine\\Bundle\\DoctrineBundle\\' => 31,
         ),
+        'C' => 
+        array (
+            'Cocur\\Slugify\\' => 14,
+        ),
         'A' => 
         array (
             'App\\Tests\\' => 10,
@@ -567,6 +571,10 @@ class ComposerStaticInitafe746e0aea761626afb3c7ea8dfbc2c
         'Doctrine\\Bundle\\DoctrineBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/doctrine-bundle',
+        ),
+        'Cocur\\Slugify\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cocur/slugify/src',
         ),
         'App\\Tests\\' => 
         array (

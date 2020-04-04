@@ -122,9 +122,9 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/blog/{id}", name="blog_show")
+     * @Route("/blog/{slug}/{id}", name="blog_show", requirements={"slug": "[a-z0-9\-]*"}   )
      */
-    public function show($id, Article $article, User $user = null, Request $request, ManagerRegistry $managerRegistry)
+    public function show(string $slug, $id, Article $article, User $user = null, Request $request, ManagerRegistry $managerRegistry)
     {
         // Create a new comment
         $comment = new Comment();

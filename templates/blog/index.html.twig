@@ -2,13 +2,11 @@
 
 {% block body %}
     <!-- Articles section -->
-    <section
-            class=" container articles">
+    <section class="container articles">
         <!-- Display all the articles in database -->
 
         {% for article in articles %}
-            <article
-                    class="mb-5">
+            <article class="mb-5">
                 <!-- Article title -->
                 <h2>{{ article.title }}</h2>
                 <!-- Article content -->
@@ -31,7 +29,7 @@
                     </div>
                     <br>
                     <!-- Article page button -->
-                    <a href="{{ path('blog_show', {'id' : article.id}) }}" class="btn btn-primary">Lire la suite</a>
+                    <a href="{{ path('blog_show', {'id' : article.id, slug: article.slug }) }}" class="btn btn-primary">Lire la suite</a>
                 </div>
             </article>
         {% endfor %}

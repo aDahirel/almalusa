@@ -5,6 +5,7 @@
         "php": "^7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "cocur/slugify": "^4.0",
         "doctrine/annotations": "^1.8",
         "doctrine/orm": "dev-address-persistence-deprecations as v2.7.0",
         "knplabs/knp-paginator-bundle": "^5.1",
@@ -74,7 +75,8 @@
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap"
         ],
         "post-update-cmd": [
             "@auto-scripts"
