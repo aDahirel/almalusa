@@ -1,29 +1,25 @@
 {% extends "base.html.twig" %}
 {% block body %}
-    <div class="container">
-        <!-- Page title -->
-        <h1>Connexion</h1>
-
+    <head>
+        <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    </head>
+    <div class="text-center d-flex vh-100" style="background-color: #f5f5f5;">
         <!-- Connexion form -->
-        <form action="{{ path('security_login') }}" method="post">
+        <form action="{{ path('security_login') }}" method="post" class="form-signin mx-auto w-100 p-3">
+            <img src="{{ asset('images/alma_lusa_logo.png') }}" height="100px" alt="Logo" class="mb-4">
+            <h1 class="h3 mb-3" style="color: black;">Se connecter</h1>
             <div class="form-group">
-                <input placeholder="Adresse email" required name="_username" type="text" class="form-control">
+                <input placeholder="Adresse email" required name="_username" type="text" class="form-control input1">
+                <input placeholder="Mot de passe" required name="_password" type="password" class="form-control input2">
             </div>
-            <div class="form-group">
-                <input placeholder="Mot de passe" required name="_password" type="password" class="form-control">
-            </div>
-            <div class="buttons d-flex">
-                <div class="form-group mr-2">
-                    <button type="submit" class="btn btn-success">Connexion</button>
-                </div>
+            <div class="buttons">
                 <div class="form-group">
-                    <a href="{{ path('security_registration') }}">
-                        <button type="button" class="btn btn-info">Inscription</button>
-                    </a>
+                    <button type="submit" class="btn btn-lg btn-success w-100">Connexion</button>
                 </div>
             </div>
+            <p><a href="{{ path('security_registration') }}">S'inscrire sur Alma Lusa</a> ·
+                <a href="#"> Mot de passe oublié ?</a></p>
+            <p><a href="{{ path('home') }}">Retour</a></p>
         </form>
-        <!-- / Connexion form -->
-
     </div>
 {% endblock %}
