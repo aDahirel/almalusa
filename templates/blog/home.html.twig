@@ -7,26 +7,27 @@
     </style>
 {% endblock %}
 {% block body %}
-    <!-- Home title -->
-    <h1>
-        Bem vindo
-        {% if app.user %}
-            {{ app.user.username }}
+    <div class="container">
+        <h1>
+            Bem vindo
+            {% if app.user %}
+                {{ app.user.username }}
 
-        {% endif %}!
-    </h1>
-    <p>
-        Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a pour objectif
-        de promouvoir la langue portugaise et la culture lusophone à travers des activités culturelles
-        diversifiées: expositions, conférences, chant, voyages, etc.
-    </p>
+            {% endif %}!
+        </h1>
+        <p>
+            Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a pour objectif
+            de promouvoir la langue portugaise et la culture lusophone à travers des activités culturelles
+            diversifiées: expositions, conférences, chant, voyages, etc.
+        </p>
+    </div>
     <div class="album py-5 bg-light">
         <div class="container">
             <div class="row">
                 {% for article in articles|slice(0, 3) %}
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
-                            <img src="images/alma_lusa_logo.png" alt="" width="100%" height="225px">
+                            <img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="article picture" width="100%" height="225px">
                             <div class="card-body">
                                 <p class="card-title">
                                     {{ article.title }}
