@@ -21,7 +21,8 @@ final class Versions
      * @internal
      */
     public const VERSIONS          = array (
-  'doctrine/annotations' => 'v1.8.0@904dca4eb10715b92569fbcd79e201d5c349b6bc',
+  'cocur/slugify' => 'v4.0.0@3f1ffc300f164f23abe8b64ffb3f92d35cec8307',
+  'doctrine/annotations' => '1.10.1@5eb79f3dbdffed6544e1fc287572c0f462bd29bb',
   'doctrine/cache' => '1.10.0@382e7f4db9a12dc6c19431743a2b096041bcdd62',
   'doctrine/collections' => '1.6.4@6b1e4b2b66f6d6e49983cebfe23a21b7ccc5b0d7',
   'doctrine/common' => '2.12.0@2053eafdf60c2172ee1373d1b9289ba1db7f1fc6',
@@ -134,14 +135,14 @@ final class Versions
   'symfony/profiler-pack' => 'v1.0.4@99c4370632c2a59bb0444852f92140074ef02209',
   'symfony/test-pack' => 'v1.0.6@ff87e800a67d06c423389f77b8209bc9dc469def',
   'symfony/web-profiler-bundle' => 'v5.0.7@635bf7fe86b67b0d3903a3013709fe028ac43b59',
-  'paragonie/random_compat' => '2.*@7d7e6b23127d49511f0c832a124fd1db0c66d31a',
-  'symfony/polyfill-ctype' => '*@7d7e6b23127d49511f0c832a124fd1db0c66d31a',
-  'symfony/polyfill-iconv' => '*@7d7e6b23127d49511f0c832a124fd1db0c66d31a',
-  'symfony/polyfill-php72' => '*@7d7e6b23127d49511f0c832a124fd1db0c66d31a',
-  'symfony/polyfill-php71' => '*@7d7e6b23127d49511f0c832a124fd1db0c66d31a',
-  'symfony/polyfill-php70' => '*@7d7e6b23127d49511f0c832a124fd1db0c66d31a',
-  'symfony/polyfill-php56' => '*@7d7e6b23127d49511f0c832a124fd1db0c66d31a',
-  '__root__' => 'dev-dev-axel@7d7e6b23127d49511f0c832a124fd1db0c66d31a',
+  'paragonie/random_compat' => '2.*@568a02f3dd14fa212a24ec39e0d70acb78b90a6b',
+  'symfony/polyfill-ctype' => '*@568a02f3dd14fa212a24ec39e0d70acb78b90a6b',
+  'symfony/polyfill-iconv' => '*@568a02f3dd14fa212a24ec39e0d70acb78b90a6b',
+  'symfony/polyfill-php72' => '*@568a02f3dd14fa212a24ec39e0d70acb78b90a6b',
+  'symfony/polyfill-php71' => '*@568a02f3dd14fa212a24ec39e0d70acb78b90a6b',
+  'symfony/polyfill-php70' => '*@568a02f3dd14fa212a24ec39e0d70acb78b90a6b',
+  'symfony/polyfill-php56' => '*@568a02f3dd14fa212a24ec39e0d70acb78b90a6b',
+  '__root__' => 'dev-dev-axel@568a02f3dd14fa212a24ec39e0d70acb78b90a6b',
 );
 
     private function __construct()

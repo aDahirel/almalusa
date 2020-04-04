@@ -8,32 +8,53 @@
 {% endblock %}
 {% block body %}
     <!-- Home title -->
-    <h1>
-        Bem vindo
-        {% if app.user %}
-            {{ app.user.username }}
-
-        {% endif %}!
-    </h1>
-    <p>
-        Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a pour objectif
-        de promouvoir la langue portugaise et la culture lusophone à travers des activités culturelles
-        diversifiées: expositions, conférences, chant, voyages, etc.
-    </p>
+    <div class="jumbotron jumbotron-fluid back-photo" style="margin-top: -1.5rem;">
+        <div class="container">
+            <h1 class="display-4 font-weight-bold" style="color: #222222">
+                Bem vindo
+                {% if app.user %}
+                    {{ app.user.username }}
+                {% endif %}!
+            </h1>
+            <p class="lead" style="color: #222222">
+                Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a pour objectif
+                de promouvoir la langue portugaise et la culture lusophone à travers des activités culturelles
+                diversifiées: expositions, conférences, chant, voyages, etc.
+            </p>
+        </div>
+    </div>
+    <!-- Article selection -->
     <div class="album py-5 bg-light">
         <div class="container">
             <div class="row">
                 {% for article in articles|slice(0, 3) %}
-                    <div class="col-md-4">
-                        <div class="card mb-4 box-shadow">
+                    <div class="col-md-4" >
+                        <div class="card mb-4 box-shadow" onmouseover="this.classList.add('shadow-lg')"
+                             onmouseout="this.classList.remove('shadow-lg')" onclick="window.location.href = 'https://www.youtube.com/watch?v=WtO3AHMBePY'">
                             <img src="images/alma_lusa_logo.png" alt="" width="100%" height="225px">
                             <div class="card-body">
                                 <p class="card-title">
                                     {{ article.title }}
                                 </p>
-                                <p class="card-text">
-                                    {{ article.content | raw }}
-                                </p>
+                                {% if article.content | length > 300 ? article.content %}
+                                    {% set contentSliced = article.content | slice(0, 300) ~ ' ...' %}
+                                    <p class="card-text">
+                                        {{ contentSliced | raw }}
+                                    </p>
+                                    {% for wording in article.wordings %}
+                                        <li style="list-style-type: none;"><a href="">{{ wording.title }}</a></li>
+                                    {% endfor %}
+                                    <buton class="btn d-flex justify-content-center btn-secondary mt-3">Lire
+                                        d'avantage
+                                    </buton>
+                                {% else %}
+                                    <p class="card-text">
+                                        {{ article.content }}
+                                    </p>
+                                    {% for wording in article.wordings %}
+                                        <li style="list-style-type: none;"><a href="">{{ wording.title }}</a></li>
+                                    {% endfor %}
+                                {% endif %}
                             </div>
                         </div>
                     </div>

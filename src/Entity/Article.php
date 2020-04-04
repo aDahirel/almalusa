@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Cocur\Slugify\Slugify;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -94,6 +95,11 @@ class Article
         $this->title = $title;
 
         return $this;
+    }
+
+    public function getSlug(): string
+    {
+       return  $slugify = (new Slugify())->slugify($this->title);
     }
 
     public function getContent(): ?string
