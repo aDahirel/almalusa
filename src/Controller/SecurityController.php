@@ -29,7 +29,7 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         // If the submit button is pushed and the form is valid
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             // Crypt the passwords
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
@@ -65,8 +65,42 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * @Route("/profil", name="user_profil")
+     */
+    public function profil(Request $request, ManagerRegistry $managerRegistry, UserPasswordEncoderInterface $encoder)
+    {
+        $user = $this->getUser();
+
+        $form = $this->createForm(RegistrationType::class, $user);
+
+        $form->handleRequest($request);
+
+        // If the submit button is pushed and the form is valid
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Crypt the passwords
+            $hash = $encoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($hash);
+
+            // Create the user
+            $em = $managerRegistry->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            // Return to the login page
+            return $this->redirectToRoute('security_login');
+        }
+
+        return $this->render('user/user.html.twig', [
+            'user' => $user,
+            'form' => $form->createview()
+        ]);
+    }
+
+    /**
      * @Route("/deconnexion", name="security_logout")
      */
-    public function logout(){}
+    public function logout()
+    {
+    }
 
 }

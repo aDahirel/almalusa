@@ -7,7 +7,6 @@
         <!-- Creation form -->
         {{ form_start(formArticle) }}
 
-        {# {{ form_error() }} #}
         <div class="form-group">
             <label for="">Titre :</label>
             {{ form_widget(formArticle.title, {'attr' : {'placeholder': "Titre de l'article"}}) }}
@@ -37,9 +36,10 @@
 
         {{ form_end(formArticle) }}
         <style>
-            footer{
+            footer {
                 display: none;
             }
+
             .custom-file-label {
                 opacity: 0;
             }

@@ -80,7 +80,7 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/blog/new", name="blog_create", methods="GET|POST")
-     * @Route("/blog/{id}/edit", name="blog_edit", methods="GET|POST")
+     * @Route("/blog/{slug}/{id}/edit", name="blog_edit", methods="GET|POST")
      *
      * @IsGranted("ROLE_ADMIN")
      */
@@ -90,16 +90,14 @@ class BlogController extends AbstractController
         if (!$article) {
             $article = new Article();
         }
-
         // Create the ArticleType form
         $form = $this->createForm(ArticleType::class, $article);
-
         // Process the form data
         $form->handleRequest($request);
 
         // If the submit button is pressed
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $slug = $article->getSlug();
             // Save the created date if the article doesnt exist
             if (!$article->getId()) {
                 $article->setCreatedAt(new \DateTime());
@@ -111,8 +109,10 @@ class BlogController extends AbstractController
             // send article
             $em->flush();
             // Redirect to the new article
-            return $this->redirectToRoute('blog_show', ['id' => $article->getId
-            ()]);
+            return $this->redirectToRoute('blog_show', [
+                'id' => $article->getId(),
+                'slug' => $article->getSlug()
+            ]);
         }
         // Create the article view with the 'editMode'
         return $this->render('admin/create.html.twig', [
@@ -145,7 +145,10 @@ class BlogController extends AbstractController
             $em->flush();
 
             // redirect to the same page
-            return $this->redirectToRoute('blog_show', ['id' => $article->getId()]);
+            return $this->redirectToRoute('blog_show', [
+                'id' => $article->getId(),
+                'slug' => $article->getSlug()
+            ]);
 
         }
 
@@ -163,7 +166,7 @@ class BlogController extends AbstractController
     // Function to Delete an article
 
     /**
-     * @Route("/blog/{id}/delete", name="blog_delete", methods="DELETE")
+     * @Route("/blog/{slug}/{id}/delete", name="blog_delete", methods="DELETE")
      * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Article $article, Request $request, ManagerRegistry $managerRegistry)
