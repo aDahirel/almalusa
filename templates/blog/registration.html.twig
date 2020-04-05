@@ -12,11 +12,20 @@
             <div class="form-group">
                 {{ form_widget(form.username, {'attr': {'placeholder': 'Nom d\'utilisateur'}}) }}
             </div>
+            <div class="form-error">
+                {{ form_errors(form.email) }}
+            </div>
             <div class="form-group">
                 {{ form_widget(form.email, {'attr': {'placeholder': 'Adresse email'}}) }}
             </div>
+            <div class="form-error">
+                {{ form_errors(form.password) }}
+            </div>
             <div class="form-group">
                 {{ form_widget(form.password, {'attr': {'placeholder': 'Mot de passe'}}) }}
+            </div>
+            <div class="form-error">
+                {{ form_errors(form.confirm_password) }}
             </div>
             <div class="form-group">
                 {{ form_widget(form.confirm_password, {'attr': {'placeholder': 'Confirmation du Mot de passe'}}) }}

@@ -31,10 +31,10 @@
         </a>
         <!-- If a user is connected dislay the modify button -->
         {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('blog_edit', {'id' : article.id }) }}">
+            <a href="{{ path('blog_edit', {'id' : article.id, 'slug' : article.slug }) }}">
                 <button type="button" class="btn btn-outline-primary my-4">Modifier</button>
             </a>
-            <form method="post" action="{{ path('blog_delete', {id: article.id}) }}" style="display: inline-block;"
+            <form method="post" action="{{ path('blog_delete', {'id': article.id, 'slug': article.slug} ) }}" style="display: inline-block;"
                   onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
                 <input type="hidden" name="_method" value="DELETE">
                 <button class="btn btn-danger">Supprimer</button>
