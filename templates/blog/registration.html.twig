@@ -1,26 +1,49 @@
 {% extends "base.html.twig" %}
-
 {% block body %}
-<div class="container">
-    <h1>Inscription</h1>
-
-    <!-- Inscription form -->
-    {{ form_start(form) }}
-    {{ form_row(form.username, {'label': 'Nom d\'utilisateur'}) }}
-    {{ form_row(form.email, {'attr': {'placeholder': 'exemple@mail.com'}}) }}
-    {{ form_row(form.imageFile ) }}
-    {{ form_row(form.password) }}
-    {{ form_row(form.confirm_password) }}
-    <button type="submit" class="btn btn-success">
-        Inscription
-    </button>
-    {{ form_end(form) }}<br>
-    <!-- / Inscription form -->
-    <style>
-        .custom-file-label { opacity: 0; }
-        .custom-file-input { opacity: 1; }
-    </style>
-</div>
-<!-- Title of the page -->
-
+    <head>
+        <link rel="stylesheet" href="{{ asset('css/registration.css') }}">
+    </head>
+    <div class="vh-100" style="background-color: #f5f5f5">
+        <div class="text-center signup mx-auto w-100 p-3">
+            <img src="{{ asset('images/alma_lusa_logo.png') }}" height="100px" alt="Logo" class="mb-4">
+            <h1 class="h3 mb-3" style="color: black">Inscription</h1>
+            <!-- Inscription form -->
+            {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_widget(form.username, {'attr': {'placeholder': 'Nom d\'utilisateur'}}) }}
+            </div>
+            <div class="form-error">
+                {{ form_errors(form.email) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.email, {'attr': {'placeholder': 'Adresse email'}}) }}
+            </div>
+            <div class="form-error">
+                {{ form_errors(form.password) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.password, {'attr': {'placeholder': 'Mot de passe'}}) }}
+            </div>
+            <div class="form-error">
+                {{ form_errors(form.confirm_password) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.confirm_password, {'attr': {'placeholder': 'Confirmation du Mot de passe'}}) }}
+            </div>
+            <div class="form-group">
+                <label class="h5 mb-3 float-left">
+                    Une photo de profil ?
+                </label>
+                {{ form_widget(form.imageFile) }}
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-lg btn-success w-100">
+                    Inscription
+                </button>
+            </div>
+            {{ form_end(form) }}
+            <p><a href="{{ path('home') }}">Retour</a></p>
+            <!-- / Inscription form -->
+        </div>
+    </div>
 {% endblock %}

@@ -12,7 +12,7 @@
                 <!-- Article content -->
                 <div class="content">
                     <!-- Article picture -->
-                    <img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="" width="50%" height="50%">
+                    <img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="" width="50%" height="50%"><br>
                     <span> {{ article.content | raw }} </span>
                     <!-- Article date -->
                     <div class="metadata font-weight-bold">Ecrit le
@@ -29,7 +29,7 @@
                     </div>
                     <br>
                     <!-- Article page button -->
-                    <a href="{{ path('blog_show', {'id' : article.id, slug: article.slug }) }}" class="btn btn-primary">Lire la suite</a>
+                    <a href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}" class="btn btn-primary">Lire la suite</a>
                 </div>
             </article>
         {% endfor %}

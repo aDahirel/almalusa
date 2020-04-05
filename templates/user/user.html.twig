@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <header>
+        <link rel="stylesheet" href="{{ asset('css/user.css') }}">
+    </header>
+    <div class="container form-signin">
+        <h1 class="mb-3">Profil</h1>
+        {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_widget(form.username, {'attr': {'placeholder': 'Nom d\'utilisateur'}} ) }}
+        </div>
+        <div class="form-error">
+            {{ form_errors(form.email) }}
+        </div>
+        <div class="form-group">
+            {{ form_widget(form.email, {'attr': {'placeholder': 'Adresse email'}}) }}
+        </div>
+        <div class="form-error">
+            {{ form_errors(form.password) }}
+        </div>
+        <div class="form-group">
+            {{ form_widget(form.password, {'attr': {'placeholder': 'Mot de passe'}}) }}
+        </div>
+        <div class="form-error">
+            {{ form_errors(form.confirm_password) }}
+        </div>
+        <div class="form-group">
+            {{ form_widget(form.confirm_password, {'attr': {'placeholder': 'Confirmation du Mot de passe'}}) }}
+        </div>
+        <div class="form-group">
+            <label class="h5 mb-3 float-left">
+                Photo de profil
+            </label>
+            {{ form_widget(form.imageFile) }}
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-lg btn-success w-100">
+                Mettre à jour
+            </button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

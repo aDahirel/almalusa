@@ -1,0 +1,23 @@
+.signup {
+    max-width: 400px;
+}
+
+.navbar {
+    display: none;
+}
+
+.custom-file-label {
+    opacity: 0;
+}
+
+.custom-file-input {
+    opacity: 1;
+}
+
+.form-error {
+    margin-bottom: 5px;
+}
+
+footer {
+    display: none;
+}
