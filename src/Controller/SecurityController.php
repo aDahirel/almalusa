@@ -172,14 +172,16 @@ class SecurityController extends AbstractController
             }
 
             $user->setResetToken(null);
-            $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
-            $entityManager->flush();
-
-            $this->addFlash('notice', 'Mot de passe mis à jour');
-
+            if ($request->request->get('password') === $request->request->get('password2')){
+                $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
+                $entityManager->flush();
+                $this->addFlash('notice', 'Mot de passe mis à jour');
+            }
+            else{
+                return $this->render('admin/reset_password.html.twig', ['token' => $token]);
+            }
             return $this->redirectToRoute('home');
         } else {
-
             return $this->render('admin/reset_password.html.twig', ['token' => $token]);
         }
 

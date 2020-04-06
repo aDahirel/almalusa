@@ -6,22 +6,19 @@
 
 namespace App\Controller;
 
-use App\Repository\ArticleRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
-
-use Knp\Component\Pager\PaginatorInterface;
-
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-
 use App\Entity\Article;
 use App\Entity\Comment;
-use App\Entity\Wording;
 use App\Entity\User;
+use App\Entity\Wording;
 use App\Form\ArticleType;
 use App\Form\CommentType;
+use Doctrine\Common\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class BlogController extends AbstractController
 {
@@ -175,5 +172,41 @@ class BlogController extends AbstractController
         $em->remove($article);
         $em->flush();
         return $this->redirectToRoute('blog');
+    }
+
+    /**
+     * @Route("/gestionProfile", name="profile_manager")
+     */
+    public function profileManager(Request $request, TokenGeneratorInterface $tokenGenerator)
+    {
+        if ($request->isMethod('POST')) {
+            if ($request->request->get('user') === 'null') {
+                return $this->redirectToRoute('user_profil');
+            } else {
+                $email = $request->request->get('user');
+                $entityManager = $this->getDoctrine()->getManager();
+                $user = $entityManager->getRepository(User::class)->findOneByEmail($email);
+
+                if ($user === null) {
+                    $this->addFlash('danger', 'Email Inconnu'); // notice doesnt work
+                    return $this->redirectToRoute('home');
+                }
+
+                $token = $tokenGenerator->generateToken();
+
+                try {
+                    $user->setResetToken($token);
+                    $entityManager->flush();
+                } catch (\Exception $e) {
+                    $this->addFlash('warning', $e->getMessage());
+                    return $this->redirectToRoute('home');
+                }
+                return $this->redirectToRoute('app_reset_password', array('token' => $token));
+            }
+        }
+        $user = $this->getUser();
+        return $this->render('blog/profileManager.html.twig', [
+            'user' => $user
+        ]);
     }
 }
