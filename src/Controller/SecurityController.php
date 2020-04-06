@@ -72,6 +72,10 @@ class SecurityController extends AbstractController
      */
     public function profil(Request $request, ManagerRegistry $managerRegistry, UserPasswordEncoderInterface $encoder)
     {
+        // allow any authenticated user - we don't care if they just
+        // logged in, or are logged in via a remember me cookie
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
         $user = $this->getUser();
 
         $form = $this->createForm(RegistrationType::class, $user);
@@ -159,7 +163,7 @@ class SecurityController extends AbstractController
      */
     public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)
     {
-
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         if ($request->isMethod('POST')) {
             $entityManager = $this->getDoctrine()->getManager();
 

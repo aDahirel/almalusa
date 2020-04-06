@@ -25,7 +25,6 @@
                         {% endfor %}
                     </p>
                     <h3 class="card-title">Votre photo de profil :</h3>
-
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal">
                         Voir l'image
                     </button>
@@ -55,17 +54,19 @@
                 </div>
             </div>
         </div>
-        <form method="post">
-            <input type="hidden" name="user" id="userId" class="form-control" value="{{ user.email }}">
-            <button class="btn btn-lg btn-secondary mt-3 mb-3" type="submit">
-                modifier mon mot de passe
-            </button>
-        </form>
-        <form method="post">
-            <input type="hidden" name="user" id="userId" class="form-control" value="null">
-            <button class="btn btn-lg btn-secondary mt-3 mb-3" type="submit">
-                modifier mes données
-            </button>
-        </form>
+        <div class="container d-flex mb-3">
+            <form method="post" class="pr-3">
+                <input type="hidden" name="user" id="userId" class="form-control" value="{{ user.email }}">
+                <button class="btn btn-lg btn-secondary mt-3 mb-3" type="submit">
+                    modifier mon mot de passe
+                </button>
+            </form>
+            <form method="post" class="pr-3">
+                <input type="hidden" name="user" id="userId" class="form-control" value="null">
+                <button class="btn btn-lg btn-secondary mt-3 mb-3" type="submit">
+                    modifier mes données
+                </button>
+            </form>
+        </div>
     </div>
 {% endblock %}
