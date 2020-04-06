@@ -7,12 +7,15 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Form\RegistrationType;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use App\Entity\User;
+use Twig\Environment;
 
 class SecurityController extends AbstractController
 {
@@ -101,6 +104,85 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
+    }
+/*
+    /**
+     * @Route("/forgotten_password", name="app_forgotten_password")
+
+    public function forgottenPassword(Request $request, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator, Environment $renderer): Response
+    {
+
+        if ($request->isMethod('POST')) {
+
+            $email = $request->request->get('email');
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $user = $entityManager->getRepository(User::class)->findOneByEmail($email);
+            /* @var $user User
+
+            if ($user === null) {
+                $this->addFlash('danger', 'Email Inconnu'); // notice doesnt work
+                return $this->redirectToRoute('home');
+            }
+            $token = $tokenGenerator->generateToken();
+
+            try {
+                $user->setResetToken($token);
+                $entityManager->flush();
+            } catch (\Exception $e) {
+                $this->addFlash('warning', $e->getMessage());
+                return $this->redirectToRoute('home');
+            }
+
+            $url = $this->generateUrl('app_reset_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
+            $message = (new \Swift_Message('Forgot Password'))
+                ->setFrom('noreply@almalusa.com') //insert mail
+                ->setTo($user->getEmail())
+                ->setBody($renderer->render('emails/forget.html.twig', [ // body de l'email a écrire
+                    'contact' => $user->getUsername(),
+                ]), 'text/html');
+            $mailer->send($message); //erreur au niveau de l'envoi du au port 25
+
+
+            $this->addFlash('notice', 'Mail envoyé');
+
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('admin/forgotten_password.html.twig');
+    }
+*/
+
+
+    /**
+     * @Route("/reset_password/{token}", name="app_reset_password")
+     */
+    public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)
+    {
+
+        if ($request->isMethod('POST')) {
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $user = $entityManager->getRepository(User::class)->findOneByResetToken($token);
+            /* @var $user User */
+
+            if ($user === null) {
+                $this->addFlash('danger', 'Token Inconnu');
+                return $this->redirectToRoute('home');
+            }
+
+            $user->setResetToken(null);
+            $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
+            $entityManager->flush();
+
+            $this->addFlash('notice', 'Mot de passe mis à jour');
+
+            return $this->redirectToRoute('home');
+        } else {
+
+            return $this->render('admin/reset_password.html.twig', ['token' => $token]);
+        }
+
     }
 
 }
