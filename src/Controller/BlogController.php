@@ -33,10 +33,13 @@ class BlogController extends AbstractController
         // Grab all the articles from the database
         $repo = $this->getDoctrine()->getRepository(Article::class);
 
-        $articles = $repo->findBy([], ['createdAt' => 'DESC']);
+        $newArticles = $repo->findBy([], ['createdAt' => 'DESC'], 1, 0);
+
+        $articles = $repo->findBy([], ['createdAt' => 'DESC'], 10, 1);
         // Return the home view with a title variable
         return $this->render('blog/home.html.twig', [
-            'articles' => $articles
+            'articles' => $articles,
+            'newArticles' => $newArticles
         ]);
     }
 

@@ -5,13 +5,18 @@
 {% endblock %}
 
 {% block body %}
+    <style>
+        body{
+            background-color: #f5f5f5;
+        }
+    </style>
     <!-- Article page -->
     <article class="container my-4">
         <!-- Article title -->
         <h2>{{ article.title }}</h2>
         <div class="content">
             <!-- Article picture -->
-            <img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="" width="50%" height="50%"><br>
+            <img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="" style="max-width: 400px"><br>
             <!-- Article content -->
             <span>{{ article.content | raw }}</span>
             <!-- Article date -->
@@ -27,7 +32,7 @@
         </div>
         <!-- Redirection to articles -->
         <a href="{{ path('blog') }}">
-            <button type="button" class="btn btn-outline-primary my-4">Retour</button>
+            <button type="button" class="btn btn-outline-secondary my-4">Retour</button>
         </a>
         <!-- If a user is connected dislay the modify button -->
         {% if is_granted('ROLE_ADMIN') %}

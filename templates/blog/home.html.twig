@@ -1,62 +1,54 @@
 {% extends "base.html.twig" %}
-{% block stylesheets %}
-    <style>
-        .back-photo {
-            background-image: url('/images/hero-portugal.jpg');
-        }
-    </style>
-{% endblock %}
 {% block body %}
-    <!-- Home title -->
-    <div class="jumbotron jumbotron-fluid back-photo" style="margin-top: -1.5rem;">
+    <header>
+        <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    </header>
+    <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4 font-weight-bold" style="color: #222222">
+            <h1 class="display-4 font-weight-bold">
                 Bem vindo
                 {% if app.user %}
                     {{ app.user.username }}
                 {% endif %}!
             </h1>
-            <p class="lead" style="color: #222222">
+            <p class="lead">
                 Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a pour objectif
                 de promouvoir la langue portugaise et la culture lusophone à travers des activités culturelles
                 diversifiées: expositions, conférences, chant, voyages, etc.
             </p>
         </div>
     </div>
-    <!-- Article selection -->
-    <div class="album py-5 bg-light">
-        <div class="container">
-            <div class="row">
+    <img src="{{ asset('images/algarve.jpg') }}" width="100%" alt="article_picture">
+    <div class="container">
+        <h2 class="py-5">Derniers articles :</h2>
+        {% for newArticle in newArticles %}
+            <article class="d-flex flex-column p-3">
+                <h3 class="mb-3">{{ newArticle.title }}</h3>
+                <img src="{{ vich_uploader_asset(newArticle, 'imageFile') }}" alt="" style="max-width: 250px"><br>
+                {% if newArticle.content | length > 200 ? newArticle.content %}
+                {% set contentSliced = newArticle.content | slice(0, 100) ~ ' ...' %}
+                <span> {{ contentSliced | raw }} </span>
+            {% else %}
+                <span> {{ newArticle.content | raw }} </span>
+                {% endif %}<br>
+                <!-- Article page button -->
+                <a href="{{ path('blog_show', {'id' : newArticle.id, 'slug': newArticle.slug }) }}"
+                   class="btn btn-secondary" style="width: 140px">Lire d'avantage</a>
+            </article>
+        {% endfor %}
+        <div class="container py-5">
+            <div class="row d-flex justify-content-between">
                 {% for article in articles|slice(0, 3) %}
-                    <div class="col-md-4" >
-                        <div class="card mb-4 box-shadow" onmouseover="this.classList.add('shadow-lg')"
-                             onmouseout="this.classList.remove('shadow-lg')" onclick="window.location.href = 'https://www.youtube.com/watch?v=WtO3AHMBePY'">
-                            <img src="images/alma_lusa_logo.png" alt="" width="100%" height="225px">
-                            <div class="card-body">
-                                <p class="card-title">
-                                    {{ article.title }}
-                                </p>
-                                {% if article.content | length > 300 ? article.content %}
-                                    {% set contentSliced = article.content | slice(0, 300) ~ ' ...' %}
-                                    <p class="card-text">
-                                        {{ contentSliced | raw }}
-                                    </p>
-                                    {% for wording in article.wordings %}
-                                        <li style="list-style-type: none;"><a href="">{{ wording.title }}</a></li>
-                                    {% endfor %}
-                                    <buton class="btn d-flex justify-content-center btn-secondary mt-3">Lire
-                                        d'avantage
-                                    </buton>
-                                {% else %}
-                                    <p class="card-text">
-                                        {{ article.content }}
-                                    </p>
-                                    {% for wording in article.wordings %}
-                                        <li style="list-style-type: none;"><a href="">{{ wording.title }}</a></li>
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
-                        </div>
+                    <div class="col-md-4 d-flex flex-column carte p-3">
+                        <img id="article_picture" src="{{ vich_uploader_asset(article, 'imageFile') }}">
+                        {{ article.title }}
+                        <p class="m-auto">
+                            <a class="btn btn-secondary"
+                               href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}"
+                               role="button">
+                                Lire d'avantage
+                            </a>
+                        </p>
                     </div>
                 {% endfor %}
             </div>
