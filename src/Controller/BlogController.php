@@ -108,6 +108,7 @@ class BlogController extends AbstractController
             $em->persist($article);
             // send article
             $em->flush();
+            $this->addFlash('success', 'Votre article a bien été créer');
             // Redirect to the new article
             return $this->redirectToRoute('blog_show', [
                 'id' => $article->getId(),
@@ -144,6 +145,7 @@ class BlogController extends AbstractController
             $em->persist($comment);
             $em->flush();
 
+            $this->addFlash('success', 'Vous avez posté un commentaire');
             // redirect to the same page
             return $this->redirectToRoute('blog_show', [
                 'id' => $article->getId(),
