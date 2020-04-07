@@ -94,6 +94,8 @@ class SecurityController extends AbstractController
             $em->flush();
 
             // Return to the login page
+
+            $this->addFlash('success', 'Vous avez mis a jour votre profil !' );
             return $this->redirectToRoute('security_login');
         }
 
@@ -179,7 +181,7 @@ class SecurityController extends AbstractController
             if ($request->request->get('password') === $request->request->get('password2')){
                 $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
                 $entityManager->flush();
-                $this->addFlash('notice', 'Mot de passe mis à jour');
+                $this->addFlash('success', 'Mot de passe mis à jour');
             }
             else{
                 return $this->render('admin/reset_password.html.twig', ['token' => $token]);
