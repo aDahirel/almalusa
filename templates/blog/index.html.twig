@@ -1,10 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <style>
+        body{
+            background-color: #f5f5f5;
+        }
+    </style>
     <!-- Articles section -->
-    <section class="container articles">
+    <section class="container articles py-5">
         <!-- Display all the articles in database -->
-
         {% for article in articles %}
             <article class="mb-5">
                 <!-- Article title -->
@@ -12,24 +16,24 @@
                 <!-- Article content -->
                 <div class="content">
                     <!-- Article picture -->
-                    <img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="" width="50%" height="50%"><br>
-                    <span> {{ article.content | raw }} </span>
+                    <img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="" style="max-width: 250px"><br>
+                    {% if article.content | length > 200 ? article.content %}
+                        {% set contentSliced = article.content | slice(0, 100) ~ ' ...' %}
+                        <span> {{ contentSliced | raw }} </span>
+                    {% else %}
+                        <span> {{ article.content | raw }} </span>
+                    {% endif %}
                     <!-- Article date -->
-                    <div class="metadata font-weight-bold">Ecrit le
-                        {{ article.createdAt | date('d/m/y') }}
-                        à
-                        {{ article.createdAt | date('H:i') }}
-                        <!-- Article wording -->
-                        Libellés :
+                    <div class="metadata font-weight-bold">Libellés :
                         {% for wording in article.wordings %}
-
-                            <li style="list-style-type: none;"><a href="">{{ wording.title }}</a></li>
-
+                            <li class="text-secondary list-unstyled"><a href="">{{ wording.title }}</a>
+                            </li>
                         {% endfor %}
                     </div>
                     <br>
                     <!-- Article page button -->
-                    <a href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}" class="btn btn-primary">Lire la suite</a>
+                    <a href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}"
+                       class="btn btn-secondary">En savoir plus</a>
                 </div>
             </article>
         {% endfor %}
