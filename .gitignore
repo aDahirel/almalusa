@@ -18,3 +18,8 @@
 ###< symfony/web-server-bundle ###
 idea/workspace.xml
 composer.lock
+.env
+*.xml
+*.iml
+*.lock
+symfony.lock

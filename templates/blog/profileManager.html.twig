@@ -9,21 +9,11 @@
             <div class="card-body row">
                 <div class="col">
                     <h3 class="card-title">Votre Nom :</h3>
-                    <p class="card-text font-weight-bold">{{ user.username }}</p>
+                    <p class="card-text">{{ user.username }}</p>
                     <h3 class="card-title">Votre Mail :</h3>
-                    <p class="card-text font-weight-bold">{{ user.email }}</p>
+                    <p class="card-text">{{ user.email }}</p>
                 </div>
                 <div class="col">
-                    <h3 class="card-title">Votre Role :</h3>
-                    <p class="card-text font-weight-bold">
-                        {% for usr in user.roles %}
-                            {% if usr is same as('ROLE_USER') %}
-                                Utilisateur
-                            {% elseif usr is same as('ROLE_ADMIN') %}
-                                administrateur
-                            {% endif %}
-                        {% endfor %}
-                    </p>
                     <h3 class="card-title">Votre photo de profil :</h3>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal">
                         Voir l'image
@@ -54,19 +44,24 @@
                 </div>
             </div>
         </div>
-        <div class="container d-flex mb-3">
+        <div class="d-flex">
             <form method="post" class="pr-3">
                 <input type="hidden" name="user" id="userId" class="form-control" value="{{ user.email }}">
                 <button class="btn btn-lg btn-secondary mt-3 mb-3" type="submit">
-                    modifier mon mot de passe
+                    Modifier mon mot de passe
                 </button>
             </form>
-            <form method="post" class="pr-3">
+            <form method="post">
                 <input type="hidden" name="user" id="userId" class="form-control" value="null">
                 <button class="btn btn-lg btn-secondary mt-3 mb-3" type="submit">
-                    modifier mes données
+                    Modifier mes données
                 </button>
             </form>
         </div>
     </div>
+    <style>
+        footer{
+            display: none;
+        }
+    </style>
 {% endblock %}
