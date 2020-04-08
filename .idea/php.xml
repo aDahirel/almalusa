@@ -35,7 +35,6 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
       <path value="$PROJECT_DIR$/vendor/twig/twig" />
       <path value="$PROJECT_DIR$/vendor/twig/extra-bundle" />
-      <path value="$PROJECT_DIR$/vendor/easycorp/easy-log-handler" />
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/vendor/symfony/debug-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/dom-crawler" />
@@ -117,6 +116,8 @@
       <path value="$PROJECT_DIR$/vendor/zendframework/zend-code" />
       <path value="$PROJECT_DIR$/vendor/zendframework/zend-eventmanager" />
       <path value="$PROJECT_DIR$/vendor/cocur/slugify" />
+      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/swiftmailer-bundle" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />
