@@ -23,3 +23,5 @@ composer.lock
 *.iml
 *.lock
 symfony.lock
+*.iml~master
+*.xml~master
