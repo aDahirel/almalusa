@@ -15,9 +15,14 @@
                 </div>
                 <div class="col">
                     <h3 class="card-title">Votre photo de profil :</h3>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#basicExampleModal">
                         Voir l'image
                     </button>
+                    <h3 class="card-title">Supprimer le compte :</h3>
+                    <a href=""><button class="btn btn-danger">
+                        Supprimer
+                    </button></a>
+                    
 
                     <!-- Modal -->
                     <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog"
@@ -33,7 +38,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="container" style="text-align: center">
-                                        <img class="my-auto" style="max-width: 70vw; max-height: 70vh"
+                                        <img class="my-auto" style="max-width: 30vw; max-height: 50vh"
                                              src="{{ vich_uploader_asset(app.user, 'imageFile') }}"
                                              alt="image utilisateur">
                                     </div>

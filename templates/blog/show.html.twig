@@ -11,33 +11,40 @@
         }
     </style>
     <!-- Article page -->
-    <article class="container my-4">
+    <article class="container d-flex flex-column justify-content-between" style="min-height: 800px">
         <!-- Article title -->
         <h2>{{ article.title }}</h2>
-        <div class="content">
-            <!-- Article picture -->
-            <img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="" style="max-width: 400px"><br>
-            <!-- Article content -->
-            <span>{{ article.content | raw }}</span>
-            <!-- Article date -->
-            <div class="metadata font-weight-bold">Ecrit le
-                {{ article.createdAt | date('d/m/y') }}
-                à
-                {{ article.createdAt | date('H:i') }}
-                <br>Libellés :
-                {% for wording in article.wordings %}
-                    <li style="list-style-type: none;"><a href="">{{ wording.title }}</a></li>
-                {% endfor %}
-            </div>
+        <!-- Article picture -->
+        <img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="article image" style="max-width: 400px;">
+        <!-- Article content -->
+        <span>{{ article.content | raw }}</span>
+       
+        <!-- Article date -->
+        <div class="metadata font-weight-bold">Ecrit le
+            {{ article.createdAt | date('d/m/y') }}
+            à
+            {{ article.createdAt | date('H:i') }}
         </div>
-        <!-- Redirection to articles -->
+        <div>
+            <b>Libellés :</b>
+            {% for wording in article.wordings %}
+                <li style="list-style-type: none;">
+                    <a href="" style=" color:#212529;">
+                        {{ wording.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </div>
+           
+        <div>
+            <!-- Redirection to articles -->
         <a href="{{ path('blog') }}">
             <button type="button" class="btn btn-outline-secondary my-4">Retour</button>
         </a>
         <!-- If a user is connected dislay the modify button -->
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path('blog_edit', {'id' : article.id, 'slug' : article.slug }) }}">
-                <button type="button" class="btn btn-outline-primary my-4">Modifier</button>
+                <button type="button" class="btn btn-outline-secondary my-4">Modifier</button>
             </a>
             <form method="post" action="{{ path('blog_delete', {'id': article.id, 'slug': article.slug} ) }}" style="display: inline-block;"
                   onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
@@ -45,6 +52,7 @@
                 <button class="btn btn-danger">Supprimer</button>
             </form>
         {% endif %}
+        </div>
     </article>
     <!-- / Article page -->
     <hr>

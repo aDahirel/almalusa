@@ -6,10 +6,7 @@
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
             <h1 class="display-4 font-weight-bold">
-                Bem vindo
-                {% if app.user %}
-                    {{ app.user.username }}
-                {% endif %}!
+                Bem vindo !
             </h1>
             <p class="lead">
                 Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a pour objectif
@@ -20,9 +17,9 @@
     </div>
     <img src="{{ asset('images/algarve.jpg') }}" width="100%" alt="article_picture">
     <div class="container">
-        <h2 class="py-5">Derniers articles :</h2>
+        <h2 class="py-3">Derniers articles :</h2>
         {% for newArticle in newArticles %}
-            <article class="d-flex flex-column p-3">
+            <article class="d-flex flex-column">
                 <h3 class="mb-3">{{ newArticle.title }}</h3>
                 <img src="{{ vich_uploader_asset(newArticle, 'imageFile') }}" alt="" style="max-width: 250px"><br>
                 {% if newArticle.content | length > 200 ? newArticle.content %}

@@ -1,5 +1,4 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
     <style>
         body{
@@ -7,34 +6,33 @@
         }
     </style>
     <!-- Articles section -->
-    <section class="container articles py-5">
+    <section class="container py-5">
         <!-- Display all the articles in database -->
         {% for article in articles %}
-            <article class="mb-5">
+            <article class="mb-5 d-flex flex-column justify-content-between">
                 <!-- Article title -->
                 <h2>{{ article.title }}</h2>
-                <!-- Article content -->
-                <div class="content">
-                    <!-- Article picture -->
-                    <img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="" style="max-width: 250px"><br>
-                    {% if article.content | length > 200 ? article.content %}
-                        {% set contentSliced = article.content | slice(0, 100) ~ ' ...' %}
-                        <span> {{ contentSliced | raw }} </span>
-                    {% else %}
-                        <span> {{ article.content | raw }} </span>
-                    {% endif %}
-                    <!-- Article date -->
-                    <div class="metadata font-weight-bold">Libellés :
-                        {% for wording in article.wordings %}
-                            <li class="text-secondary list-unstyled"><a href="">{{ wording.title }}</a>
-                            </li>
-                        {% endfor %}
-                    </div>
-                    <br>
-                    <!-- Article page button -->
-                    <a href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}"
-                       class="btn btn-secondary">En savoir plus</a>
+                <!-- Article picture -->
+                <img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="article picture" style="max-width: 250px">
+                {% if article.content | length > 200 ? article.content %}
+                    {% set contentSliced = article.content | slice(0, 100) ~ ' ...' %}
+                    <span> {{ contentSliced | raw }} </span>
+                {% else %}
+                    <span> {{ article.content | raw }} </span>
+                {% endif %}
+                <!-- Article date -->
+                <div class="metadata font-weight-bold">Libellés :
+                    {% for wording in article.wordings %}
+                        <li class="list-unstyled">
+                            <a href="" style="color:#212529;">
+                                {{ wording.title }}
+                            </a>
+                        </li>
+                    {% endfor %}
                 </div>
+                <!-- Article page button -->
+                <a href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}"
+                    class="btn btn-secondary">En savoir plus</a>
             </article>
         {% endfor %}
         <div class="btn-group">{{ knp_pagination_render(articles) }}</div>
