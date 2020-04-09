@@ -75,7 +75,7 @@ class User implements UserInterface
     private $roles;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user", cascade={"remove"})
      */
     private $comments;
 
@@ -106,6 +106,17 @@ class User implements UserInterface
         $this->roles = array('ROLE_USER');
         $this->comments = new ArrayCollection();
         $this->fileName = "default_user.png";
+    }
+
+    public function serialize()
+    {
+        return serialize($this->id);
+    }
+    
+    public function unserialize($serialized)
+    {
+    $this->id = unserialize($serialized);
+    
     }
 
     public function getId(): ?int

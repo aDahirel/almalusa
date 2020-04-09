@@ -1,54 +1,41 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
-    <style>
-        body{
-            background-color: #f5f5f5;
-        }
-    </style>
-    <!-- Articles section -->
-    <section class="container articles py-5">
-        <!-- Display all the articles in database -->
-        {% for article in articles %}
-            <article class="mb-5">
-                <!-- Article title -->
-                <h2>{{ article.title }}</h2>
-                <!-- Article content -->
-                <div class="content">
-                    <!-- Article picture -->
-                    <img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="" style="max-width: 250px"><br>
-                    {% if article.content | length > 200 ? article.content %}
-                        {% set contentSliced = article.content | slice(0, 100) ~ ' ...' %}
-                        <span> {{ contentSliced | raw }} </span>
-                    {% else %}
-                        <span> {{ article.content | raw }} </span>
-                    {% endif %}
-                    <!-- Article date -->
-                    <div class="metadata font-weight-bold">Libellés :
-                        {% for wording in article.wordings %}
-                            <li class="text-secondary list-unstyled"><a href="">{{ wording.title }}</a>
-                            </li>
-                        {% endfor %}
-                    </div>
-                    <br>
-                    <!-- Article page button -->
-                    <a href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}"
-                       class="btn btn-secondary">En savoir plus</a>
-                </div>
+	<!-- Articles section -->
+	<section class="container my-5 py-3" style="background-color: white;">
+        <h2 class="py-4">Liste des articles :</h2>
+		<!-- Display all the articles in database -->
+		{% for article in articles %}
+			<article class="d-flex flex-column justify-content-around" style="height: 350px;">
+				<!-- Article title -->
+				<h3>{{ article.title }}</h3>
+				<!-- Article picture -->
+				<img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="article picture" style="max-width: 250px">
+				{% if article.content | length > 200 ? article.content %}
+					{% set contentSliced = article.content | slice(0, 100) ~ ' ...' %}
+					<span>
+						{{ contentSliced | raw }}
+					</span>
+				{% else %}
+					<span>
+						{{ article.content | raw }}
+					</span>
+				{% endif %}
+				<!-- Article page button -->
+				<div>
+					<a href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}" class="btn btn-secondary">En savoir plus</a>
+				</div>
             </article>
-        {% endfor %}
-        <div class="btn-group">{{ knp_pagination_render(articles) }}</div>
-    </section>
-    <style>
-        .page-link:hover {
-            background-color: grey;
-            border-color: grey;
+            <hr>
+		{% endfor %}
+		<div class="btn-group">{{ knp_pagination_render(articles) }}</div>
+	</section>
+	<!-- / Articles section -->
+	<style>
+		a:hover {
+			text-decoration: none;
         }
-
-        .page-item.active .page-link {
-            background-color: #5a5a5a;
-            border-color: #5a5a5a;
-        }
-    </style>
-    <!-- / Articles section -->
+        body {
+			background-color: #f5f5f5;
+		}
+	</style>
 {% endblock %}
