@@ -108,16 +108,6 @@ class User implements UserInterface
         $this->fileName = "default_user.png";
     }
 
-    public function serialize()
-    {
-        return serialize($this->id);
-    }
-    
-    public function unserialize($serialized)
-    {
-    $this->id = unserialize($serialized);
-    
-    }
 
     public function getId(): ?int
     {
@@ -255,5 +245,15 @@ class User implements UserInterface
             $this->updated_at = new \DateTime('now');
         }
         return $this;
+    }
+    public function serialize()
+    {
+        $this->profileImage = base64_encode($this->imageFile);
+    }
+
+    public function unserialize($serialized)
+    {
+        $this->profileImage = base64_decode($this->imageFile);
+
     }
 }

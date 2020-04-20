@@ -25,3 +25,4 @@ composer.lock
 symfony.lock
 *.iml~master
 *.xml~master
+public/images/users/

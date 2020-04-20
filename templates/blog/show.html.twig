@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{article.title | slice(0, 10)}}
+	{{article.title}}
 {% endblock %}
 
 {% block body %}
@@ -75,13 +75,21 @@
 					</h4>
 					<p>{{ comment.content | raw }}</p>
 				</div>
+				{% if app.user.id == comment.user.id %}
+				<form method="post" action="{{ path('delete_comment', {'id': comment.id, 'slug': comment.article.slug, 'idarticle': comment.article.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer ce commentaire ?')">
+					<input type="hidden" name="_method" value="DELETE">
+					<button class="close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</form>
+				{% endif %}
 			</div>
 		{% endfor %}
 		<hr>
 		<!-- If a user is connected, display the comment form -->
 		{% if app.user %}
 			{{ form_start(commentForm) }}
-			{{ form_row(commentForm.content, {'attr': {'placeholder': "Votre commentaire"}}) }}
+			{{ form_row(commentForm.content|escape, {'attr': {'placeholder': "Votre commentaire"}}) }}
 			<button type="submit" class="btn btn-secondary mb-5">Envoyer</button>
 			{{ form_end(commentForm) }}
 			<!-- Else display a connexion button -->
