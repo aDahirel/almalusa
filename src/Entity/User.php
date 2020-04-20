@@ -121,7 +121,7 @@ class User implements UserInterface
 
     public function setEmail(string $email): self
     {
-        $this->email = $email;
+        $this->email = htmlspecialchars($email);
 
         return $this;
     }
@@ -133,7 +133,7 @@ class User implements UserInterface
 
     public function setUsername(string $username): self
     {
-        $this->username = $username;
+        $this->username = htmlspecialchars($username);
 
         return $this;
     }
@@ -147,7 +147,7 @@ class User implements UserInterface
 
     public function setPassword(string $password): self
     {
-        $this->password = $password;
+        $this->password = htmlspecialchars($password);
 
         return $this;
     }

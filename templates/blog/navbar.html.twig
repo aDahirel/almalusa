@@ -40,11 +40,16 @@
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('security_login') }}">Connexion</a>
+                        <a class="nav-link test" href="{{ path('security_login') }}">Connexion</a>
                     </li>
                 {% endif %}
             </ul>
         </div>
     </nav>
     <!-- / Navbar -->
+    <style>
+        .test:active{
+            text-shadow: 1px 1px 2px black;
+        }
+    </style>
 {% endblock %}

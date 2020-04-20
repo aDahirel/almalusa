@@ -26,7 +26,7 @@ class Article
 
     /**
      * @var string|null
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $fileName;
 
@@ -42,7 +42,6 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=5, max=255, minMessage="Titre trop court")
      */
     private $title;
 
@@ -92,7 +91,7 @@ class Article
 
     public function setTitle(string $title): self
     {
-        $this->title = $title;
+        $this->title = htmlspecialchars($title);
 
         return $this;
     }

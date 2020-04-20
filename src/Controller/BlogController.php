@@ -152,7 +152,6 @@ class BlogController extends AbstractController
                 'id' => $article->getId(),
                 'slug' => $article->getSlug()
             ]);
-
         }
 
         // Search the article id
