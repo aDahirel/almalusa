@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\RegistrationType;
+use App\Form\ModificationType;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -13,6 +14,7 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 use App\Entity\User;
 use Twig\Environment;
@@ -78,15 +80,12 @@ class SecurityController extends AbstractController
 
         $user = $this->getUser();
 
-        $form = $this->createForm(RegistrationType::class, $user);
+        $form = $this->createForm(ModificationType::class, $user);
 
         $form->handleRequest($request);
 
         // If the submit button is pushed and the form is valid
         if ($form->isSubmitted() && $form->isValid()) {
-            // Crypt the passwords
-            $hash = $encoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($hash);
 
             // Create the user
             $em = $managerRegistry->getManager();
@@ -110,6 +109,19 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
+    }
+
+    /**
+     * @Route("{id}/delete_user", name="delete_user", methods="DELETE")
+     */
+    public function delete_user(User $user, Request $request, ManagerRegistry $managerRegistry)
+    {
+        $em = $managerRegistry->getManager();
+        $em->remove($user);
+        $em->flush();
+        $session = new Session();
+        $session->invalidate();
+        return $this->redirectToRoute('security_logout');
     }
 /*
     /**
@@ -182,7 +194,7 @@ class SecurityController extends AbstractController
                 $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
                 $entityManager->flush();
                 $this->addFlash('success', 'Mot de passe mis à jour');
-            }
+            }   
             else{
                 return $this->render('admin/reset_password.html.twig', ['token' => $token]);
             }
@@ -190,7 +202,6 @@ class SecurityController extends AbstractController
         } else {
             return $this->render('admin/reset_password.html.twig', ['token' => $token]);
         }
-
     }
 
 }
