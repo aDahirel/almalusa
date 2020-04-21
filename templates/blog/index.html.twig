@@ -1,45 +1,60 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 	<!-- Articles section -->
-	<section class="container my-5 py-3" style="background-color: white;">
+	<section class="container my-5 " style="background-color: white;">
 		<h2 class="py-4">Liste des articles :</h2>
 		<!-- Display all the articles in database -->
-		{% for article in articles %}
-			<article
-				class="d-flex flex-column justify-content-around py-3">
-				<!-- Article title -->
-				<h3>{{ article.title }}</h3>
-				<!-- Article picture -->
-				<img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="article picture" style="max-width: 300px;">
-				{% if article.content | length > 200 ? article.content %}
-					{% set contentSliced = article.content | slice(0, 100) ~ ' ...' %}
-					<span>
-						{{ contentSliced | raw }}
-					</span>
-				{% else %}
-					<span>
-						{{ article.content | raw }}
-					</span>
-				{% endif %}
-				<div>
-					<b>Libellés :</b>
-					{% for wording in article.wordings %}
-						<li class="list-unstyled">
-							<a href="" style=" color:#212529;">
-								{{ wording.title }}
+		<div class="d-flex justify-content-between js-filter">
+			<div class="flex-grow-1">
+				{% for article in articles %}
+					<article class="d-flex js-filter-content" style="min-height: 76px; border-bottom: 1px solid rgb(244, 246, 249);">
+						{# {% if article.content | length > 200 ? article.content %}
+													{% set contentSliced = article.content | slice(0, 100) ~ ' ...' %}
+													<span>
+														{{ contentSliced | raw }}
+													</span>
+												{% else %}
+													<span>
+														{{ article.content | raw }}
+													</span>
+												{% endif %} #}
+						<div>
+							<p class="text-muted">{{ article.createdAt | date('d/m') }}</p>
+							<a class="article_title" href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}">
+								<p>{{ article.title }}</p>
 							</a>
-						</li>
-					{% endfor %}
-				</div>
-				<div>
-					<a href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}" class="btn btn-secondary">En savoir plus</a>
-				</div>
-			</article>
-		{% endfor %}
-		<div class="btn-group">{{ knp_pagination_render(articles) }}</div>
+						</div>
+						{% if article.fileName is not null %}
+						<div style="height: 70; width: 125; margin-left: auto;">
+							<img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="article picture" height="70px" width="125">
+						</div>
+						{% endif %}
+						{# <div>
+							{% for c in article.wordings %}
+								<li class="list-unstyled">
+									<a href="" class="text-muted" style="color:#212529;">
+										#{{ c.title }}
+									</a>
+								</li>
+							{% endfor %}
+						</div> #}
+					</article>
+				{% endfor %}
+			</div>
+			<div class="px-5">
+				{% include 'blog/search.html.twig' with {form: form} only %}
+			</div>
+		</div>
+		<div class="btn-group js-filter-pagination">{{ knp_pagination_render(articles) }}</div>
 	</section>
 	<!-- / Articles section -->
 	<style>
+		.article_title{
+			color: black;
+		}
+		.article_title:hover{
+			color: #2d4d85;
+		}
 		a:hover {
 			text-decoration: none;
 		}

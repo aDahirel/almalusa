@@ -210,7 +210,9 @@ class Article
     {
         return $this->updated_at;
     }
-
+    /**
+     * @param  Date|null  $imageFile
+     */
     public function setUpdatedAt(?\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;

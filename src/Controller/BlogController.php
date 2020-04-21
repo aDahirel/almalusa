@@ -6,15 +6,17 @@
 
 namespace App\Controller;
 
+use App\Data\SearchData;
 use App\Entity\Article;
 use App\Entity\Comment;
 use App\Entity\User;
 use App\Entity\Wording;
 use App\Form\ArticleType;
 use App\Form\CommentType;
+use App\Form\SearchType;
+use App\Repository\ArticleRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
-use phpDocumentor\Reflection\Element;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,15 +46,20 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog", name="blog")
      */
-    public function index(Request $request, PaginatorInterface $paginator)
+    public function index(Request $request, PaginatorInterface $paginator, ArticleRepository $repository)
     {
+        $data = new SearchData();
+        $form = $this->createForm(SearchType::class, $data);
+        $form->handleRequest($request);
+
         // Grab all the articles from the database
-        $repo = $this->getDoctrine()->getRepository(Article::class);
 
         $articles = $paginator->paginate(
-            $repo->findBy([], ['createdAt' => 'DESC']),
+
+            $articles = $repository->findSearch($data),
+
             $request->query->getInt('page', 1),
-            5
+            15
         );
 
         $repo = $this->getDoctrine()->getRepository(Wording::class);
@@ -62,7 +69,8 @@ class BlogController extends AbstractController
         return $this->render('blog/index.html.twig', [
             //'controller_name' => 'BlogController',
             'articles' => $articles,
-            'wordings' => $wordings
+            'wordings' => $wordings,
+            'form' => $form->createView()
         ]);
     }
 

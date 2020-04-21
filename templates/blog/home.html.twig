@@ -19,13 +19,13 @@
 		</div>
 	</div>
 	<img src="{{ asset('images/algarve.jpg') }}" width="100%" alt="article_picture">
-	<div class="container" style="background-color: white;">
-		<h2 class="py-5">Derniers articles :</h2>
+	<div class="container my-5" style="background-color: white;">
+		<h2 class="py-3">Derniers articles :</h2>
 		<div class="d-flex justify-content-between">
 			{% for newArticle in newArticles %}
 				<article class="d-flex flex-column justify-content-between p-3" style="height: 400px;">
 					<h3 class="mb-3">{{ newArticle.title }}</h3>
-					<img src="{{ vich_uploader_asset(newArticle, 'imageFile') }}" alt="" style="max-width: 250px">
+					<img src="{{ vich_uploader_asset(newArticle, 'imageFile') }}" alt="article picture" style="max-width: 250px">
 					<div>
 						{% if newArticle.content | length > 200 ? newArticle.content %}
 							{% set contentSliced = newArticle.content | slice(0, 100) ~ ' ...' %}
