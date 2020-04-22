@@ -15,6 +15,9 @@
         <div class="form-group">
             {{ form_widget(form.username, {'attr': {'placeholder': 'Pseudonyme'}} ) }}
         </div>
+        <label class="float-left">
+            Adresse mail :
+        </label>
         <div class="form-error">
             {{ form_errors(form.email) }}
         </div>
@@ -26,21 +29,6 @@
         </label>
         <div class="form-group">
             {{ form_widget(form.imageFile) }}
-        </div>
-        <label class="float-left">
-            Entrez votre mot de passe :
-        </label>
-        <div class="form-error">
-            {{ form_errors(form.password) }}
-        </div>
-        <div class="form-group">
-            {{ form_widget(form.password, {'attr': {'placeholder': 'Mot de passe','value' :''}}) }}
-        </div>
-        <div class="form-error">
-            {{ form_errors(form.confirm_password) }}
-        </div>
-        <div class="form-group">
-            {{ form_widget(form.confirm_password, {'attr': {'placeholder': 'Confirmation du Mot de passe'}}) }}
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-lg btn-success w-100">
