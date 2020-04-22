@@ -4,10 +4,10 @@
 	<section class="container my-5 " style="background-color: white;">
 		<h2 class="py-4">Liste des articles :</h2>
 		<!-- Display all the articles in database -->
-		<div class="d-flex justify-content-between js-filter">
+		<div class="d-flex justify-content-between">
 			<div class="flex-grow-1">
 				{% for article in articles %}
-					<article class="d-flex js-filter-content" style="min-height: 76px; border-bottom: 1px solid rgb(244, 246, 249);">
+					<article class="d-flex" style="min-height: 76px; border-bottom: 1px solid rgb(244, 246, 249);">
 						{# {% if article.content | length > 200 ? article.content %}
 													{% set contentSliced = article.content | slice(0, 100) ~ ' ...' %}
 													<span>
@@ -45,7 +45,7 @@
 				{% include 'blog/search.html.twig' with {form: form} only %}
 			</div>
 		</div>
-		<div class="btn-group js-filter-pagination">{{ knp_pagination_render(articles) }}</div>
+		<div class="btn-group">{{ knp_pagination_render(articles) }}</div>
 	</section>
 	<!-- / Articles section -->
 	<style>

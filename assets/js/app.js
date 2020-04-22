@@ -7,9 +7,6 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import '../css/app.css'
-import Filter from './modules/Filter'
-
-new Filter(document.querySelector('.js-filter'))
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 // import $ from 'jquery';

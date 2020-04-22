@@ -28,9 +28,7 @@ class SearchType extends AbstractType
                 'class' => Wording::class,
                 'expanded' => true,
                 'multiple' => true
-            ])
-            
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

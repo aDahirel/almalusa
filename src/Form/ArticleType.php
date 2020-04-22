@@ -26,6 +26,7 @@ class ArticleType extends AbstractType
                 'multiple' => true
             ])
             ->add('content', CKEditorType::class, [
+                'required' => false,
                 'config' => [
                     'uiColor' => "#e2e2e2",
                     'toolbar' => 'full'

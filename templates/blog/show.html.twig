@@ -11,21 +11,17 @@
 		}
 	</style>
 	<!-- Article page -->
-	<article
-		class="container d-flex flex-column justify-content-between">
+	<article class="container d-flex flex-column justify-content-between">
 		<!-- Article title -->
 		<h2>{{ article.title }}</h2>
 		<!-- Article picture -->
-		<img
-		src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="article image" style="max-width: 400px;">
+		<img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="article image" style="max-width: 400px;">
 		<!-- Article content -->
 		<span>{{ article.content | raw }}</span>
 
 		<!-- Article date -->
 		<div class="metadata font-weight-bold">Ecrit le
-			{{ article.createdAt | date('d/m/y') }}
-			à
-			{{ article.createdAt | date('H:i') }}
+			{{ article.createdAt | date('d/m') }}
 		</div>
 		<div>
 			<b>Libellés :</b>
@@ -58,8 +54,7 @@
 	<!-- / Article page -->
 	<hr>
 	<!-- Comment section -->
-	<section
-		class="container" id="commentaires">
+	<section class="container" id="commentaires">
 		<!-- Display the amount of comments -->
 		<h1 class="mb-5">{{ article.comments | length }}
 			Commentaires :
@@ -86,7 +81,6 @@
 				{% endif %}
 			</div>
 		{% endfor %}
-		<hr>
 		<!-- If a user is connected, display the comment form -->
 		{% if app.user %}
 			{{ form_start(commentForm) }}

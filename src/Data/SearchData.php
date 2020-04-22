@@ -13,4 +13,5 @@ class SearchData
      * @var Wording[]
      */
     public $wordings = [];
+    
 }
