@@ -26,3 +26,11 @@ symfony.lock
 *.iml~master
 *.xml~master
 public/images/users/
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
+webpack.config.js

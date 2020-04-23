@@ -7,7 +7,7 @@
     <div class="text-center d-flex vh-100" style="background-color: #f5f5f5;">
         <!-- Connexion form -->
         <form action="{{ path('security_login') }}" method="post" class="form-signin mx-auto w-100 p-3">
-            <img src="{{ asset('images/alma_lusa_logo.png') }}" height="100px" alt="Logo" class="mb-4">
+            <img src="{{ asset('images/almalusalogo.png') }}" height="100px" alt="Logo" class="mb-4">
             <h1 class="h3 mb-3" style="color: black;">Se connecter</h1>
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>

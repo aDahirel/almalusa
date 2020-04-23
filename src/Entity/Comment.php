@@ -50,7 +50,7 @@ class Comment
 
     public function setContent(string $content): self
     {
-        $this->content = $content;
+        $this->content = htmlspecialchars($content);
 
         return $this;
     }

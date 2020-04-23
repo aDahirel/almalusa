@@ -26,7 +26,7 @@ class Article
 
     /**
      * @var string|null
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $fileName;
 
@@ -42,7 +42,6 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=5, max=255, minMessage="Titre trop court")
      */
     private $title;
 
@@ -78,6 +77,7 @@ class Article
     {
         $this->comments = new ArrayCollection();
         $this->wordings = new ArrayCollection();
+        $this->fileName = "almalusalogo.png";
     }
 
     public function getId(): ?int
@@ -92,7 +92,7 @@ class Article
 
     public function setTitle(string $title): self
     {
-        $this->title = $title;
+        $this->title = htmlspecialchars($title);
 
         return $this;
     }
@@ -211,7 +211,9 @@ class Article
     {
         return $this->updated_at;
     }
-
+    /**
+     * @param  Date|null  $imageFile
+     */
     public function setUpdatedAt(?\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
