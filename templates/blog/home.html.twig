@@ -1,57 +1,71 @@
 {% extends "base.html.twig" %}
 {% block body %}
-    <header>
-        <link rel="stylesheet" href="{{ asset('css/home.css') }}">
-    </header>
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="display-4 font-weight-bold">
-                Bem vindo
-                {% if app.user %}
-                    {{ app.user.username }}
-                {% endif %}!
-            </h1>
-            <p class="lead">
-                Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a pour objectif
-                de promouvoir la langue portugaise et la culture lusophone à travers des activités culturelles
-                diversifiées : expositions, conférences, chant, voyages, etc.
-            </p>
-        </div>
-    </div>
-    <img src="{{ asset('images/algarve.jpg') }}" width="100%" alt="article_picture">
-    <div class="container">
-        <h2 class="py-5">Derniers articles :</h2>
-        {% for newArticle in newArticles %}
-            <article class="d-flex flex-column p-3">
-                <h3 class="mb-3">{{ newArticle.title }}</h3>
-                <img src="{{ vich_uploader_asset(newArticle, 'imageFile') }}" alt="" style="max-width: 250px"><br>
-                {% if newArticle.content | length > 200 ? newArticle.content %}
-                {% set contentSliced = newArticle.content | slice(0, 100) ~ ' ...' %}
-                <span> {{ contentSliced | raw }} </span>
-            {% else %}
-                <span> {{ newArticle.content | raw }} </span>
-                {% endif %}<br>
-                <!-- Article page button -->
-                <a href="{{ path('blog_show', {'id' : newArticle.id, 'slug': newArticle.slug }) }}"
-                   class="btn btn-secondary" style="width: 140px">Lire davantage</a>
-            </article>
-        {% endfor %}
-        <div class="container py-5">
-            <div class="row d-flex justify-content-between">
-                {% for article in articles|slice(0, 3) %}
-                    <div class="col-md-4 d-flex flex-column carte p-3">
-                        <img id="article_picture" src="{{ vich_uploader_asset(article, 'imageFile') }}">
-                        {{ article.title }}
-                        <p class="m-auto">
-                            <a class="btn btn-secondary"
-                               href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}"
-                               role="button">
-                                Lire davantage
-                            </a>
-                        </p>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
+	<header>
+		<link rel="stylesheet" href="{{ asset('css/home.css') }}">
+	</header>
+	<div class="jumbotron jumbotron-fluid">
+		<div class="container">
+			<h1 class="display-4 font-weight-bold">
+				Bem vindo
+				{% if app.user %}
+					{{ app.user.username }}
+				{% endif %}!
+			</h1>
+			<p class="lead">
+				Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a pour objectif
+								                de promouvoir la langue portugaise et la culture lusophone à travers des activités culturelles
+								                diversifiées : expositions, conférences, chant, voyages, etc.
+			</p>
+		</div>
+	</div>
+	<img src="{{ asset('images/algarve.jpg') }}" width="100%" alt="article_picture">
+	<div class="container" style="background-color: white;">
+		<h2 class="py-5">Derniers articles :</h2>
+		<div class="d-flex justify-content-between">
+			{% for newArticle in newArticles %}
+				<article class="d-flex flex-column justify-content-between p-3" style="height: 400px;">
+					<h3 class="mb-3">{{ newArticle.title }}</h3>
+					<img src="{{ vich_uploader_asset(newArticle, 'imageFile') }}" alt="" style="max-width: 250px">
+					<div>
+						{% if newArticle.content | length > 200 ? newArticle.content %}
+							{% set contentSliced = newArticle.content | slice(0, 100) ~ ' ...' %}
+							<span>
+								{{ contentSliced | raw }}
+							</span>
+						{% else %}
+							<span>
+								{{ newArticle.content | raw }}
+							</span>
+						{% endif %}
+					</div>
+					<!-- Article page button -->
+					<a href="{{ path('blog_show', {'id' : newArticle.id, 'slug': newArticle.slug }) }}" class="btn btn-secondary" style="width: 140px">Lire davantage</a>
+				</article>
+			{% endfor %}
+			<div class="p-3">
+				<h3>Info coronavirus :
+				</h3>
+				<ul class="list-unstyled">
+					<li>Ne pas tousser</li>
+					<li>Ne pas s'embrasser</li>
+					<li>Mais au final, il nous reste quoi ?</li>
+				</ul>
+			</div>
+		</div>
+		<div class="container py-5">
+			<div class="row d-flex justify-content-between">
+				{% for article in articles|slice(0, 3) %}
+					<div class="col-md-4 d-flex flex-column carte p-3">
+						<img id="article_picture" src="{{ vich_uploader_asset(article, 'imageFile') }}">
+						{{ article.title }}
+						<p class="m-auto">
+							<a class="btn btn-secondary" href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}" role="button">
+								Lire davantage
+							</a>
+						</p>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
     </div>
 {% endblock %}

@@ -215,4 +215,19 @@ class BlogController extends AbstractController
             'user' => $user
         ]);
     }
+
+    /**
+     * @Route("/blog/{slug}/{idarticle}/{id}/delete_comment", name="delete_comment", methods="DELETE")
+     */
+    public function delete_comment($slug, $idarticle, Comment $comment, Request $request, ManagerRegistry $managerRegistry)
+    {
+        $em = $managerRegistry->getManager();
+        $em->remove($comment);
+        $em->flush();
+        $this->addFlash('success', 'Vous avez bien supprimé ce commentaire');
+        return $this->redirectToRoute('blog_show', [
+            'slug' => $slug,
+            'id' => $idarticle
+        ]);
+    }
 }

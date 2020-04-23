@@ -2,72 +2,75 @@
 {% block title %}Mon profil{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1 class="mb-3">Bienvenue sur votre profil {{ user.username }} !</h1>
+	<div class="container">
+		<h1 class="mb-3">Bienvenue sur votre profil
+			{{ user.username }}
+			!</h1>
 
-        <div class="card bg-light mb-3">
-            <div class="card-header" style="font-size: 1.5rem">Vos informations</div>
-            <div class="card-body row">
-                <div class="col">
-                    <h3 class="card-title">Votre Nom :</h3>
-                    <p class="card-text">{{ user.username }}</p>
-                    <h3 class="card-title">Votre Mail :</h3>
-                    <p class="card-text">{{ user.email }}</p>
-                </div>
-                <div class="col">
-                    <h3 class="card-title">Votre photo de profil :</h3>
-                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#basicExampleModal">
-                        Voir l'image
-                    </button>
-                    <h3 class="card-title">Supprimer le compte :</h3>
-                    <a href=""><button class="btn btn-danger">
-                        Supprimer
-                    </button></a>
-                    
+		<div class="card bg-light mb-3">
+			<div class="card-header" style="font-size: 1.5rem">Vos informations</div>
+			<div class="card-body row">
+				<div class="col">
+					<h3 class="card-title">Votre Nom :</h3>
+					<p class="card-text">{{ user.username }}</p>
+					<h3 class="card-title">Votre Mail :</h3>
+					<p class="card-text">{{ user.email }}</p>
+				</div>
+				<div class="col">
+					<h3 class="card-title">Votre photo de profil :</h3>
+					<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#basicExampleModal">
+						Voir l'image
+					</button>
+					<h3 class="card-title">Supprimer le compte :</h3>
+					<a href="">
+						<form method="post" action="{{ path('delete_user', {'id': user.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+							<input type="hidden" name="_method" value="DELETE">
+							<button class="btn btn-danger">
+								Supprimer
+							</button>
+						</form>
+					</a>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog"
-                         aria-labelledby="exampleModalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Votre photo de profil</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="container" style="text-align: center">
-                                        <img class="my-auto" style="max-width: 50vw; max-height: 50vh"
-                                             src="{{ vich_uploader_asset(app.user, 'imageFile') }}"
-                                             alt="image utilisateur">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="d-flex">
-            <form method="post" class="pr-3">
-                <input type="hidden" name="user" id="userId" class="form-control" value="{{ user.email }}">
-                <button class="btn btn-lg btn-secondary mt-3 mb-3" type="submit">
-                    Modifier mon mot de passe
-                </button>
-            </form>
-            <form method="post">
-                <input type="hidden" name="user" id="userId" class="form-control" value="null">
-                <button class="btn btn-lg btn-secondary mt-3 mb-3" type="submit">
-                    Modifier mes données
-                </button>
-            </form>
-        </div>
-    </div>
-    <style>
-        footer{
-            display: none;
-        }
-    </style>
+
+					<!-- Modal -->
+					<div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Votre photo de profil</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<div class="container" style="text-align: center">
+										<img class="my-auto" style="max-width: 50vw; max-height: 50vh" src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="image utilisateur">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="d-flex">
+			<form method="post" class="pr-3">
+				<input type="hidden" name="user" id="userId" class="form-control" value="{{ user.email }}">
+				<button class="btn btn-lg btn-secondary mt-3 mb-3" type="submit">
+					Modifier mon mot de passe
+				</button>
+			</form>
+			<form method="post">
+				<input type="hidden" name="user" id="userId" class="form-control" value="null">
+				<button class="btn btn-lg btn-secondary mt-3 mb-3" type="submit">
+					Modifier mes informations
+				</button>
+			</form>
+		</div>
+	</div>
+	<style>
+		footer {
+			display: none;
+		}
+	</style>
 {% endblock %}
