@@ -3,14 +3,14 @@
 	<head>
 		<!-- Required meta tags -->
 		<!--
-		     _   U _____ u   _     _   _        U _____ u _____          _     __  __ U _____ u _
-		  U |"| u\| ___"|U  /"\  u| \ |"|       \| ___"|/|_ " _|     U  /"\  u \ \/"/ \| ___"|/|"|
-		 _ \| |/  |  _|"  \/ _ \/<|  \| |>       |  _|"    | |        \/ _ \/  /\  /\  |  _|"U | | u
-		| |_| |_,-| |___  / ___ \U| |\  |u       | |___   /| |\       / ___ \ U /  \ u | |___ \| |/__
-		 \___/-(_/|_____|/_/   \_\|_| \_|        |_____| u |_|U      /_/   \_\ /_/\_\  |_____| |_____|
-		  _//     <<   >> \\    >>||   \\,-.     <<   >> _// \\_      \\    >,-,>> \\_ <<   >> //  \\
-		 (__)    (__) (__(__)  (__(_")  (_/     (__) (__(__) (__)    (__)  (__\_)  (__(__) (__(_")("_)
-		  -->
+				     _   U _____ u   _     _   _        U _____ u _____          _     __  __ U _____ u _
+				  U |"| u\| ___"|U  /"\  u| \ |"|       \| ___"|/|_ " _|     U  /"\  u \ \/"/ \| ___"|/|"|
+				 _ \| |/  |  _|"  \/ _ \/<|  \| |>       |  _|"    | |        \/ _ \/  /\  /\  |  _|"U | | u
+				| |_| |_,-| |___  / ___ \U| |\  |u       | |___   /| |\       / ___ \ U /  \ u | |___ \| |/__
+				 \___/-(_/|_____|/_/   \_\|_| \_|        |_____| u |_|U      /_/   \_\ /_/\_\  |_____| |_____|
+				  _//     <<   >> \\    >>||   \\,-.     <<   >> _// \\_      \\    >,-,>> \\_ <<   >> //  \\
+				 (__)    (__) (__(__)  (__(_")  (_/     (__) (__(__) (__)    (__)  (__\_)  (__(__) (__(_")("_)
+				  -->
 
 		<meta charset="UTF-8"> <meta
 		name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -28,7 +28,7 @@
 		<link rel="icon" type="image/png" href="{{ asset('images/almalusaico.ico') }}"/> {% block stylesheets %}{% endblock %}
 		</head>
 		<body>
-			{% include 'blog/navbar.html.twig' %}
+			{% include 'modules/navbar.html.twig' %}
 
 			{% for message in app.flashes('success') %}
 				<div class="alert-success" style="position: absolute; width: 100%; padding: 0.75rem 1.25rem; border: 1px solid transparent; border-radius: 0.4rem;">
@@ -47,9 +47,9 @@
 			{% endfor %}
 
 			{% block body %}{% endblock %}
-			{% include 'blog/footer.html.twig' %}
+			{% include 'modules/footer.html.twig' %}
 			{% block javascripts %}{% endblock %}
-			
+
 			<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 			<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

@@ -48,7 +48,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('security_login');
         }
         // Return the inscription page
-        return $this->render('blog/registration.html.twig', [
+        return $this->render('primary/user/connexion/registration.html.twig', [
             'form' => $form->createview()
         ]);
     }
@@ -63,7 +63,7 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('blog/login.html.twig', [
+        return $this->render('primary/user/connexion/connexion.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error
         ]);
@@ -94,11 +94,11 @@ class SecurityController extends AbstractController
 
             // Return to the login page
 
-            $this->addFlash('success', 'Vous avez mis a jour votre profil !' );
+            $this->addFlash('success', 'Vous avez mis a jour votre profil !');
             return $this->redirectToRoute('security_login');
         }
 
-        return $this->render('user/user.html.twig', [
+        return $this->render('primary/user/user_modification.html.twig', [
             'user' => $user,
             'form' => $form->createview()
         ]);
@@ -123,7 +123,7 @@ class SecurityController extends AbstractController
         $session->invalidate();
         return $this->redirectToRoute('security_logout');
     }
-/*
+    /*
     /**
      * @Route("/forgotten_password", name="app_forgotten_password")
 
@@ -190,18 +190,16 @@ class SecurityController extends AbstractController
             }
 
             $user->setResetToken(null);
-            if ($request->request->get('password') === $request->request->get('password2')){
+            if ($request->request->get('password') === $request->request->get('password2')) {
                 $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
                 $entityManager->flush();
                 $this->addFlash('success', 'Mot de passe mis à jour');
-            }   
-            else{
-                return $this->render('admin/reset_password.html.twig', ['token' => $token]);
+            } else {
+                return $this->render('primary/user/password/reset_password.html.twig', ['token' => $token]);
             }
             return $this->redirectToRoute('home');
         } else {
-            return $this->render('admin/reset_password.html.twig', ['token' => $token]);
+            return $this->render('primary/user/password/reset_password.html.twig', ['token' => $token]);
         }
     }
-
 }

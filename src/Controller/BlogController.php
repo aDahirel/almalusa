@@ -37,7 +37,7 @@ class BlogController extends AbstractController
 
         $articles = $repo->findBy([], ['createdAt' => 'DESC'], 10, 1);
         // Return the home view with a title variable
-        return $this->render('blog/home.html.twig', [
+        return $this->render('primary/home.html.twig', [
             'articles' => $articles,
             'newArticles' => $newArticles
         ]);
@@ -66,7 +66,7 @@ class BlogController extends AbstractController
         $wordings = $repo->findAll();
 
         // Return the articles list view with the articles
-        return $this->render('blog/index.html.twig', [
+        return $this->render('primary/list.html.twig', [
             //'controller_name' => 'BlogController',
             'articles' => $articles,
             'wordings' => $wordings,
@@ -80,7 +80,7 @@ class BlogController extends AbstractController
     public function Subscription()
     {
         // Return the home view with a title variable
-        return $this->render('admin/subscription.html.twig', [
+        return $this->render('primary/membership.html.twig', [
             'title' => "Rejoignez-nous",
         ]);
     }
@@ -167,7 +167,7 @@ class BlogController extends AbstractController
         $article = $repo->find($id);
 
         //return the same page with a new comment
-        return $this->render('blog/show.html.twig', [
+        return $this->render('primary/article.html.twig', [
             'article' => $article,
             'commentForm' => $form->createView()
         ]);
@@ -218,7 +218,7 @@ class BlogController extends AbstractController
             }
         }
         $user = $this->getUser();
-        return $this->render('blog/profileManager.html.twig', [
+        return $this->render('primary/user/profile.html.twig', [
             'user' => $user
         ]);
     }
