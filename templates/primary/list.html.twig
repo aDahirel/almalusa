@@ -42,7 +42,7 @@
 				{% endfor %}
 			</div>
 			<div class="px-5">
-				{% include 'blog/search.html.twig' with {form: form} only %}
+				{% include 'primary/search/search.html.twig' with {form: form} only %}
 			</div>
 		</div>
 		<div class="btn-group">{{ knp_pagination_render(articles) }}</div>
