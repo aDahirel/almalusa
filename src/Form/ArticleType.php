@@ -29,7 +29,7 @@ class ArticleType extends AbstractType
                 'required' => false,
                 'config' => [
                     'uiColor' => "#e2e2e2",
-                    'toolbar' => 'full'
+                    'toolbar' => 'standard'
                 ]
             ])
             ->add('imageFile', FileType::class, [
