@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 	<!-- Articles section -->
-	<section class="container my-5 " style="background-color: white;">
-		<h2 class="py-4">Liste des articles :</h2>
+	<section class="container">
 		<!-- Display all the articles in database -->
 		<div class="d-flex justify-content-between">
 			<div class="flex-grow-1">
+				{% include 'primary/search/search.html.twig' with {form: form} only %}
 				{% for article in articles %}
-					<article class="d-flex" style="min-height: 76px; border-bottom: 1px solid rgb(244, 246, 249);">
+					<article class="d-flex px-3" style="min-height: 76px;">
 						{# {% if article.content | length > 200 ? article.content %}
 													{% set contentSliced = article.content | slice(0, 100) ~ ' ...' %}
 													<span>
@@ -19,14 +19,21 @@
 													</span>
 												{% endif %} #}
 						<div>
-							<p class="text-muted">{{ article.createdAt | date('d/m') }}</p>
 							<a class="article_title" href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}">
-								<p>{{ article.title }}</p>
+								<h3>{{ article.title }}</h3>
 							</a>
+							{% for wording in article.wordings %}
+							<li class="list-unstyled">
+								<a href="" style="color:#212529;">
+									<p>{{ wording.title }}</p>
+								</a>
+							</li>
+					{% endfor %}
+							<p class="text-muted">{{ article.createdAt | date('d/m/y') }}</p>
 						</div>
 						{% if article.fileName is not null %}
 						<div style="height: 70; width: 125; margin-left: auto;">
-							<img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="article picture" height="70px" width="125">
+							<img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="article picture" height="auto" width="200">
 						</div>
 						{% endif %}
 						{# <div>
@@ -39,10 +46,8 @@
 							{% endfor %}
 						</div> #}
 					</article>
+					<hr>
 				{% endfor %}
-			</div>
-			<div class="px-5">
-				{% include 'primary/search/search.html.twig' with {form: form} only %}
 			</div>
 		</div>
 		<div class="btn-group">{{ knp_pagination_render(articles) }}</div>

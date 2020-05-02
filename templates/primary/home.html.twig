@@ -13,8 +13,8 @@
 			</h1>
 			<p class="lead">
 				Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a pour objectif
-								                de promouvoir la langue portugaise et la culture lusophone à travers des activités culturelles
-								                diversifiées : expositions, conférences, chant, voyages, etc.
+																												                de promouvoir la langue portugaise et la culture lusophone à travers des activités culturelles
+																												                diversifiées : expositions, conférences, chant, voyages, etc.
 			</p>
 		</div>
 	</div>
@@ -23,96 +23,72 @@
 		<h2 class="py-3">Derniers articles :</h2>
 
 		<style>
-			.wrapper{
+			.wrapper {
 				display: grid;
 				grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
 				grid-auto-rows: minmax(100px, auto);
 			}
-			.one{
+			.wrapper2 {
+				display: grid;
+				grid-template-columns: 1fr 1fr 1fr;
+				grid-gap: 2em;
+			}
+			.one {
 				grid-row: 1 / 6;
 				grid-column: 1 / 4;
+				width: 650px;
+				height: auto;
 			}
-			.two{
+			.two {
 				padding: 20px;
 				background-color: white;
 				grid-row: 2;
 				grid-column: 3 / 5;
+				width: 370;
+			}
+			#picture_link:hover{
+				opacity: 0.7;
 			}
 		</style>
 		{% for newArticle in newArticles %}
-		<div class="wrapper">
+			<div class="wrapper">
 				<img class="one" width="100%" height="100%" src="{{ vich_uploader_asset(newArticle, 'imageFile') }}" alt="article picture">
-			<div class="two">
-				<h4>{{ newArticle.title }}</h4>
-				<p>{{ newArticle.createdAt | date('d/m') }}</p>
-				{% for wording in newArticle.wordings %}
-				<li class="list-unstyled">
-					<a href="" style="color:#212529;">
-						<div >
-							<p>{{ wording.title }}</p>
-						</div>
-					</a>
-				</li>
-			{% endfor %}
-				<a href="{{ path('blog_show', {'id' : newArticle.id, 'slug': newArticle.slug }) }}" class="btn btn-secondary" style="width: 140px">Lire davantage</a>
+				<div class="two">
+					<h4>{{ newArticle.title }}</h4>
+					<p>{{ newArticle.createdAt | date('d/m') }}</p>
+					{% for wording in newArticle.wordings %}
+						<li class="list-unstyled">
+							<a href="" style="color:#212529;">
+								<div>
+									{{ wording.title }}
+								</div>
+							</a>
+						</li>
+					{% endfor %}
+					<a href="{{ path('blog_show', {'id' : newArticle.id, 'slug': newArticle.slug }) }}" class="btn btn-secondary" style="width: 140px">Lire davantage</a>
+				</div>
 			</div>
-		</div>
-		
 		{% endfor %}
 
-
-
-
-
-
-
-
-
-		{# <div class="d-flex justify-content-between">
-			{% for newArticle in newArticles %}
-				<article class="d-flex flex-column justify-content-between p-3" style="height: 400px;">
-					<h3 class="mb-3">{{ newArticle.title }}</h3>
-					<img src="{{ vich_uploader_asset(newArticle, 'imageFile') }}" alt="article picture" style="max-width: 250px">
-					<div>
-						{% if newArticle.content | length > 200 ? newArticle.content %}
-							{% set contentSliced = newArticle.content | slice(0, 100) ~ ' ...' %}
-							<span>
-								{{ contentSliced | raw }}
-							</span>
-						{% else %}
-							<span>
-								{{ newArticle.content | raw }}
-							</span>
-						{% endif %}
-					</div>
-					<!-- Article page button -->
-					<a href="{{ path('blog_show', {'id' : newArticle.id, 'slug': newArticle.slug }) }}" class="btn btn-secondary" style="width: 140px">Lire davantage</a>
-				</article>
-			{% endfor %}
-			<div class="p-3">
-				<h3>Info coronavirus :
-				</h3>
-				<ul class="list-unstyled">
-					<li>Ne pas tousser</li>
-					<li>Ne pas s'embrasser</li>
-					<li>Mais au final, il nous reste quoi ?</li>
-				</ul>
-			</div>
-		</div>
-		<div class="container py-5">
-			<div class="row d-flex justify-content-between">
-				{% for article in articles|slice(0, 3) %}
-					<div class="col-md-4 d-flex flex-column carte p-3">
-						<img id="article_picture" src="{{ vich_uploader_asset(article, 'imageFile') }}">
-						{{ article.title }}
-						<p class="m-auto">
-							<a class="btn btn-secondary" href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}" role="button">
-								Lire davantage
+		<div class="wrapper2">
+			{% for article in articles|slice(0, 9) %}
+				<div>
+					<a href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}">
+						<div id="picture_link" width="365px" height="300px" >
+							<img width="365px" max-height="300px" src="{{ vich_uploader_asset(article, 'imageFile') }}">
+						</div>
+					</a>
+					{% for wording in article.wordings %}
+						<li class="list-unstyled">
+							<a href="" style="color:#212529;">
+								<p>{{ wording.title }}</p>
 							</a>
-						</p>
-					</div>
-				{% endfor %}
-			</div>
-		</div> #}
-    </div>
+						</li>
+					{% endfor %}
+					<p>{{ article.title }}</p>
+					<p>{{ article.createdAt | date('d/m') }}</p>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}
