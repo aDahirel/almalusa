@@ -1,113 +1,63 @@
 {% extends "base.html.twig" %}
 {% block body %}
-
-	<style>
-		.wrapper {
-			display: grid;
-			grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-			grid-auto-rows: minmax(100px, auto);
-		}
-		.one {
-			grid-row: 1 / 6;
-			grid-column: 1 / 4;
-			width: 650px;
-			height: auto;
-		}
-		.two {
-			padding: 20px;
-			background-color: white;
-			grid-row: 2;
-			grid-column: 3 / 5;
-			width: 370;
-		}
-		#picture_link:hover {
-			opacity: 0.7;
-		}
-		@media screen and(max-width: 992px) {
-			.two {
-				grid-column: 4 / 6;
-			}
-		}
-		.wrapper3 {
-			display: grid;
-			grid-template-columns: repeat(5, 1fr);
-		}
-		#main_picture {
-			grid-row: 2 / 6;
-			grid-column: 1 / 6;
-			z-index: 1;
-		}
-		.first {
-			z-index: 2;
-			grid-row: 1 / 3;
-			grid-column: 2 / 5;
-			padding: 20px;
-			background-color: white;
-		}
-	</style>
 	<header>
 		<link rel="stylesheet" href="{{ asset('css/home.css') }}">
 	</header>
-	<div class="wrapper3">
-		<div class="first">
-			<div>
-				<h1 class="display-4 font-weight-bold">
-					Bem vindo
-					{% if app.user %}
-						{{ app.user.username }}
-					{% endif %}!
-				</h1>
-				<p class="lead">
-					Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a pour objectif
-																																						                de promouvoir la langue portugaise et la culture lusophone à travers des activités culturelles
-																																						                diversifiées : expositions, conférences, chant, voyages, etc.
-				</p>
+	<div id="reception">
+		<div id="welcome_message">
+			<h1 class="display-4 font-weight-bold">
+				Bem vindo !
+			</h1>
+			<p class="lead">
+				Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a pour objectif																																														                diversifiées : expositions, conférences, chant, voyages, etc.
+			</p>
+		</div>
+		<img id="welcome_picture" src="{{ asset('images/algarve.jpg') }}" alt="Photo de bienvenue">
+	</div>
+	<div class="container">
+		<h2 class="py-5 text-uppercase">Nos derniers articles :</h2>
+		{% for newArticle in newArticles %}
+			<div class="article">
+				<img class="article_image" src="{{ vich_uploader_asset(newArticle, 'imageFile') }}" alt="Photo de l'article">
+				<div class="article_container">
+					<span class="badge badge-success float-right">Nouveau</span>
+					<a href="">
+						<h4>{{ newArticle.title }}</h4>
+					</a>
+					<p>{{ newArticle.createdAt | date('d/m') }}</p>
+					<li class="list-unstyled d-flex flex-wrap"></li>
+					{% for wording in newArticle.wordings %}
+						<a href="#" class="wording_link mr-1">
+							{{ wording.title }}
+						</a>
+					{% endfor %}
+				</li>
 			</div>
 		</div>
-		<img id="main_picture" src="{{ asset('images/algarve.jpg') }}" width="100%" alt="article_picture">
-	</div>
-	<div class="container my-5">
-		<h2 class="py-3">Derniers articles :</h2>
-		{% for newArticle in newArticles %}
-			<div class="wrapper">
-				<img class="one" width="100%" height="100%" src="{{ vich_uploader_asset(newArticle, 'imageFile') }}" alt="article picture">
-				<div class="two">
-					<h4>{{ newArticle.title }}</h4>
-					<p>{{ newArticle.createdAt | date('d/m') }}</p>
-					{% for wording in newArticle.wordings %}
-						<li class="list-unstyled">
-							<a href="" style="color:#212529;">
-								<div>
-									{{ wording.title }}
-								</div>
+	{% endfor %}
+	<div class="d-flex flex-wrap justify-content-between align-content-between">
+		{% for article in articles|slice(0, 9) %}
+			<div class="mb-3">
+				<a href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}">
+					<div id="image_container">
+						<img id="article_picture" src="{{ vich_uploader_asset(article, 'imageFile') }}">
+					</div>
+				</a>
+				<div class="d-flex flex-column justify-content-between" style="width: 350px; height: 150px;">
+					<span style="min-height: 54px;">{{ article.title }}</span>
+					<li class="list-unstyled d-flex flex-wrap">
+						{% for wording in article.wordings %}
+							<a href="#" class="wording_link mr-1">
+								{{ wording.title }}
 							</a>
-						</li>
-					{% endfor %}
-					<a href="{{ path('blog_show', {'id' : newArticle.id, 'slug': newArticle.slug }) }}" class="btn btn-secondary" style="width: 140px">Lire davantage</a>
+						{% endfor %}
+					</li>
+					<p>{{ article.createdAt | date('d/m') }}</p>
 				</div>
 			</div>
 		{% endfor %}
-		<div class="d-flex flex-wrap justify-content-between align-content-between" style="min-height: 1000px;">
-			{% for article in articles|slice(0, 9) %}
-				<div>
-					<a href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}">
-						<div id="picture_link" max-width="300px" height="300px">
-							<img width="300px" max-height="300px" src="{{ vich_uploader_asset(article, 'imageFile') }}">
-						</div>
-					</a>
-					<div style="width: 300px;">
-						{% for wording in article.wordings %}
-							<li class="list-unstyled">
-								<a href="" style="color:#212529;">
-									<p>{{ wording.title }}</p>
-								</a>
-							</li>
-						{% endfor %}
-						<p>{{ article.title }}</p>
-						<p>{{ article.createdAt | date('d/m') }}</p>
-					</div>
-				</div>
-			{% endfor %}
-		</div>
 	</div>
-{% endblock %}
+	<a href="{{ path('blog') }}" style="float: right;">
+		<p class="text-uppercase p-2 text-dark" style="border: solid black 1px;">Tous les articles -></p>
+	</a>
+</div><br><br><br><br>{% endblock %}

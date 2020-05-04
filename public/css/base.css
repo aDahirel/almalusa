@@ -1,8 +1,14 @@
+@font-face {
+    font-family: 'MadeTommy';
+    src: url("fonts/made_tommy/MADE_TOMMY_Regular_PERSONAL_USE.otf") format('opentype');
+}
+
 html, body
 {
     height: 100%;
     margin: 0;
     padding: 0;
+    font-family: "MadeTommy";
 }
 
 body{
