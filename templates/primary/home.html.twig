@@ -25,39 +25,42 @@
 						<h4>{{ newArticle.title }}</h4>
 					</a>
 					<p>{{ newArticle.createdAt | date('d/m') }}</p>
-					<li class="list-unstyled d-flex flex-wrap"></li>
-					{% for wording in newArticle.wordings %}
-						<a href="#" class="wording_link mr-1">
-							{{ wording.title }}
-						</a>
-					{% endfor %}
-				</li>
-			</div>
-		</div>
-	{% endfor %}
-	<div class="d-flex flex-wrap justify-content-between align-content-between">
-		{% for article in articles|slice(0, 9) %}
-			<div class="mb-3">
-				<a href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}">
-					<div id="image_container">
-						<img id="article_picture" src="{{ vich_uploader_asset(article, 'imageFile') }}">
-					</div>
-				</a>
-				<div class="d-flex flex-column justify-content-between" style="width: 350px; height: 150px;">
-					<span style="min-height: 54px;">{{ article.title }}</span>
 					<li class="list-unstyled d-flex flex-wrap">
-						{% for wording in article.wordings %}
+						{% for wording in newArticle.wordings %}
+
 							<a href="#" class="wording_link mr-1">
 								{{ wording.title }}
 							</a>
+
 						{% endfor %}
 					</li>
-					<p>{{ article.createdAt | date('d/m') }}</p>
 				</div>
 			</div>
 		{% endfor %}
-	</div>
-	<a href="{{ path('blog') }}" style="float: right;">
-		<p class="text-uppercase p-2 text-dark" style="border: solid black 1px;">Tous les articles -></p>
-	</a>
-</div><br><br><br><br>{% endblock %}
+		<div class="d-flex flex-wrap justify-content-between align-content-between">
+			{% for article in articles|slice(0, 9) %}
+				<div class="mb-3">
+					<a href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}">
+						<div id="image_container">
+							<img id="article_picture" src="{{ vich_uploader_asset(article, 'imageFile') }}">
+						</div>
+					</a>
+					<div class="d-flex flex-column justify-content-between" style="width: 350px; height: 150px;">
+						<span style="min-height: 54px;">{{ article.title }}</span>
+						<li class="list-unstyled d-flex flex-wrap">
+							{% for wording in article.wordings %}
+								<a href="#" class="wording_link mr-1">
+									{{ wording.title }}
+								</a>
+							{% endfor %}
+						</li>
+						<p>{{ article.createdAt | date('d/m') }}</p>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		<a href="{{ path('blog') }}" style="float: right;">
+			<p class="text-uppercase p-2 text-dark" style="border: solid black 1px;">Tous les articles -></p>
+		</a>
+	</div><br><br><br><br>
+{% endblock %}

@@ -17,10 +17,7 @@ class SearchType extends AbstractType
         $builder
             ->add('q', TextType::class, [
                 'label' => false,
-                'required' => false,
-                'attr' => [
-                    'placeholder' => 'Rechercher'
-                ]
+                'required' => false
             ])
             ->add('wordings', EntityType::class, [
                 'label' => false,

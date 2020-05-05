@@ -169,7 +169,7 @@ class BlogController extends AbstractController
         $article = $repo->find($id);
 
         //return the same page with a new comment
-        return $this->render('primary/article.html.twig', [
+        return $this->render('primary/article/article.html.twig', [
             'article' => $article,
             'commentForm' => $form->createView()
         ]);
