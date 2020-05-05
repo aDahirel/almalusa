@@ -3,69 +3,64 @@
 	<header>
 		<link rel="stylesheet" href="{{ asset('css/home.css') }}">
 	</header>
-	<div class="jumbotron jumbotron-fluid">
-		<div class="container">
+	<div id="reception">
+		<div id="welcome_message">
 			<h1 class="display-4 font-weight-bold">
-				Bem vindo
-				{% if app.user %}
-					{{ app.user.username }}
-				{% endif %}!
+				Bem vindo !
 			</h1>
 			<p class="lead">
-				Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a pour objectif
-								                de promouvoir la langue portugaise et la culture lusophone à travers des activités culturelles
-								                diversifiées : expositions, conférences, chant, voyages, etc.
+				Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a pour objectif																																														                diversifiées : expositions, conférences, chant, voyages, etc.
 			</p>
 		</div>
+		<img id="welcome_picture" src="{{ asset('images/algarve.jpg') }}" alt="Photo de bienvenue">
 	</div>
-	<img src="{{ asset('images/algarve.jpg') }}" width="100%" alt="article_picture">
-	<div class="container my-5" style="background-color: white;">
-		<h2 class="py-3">Derniers articles :</h2>
-		<div class="d-flex justify-content-between">
-			{% for newArticle in newArticles %}
-				<article class="d-flex flex-column justify-content-between p-3" style="height: 400px;">
-					<h3 class="mb-3">{{ newArticle.title }}</h3>
-					<img src="{{ vich_uploader_asset(newArticle, 'imageFile') }}" alt="article picture" style="max-width: 250px">
-					<div>
-						{% if newArticle.content | length > 200 ? newArticle.content %}
-							{% set contentSliced = newArticle.content | slice(0, 100) ~ ' ...' %}
-							<span>
-								{{ contentSliced | raw }}
-							</span>
-						{% else %}
-							<span>
-								{{ newArticle.content | raw }}
-							</span>
-						{% endif %}
-					</div>
-					<!-- Article page button -->
-					<a href="{{ path('blog_show', {'id' : newArticle.id, 'slug': newArticle.slug }) }}" class="btn btn-secondary" style="width: 140px">Lire davantage</a>
-				</article>
-			{% endfor %}
-			<div class="p-3">
-				<h3>Info coronavirus :
-				</h3>
-				<ul class="list-unstyled">
-					<li>Ne pas tousser</li>
-					<li>Ne pas s'embrasser</li>
-					<li>Mais au final, il nous reste quoi ?</li>
-				</ul>
-			</div>
-		</div>
-		<div class="container py-5">
-			<div class="row d-flex justify-content-between">
-				{% for article in articles|slice(0, 3) %}
-					<div class="col-md-4 d-flex flex-column carte p-3">
-						<img id="article_picture" src="{{ vich_uploader_asset(article, 'imageFile') }}">
-						{{ article.title }}
-						<p class="m-auto">
-							<a class="btn btn-secondary" href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}" role="button">
-								Lire davantage
+	<div class="container">
+		<h2 class="py-5 text-uppercase">Nos derniers articles :</h2>
+		{% for newArticle in newArticles %}
+			<div class="article">
+				<img class="article_image" src="{{ vich_uploader_asset(newArticle, 'imageFile') }}" alt="Photo de l'article">
+				<div class="article_container">
+					<span class="badge badge-success float-right">Nouveau</span>
+					<a href="">
+						<h4>{{ newArticle.title }}</h4>
+					</a>
+					<p>{{ newArticle.createdAt | date('d/m') }}</p>
+					<li class="list-unstyled d-flex flex-wrap">
+						{% for wording in newArticle.wordings %}
+
+							<a href="#" class="wording_link mr-1">
+								{{ wording.title }}
 							</a>
-						</p>
-					</div>
-				{% endfor %}
+
+						{% endfor %}
+					</li>
+				</div>
 			</div>
+		{% endfor %}
+		<div class="d-flex flex-wrap justify-content-between align-content-between">
+			{% for article in articles|slice(0, 9) %}
+				<div class="mb-3">
+					<a href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}">
+						<div id="image_container">
+							<img id="article_picture" src="{{ vich_uploader_asset(article, 'imageFile') }}">
+						</div>
+					</a>
+					<div class="d-flex flex-column justify-content-between" style="width: 350px; height: 150px;">
+						<span style="min-height: 54px;">{{ article.title }}</span>
+						<li class="list-unstyled d-flex flex-wrap">
+							{% for wording in article.wordings %}
+								<a href="#" class="wording_link mr-1">
+									{{ wording.title }}
+								</a>
+							{% endfor %}
+						</li>
+						<p>{{ article.createdAt | date('d/m') }}</p>
+					</div>
+				</div>
+			{% endfor %}
 		</div>
-    </div>
+		<a href="{{ path('blog') }}" style="float: right;">
+			<p class="text-uppercase p-2 text-dark" style="border: solid black 1px;">Tous les articles -></p>
+		</a>
+	</div><br><br><br><br>
 {% endblock %}

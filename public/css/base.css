@@ -1,39 +1,16 @@
+@font-face {
+    font-family: 'MadeTommy';
+    src: url("fonts/made_tommy/MADE_TOMMY_Regular_PERSONAL_USE.otf") format('opentype');
+}
+
 html, body
 {
     height: 100%;
     margin: 0;
     padding: 0;
+    font-family: "MadeTommy";
 }
 
 body{
     background-color: #f5f5f5;
-}
-/* FOOTER */
-
-.footer-a {
-    color: rgba(255, 255, 255, 0.6);
-}
-
-.footer-a:hover {
-    color: #FFFFFF;
-    text-decoration: none;
-}
-
-.footer-tittle {
-    color: #FFFFFF;
-}
-
-.footer-p {
-    color: #FFFFFF;
-}
-
-.flex-input{
-    display: flex;
-    justify-content: center;
-}
-
-@media (min-width: 768px) {
-    .flex-input {
-        justify-content: left;
-    }
 }

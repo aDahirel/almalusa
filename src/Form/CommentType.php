@@ -7,7 +7,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\CallbackTransformer;
 
 class CommentType extends AbstractType
 {
@@ -15,7 +14,7 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('content', TextType::class)
-        ;
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

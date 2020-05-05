@@ -15,7 +15,9 @@ use App\Form\ArticleType;
 use App\Form\CommentType;
 use App\Form\SearchType;
 use App\Repository\ArticleRepository;
+use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -167,7 +169,7 @@ class BlogController extends AbstractController
         $article = $repo->find($id);
 
         //return the same page with a new comment
-        return $this->render('primary/article.html.twig', [
+        return $this->render('primary/article/article.html.twig', [
             'article' => $article,
             'commentForm' => $form->createView()
         ]);
@@ -198,7 +200,7 @@ class BlogController extends AbstractController
             } else {
                 $email = $request->request->get('user');
                 $entityManager = $this->getDoctrine()->getManager();
-                $user = $entityManager->getRepository(User::class)->findOneByEmail($email);
+                $user = $entityManager->getRepository(User::class)->findOneBy($email);
 
                 if ($user === null) {
                     $this->addFlash('danger', 'Email Inconnu'); // notice doesnt work

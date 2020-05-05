@@ -25,6 +25,7 @@
         "symfony/monolog-bundle": "^3.1",
         "symfony/notifier": "5.0.*",
         "symfony/orm-pack": "*",
+        "symfony/phpunit-bridge": "^5.0",
         "symfony/process": "5.0.*",
         "symfony/security-bundle": "5.0.7",
         "symfony/security-http": "5.0.*",
