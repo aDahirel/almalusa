@@ -2,9 +2,9 @@
 	<section
 		class="container">
 		<!-- Display the amount of comments -->
-		<h1>
+		<h2>
 			Commentaires ({{ article.comments | length }}) :
-		</h1>
+		</h2><hr>
 		<!-- Display the comments -->
 		{% for comment in article.comments %}
 			<div class="media border p-3">
@@ -37,8 +37,7 @@
 			{{ form_end(commentForm) }}
 			<!-- Else display a connexion button -->
 		{% else %}
-			<h2>Se connecter pour commenter</h2>
-			<a href="{{ path('security_login') }}" class="btn btn-secondary mb-5">Connexion</a>
+			<h3><a href="{{ path('security_login') }}" style="color: grey;">Se connecter</a> pour commenter</h3>
 		{% endif %}
 	</section>
 {% endblock %}

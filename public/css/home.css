@@ -12,6 +12,20 @@ a:hover{
     color:#212529;
     text-decoration: none;
 }
+
+nav > a > img{
+    width: 75px;
+    transition-duration:  0.3s;
+}
+nav > a > img:hover{
+    width: 85px;
+}
+
+nav{
+    background-color: #f5f5f5;
+    font-size: 1.25rem;
+}
+
 .wording_link{
     border: solid 1px black;
     padding: 5px;
@@ -52,6 +66,17 @@ a:hover{
     grid-column: 1 / 6;
     z-index: 1;
     width: 100%;
+}
+
+.list_button{
+    float: right;
+    border: solid black 1px;
+    transition-duration: 0.3s;
+}
+.list_button:hover{
+    background-color: black;
+    color: #f5f5f5;
+    cursor: pointer;
 }
 
 .article {
