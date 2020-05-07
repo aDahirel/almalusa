@@ -14,3 +14,25 @@ html, body
 body{
     background-color: #f5f5f5;
 }
+
+/** Pagination style */
+
+.page-link{
+    border: none;
+    background-color: transparent;
+    color: black;
+}
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: transparent;
+}
+.page-item.active .page-link {
+    background-color: transparent;
+    color: black;
+    font-size: 1.5rem;
+}
+
+.page-item.disabled .page-link {
+    background-color: transparent;
+}
