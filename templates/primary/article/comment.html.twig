@@ -37,7 +37,7 @@
 			{{ form_end(commentForm) }}
 			<!-- Else display a connexion button -->
 		{% else %}
-			<h3><a href="{{ path('security_login') }}" style="color: grey;">Se connecter</a> pour commenter</h3>
+			<h3 class="py-5"><a href="{{ path('security_login') }}" style="color: grey;">Se connecter</a> pour commenter</h3>
 		{% endif %}
 	</section>
 {% endblock %}

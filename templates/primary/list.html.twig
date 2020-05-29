@@ -4,14 +4,13 @@
 		<link rel="stylesheet" href="{{ asset('css/list.css') }}">
 	</header>
 	<!-- Articles section -->
-	<section
-		class="container">
+	<section class="container js-filter">
 		<!-- Display all the articles in database -->
 		<div class="d-flex justify-content-between">
 			<div class="flex-grow-1">
 				{% include 'primary/search/search.html.twig' with {form: form} only %}
 				{% for article in articles %}
-					<article class="d-flex px-3" style="min-height: 76px;">
+					<article class="d-flex px-3 js-filter-article" style="min-height: 76px;">
 						<div class="d-flex flex-column justify-content-between">
 							<a class="article_title text-uppercase" href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}">
 								<h3>{{ article.title }}</h3>
@@ -19,7 +18,7 @@
 
 							<li class="list-unstyled d-flex flex-wrap">
 								{% for wording in article.wordings %}
-									<a href="#" class="wording_link mr-1">
+									<a href="" class="wording_link mr-1">
 										{{ wording.title }}
 									</a>
 								{% endfor %}
@@ -38,7 +37,7 @@
 				{% endfor %}
 			</div>
 		</div>
-		<div class="btn-group">{{ knp_pagination_render(articles) }}</div>
+		<div class="btn-group js-filter-pagination">{{ knp_pagination_render(articles) }}</div>
 	</section>
 	<!-- / Articles section -->
 {% endblock %}

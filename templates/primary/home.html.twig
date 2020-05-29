@@ -28,7 +28,7 @@
 					<li class="list-unstyled d-flex flex-wrap">
 						{% for wording in newArticle.wordings %}
 
-							<a href="#" class="wording_link mr-1">
+							<a href="{{ path('blog') }}" class="wording_link mr-1">
 								{{ wording.title }}
 							</a>
 
@@ -49,7 +49,7 @@
 						<span style="min-height: 54px;">{{ article.title }}</span>
 						<li class="list-unstyled d-flex flex-wrap">
 							{% for wording in article.wordings %}
-								<a href="#" class="wording_link mr-1">
+								<a href="{{ path('blog') }}" class="wording_link mr-1">
 									{{ wording.title }}
 								</a>
 							{% endfor %}
