@@ -14,10 +14,6 @@ a:hover{
 }
 
 nav > a > img{
-    width: 75px;
-    transition-duration:  0.3s;
-}
-nav > a > img:hover{
     width: 85px;
 }
 

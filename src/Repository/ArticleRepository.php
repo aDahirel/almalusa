@@ -22,6 +22,7 @@ class ArticleRepository extends ServiceEntityRepository
     }
 
     /**
+     * Get the articles related to the search
      * @return Article[]
      */
     public function findSearch(SearchData $search): array

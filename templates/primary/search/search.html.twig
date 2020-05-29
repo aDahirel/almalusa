@@ -6,7 +6,7 @@
 		background-color: white;
 	}
 </style>
-<div id="search" class="p-3 d-flex mb-5">
+<div id="search" class="p-3 d-flex mb-5  js-filter-form">
 	{{ form_start(form) }}
 	<div class="d-flex justify-content-between">
 		<div>
@@ -20,11 +20,11 @@
 	</div>
 	<div class="d-flex">
 		<button type="submit" class="btn btn-secondary mr-3">Filtrer</button>
-		<a href="{{ 'blog' }}">
+		<!-- <a href="">
 			<button class="btn btn-danger">
 				Réinitialiser
 			</button>
-		</a>
+		</a> -->
 	</div>
 
 	{{ form_end(form) }}

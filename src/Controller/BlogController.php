@@ -200,7 +200,7 @@ class BlogController extends AbstractController
             } else {
                 $email = $request->request->get('user');
                 $entityManager = $this->getDoctrine()->getManager();
-                $user = $entityManager->getRepository(User::class)->findOneBy($email);
+                $user = $entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
 
                 if ($user === null) {
                     $this->addFlash('danger', 'Email Inconnu'); // notice doesnt work

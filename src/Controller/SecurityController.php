@@ -184,7 +184,7 @@ class SecurityController extends AbstractController
             $user = $entityManager->getRepository(User::class)->findOneByResetToken($token);
             /* @var $user User */
 
-            if ($user === null) {
+            if ($user === null) {   
                 $this->addFlash('danger', 'Token Inconnu');
                 return $this->redirectToRoute('home');
             }
