@@ -45,7 +45,7 @@
 							<img id="article_picture" src="{{ vich_uploader_asset(article, 'imageFile') }}">
 						</div>
 					</a>
-					<div class="d-flex flex-column justify-content-between" style="width: 350px; height: 150px;">
+					<div class="article_card d-flex flex-column justify-content-between">
 						<span style="min-height: 54px;">{{ article.title }}</span>
 						<li class="list-unstyled d-flex flex-wrap">
 							{% for wording in article.wordings %}

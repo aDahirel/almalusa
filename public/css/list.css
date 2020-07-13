@@ -37,7 +37,6 @@ a:hover {
     transition-duration: 0.3s;
 }
 
-.wording_link:hover {
-    background-color: black;
-    color: white;
+.wording_link:hover{
+    cursor: default;
 }

@@ -13,11 +13,8 @@
 		<!-- Article picture -->
 		{% if article.content | length > 200 ? article.content %}
 		<div class="d-flex">
-			<div id="image_container">
-				<img id="article_picture" src="{{ vich_uploader_asset(article, 'imageFile') }}">
-			</div>
 			<!-- Article content -->
-			<span class="p-3">{{ article.content | raw }}</span>
+			<span>{{ article.content | raw }}</span>
 		{% else %}
 		<div>
 			<div id="image_container" style="width: auto;">

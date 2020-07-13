@@ -29,8 +29,7 @@ nav{
 }
 
 .wording_link:hover{
-    background-color: black;
-    color: white;
+    cursor: default;
 }
 
 #welcome_message {
@@ -112,8 +111,22 @@ nav{
     width: 350px;
 }
 
-@media screen and(max-width: 992px) {
-    .article_container {
-        grid-column: 4 / 6;
-    }
+.article_card{
+    width: 350px; 
+    height: 150px;
 }
+
+/* RESPONSIVE */
+
+@media screen and (min-width: 993px) and (max-width: 1999px) {
+    #image_container{
+        height: 200px;
+        width: 200px;
+    }
+  }
+
+@media screen and (max-width: 992px) {
+    .article_image{
+        width: 450px;
+    }
+  }

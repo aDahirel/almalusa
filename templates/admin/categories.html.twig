@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+{% block title %}Modifer les catégories{% endblock %}
+{% block body %}
+    <h2 class="text-center my-3">Gestion des catégories</h2>
+    <div style="border: solid grey; background-color: white; max-width: 250px; margin: auto;">
+        <ul style="list-style-type: none; font-size: 28px;">
+            {% for wording in wordings %}
+            <li class="text-left">
+                {{ wording.title }}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <style>
+        footer{
+            display: none;
+        }
+    </style>
+{% endblock %}
