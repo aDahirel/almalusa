@@ -15,6 +15,24 @@ body{
     background-color: #f5f5f5;
 }
 
+a{
+    color:#212529;
+}
+
+a:hover{
+    color:#212529;
+    text-decoration: none;
+}
+
+nav > a > img{
+    width: 85px;
+}
+
+nav{
+    background-color: #f5f5f5;
+    font-size: 1.25rem;
+}
+
 /** Pagination style */
 
 .page-link{
