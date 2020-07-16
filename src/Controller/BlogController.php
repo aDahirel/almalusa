@@ -239,4 +239,18 @@ class BlogController extends AbstractController
             'id' => $idarticle
         ]);
     }
+
+    /**
+     * @Route("/admin/category", name="category_edit", methods="GET|POST")
+     *
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function category_edit(){
+
+        $repo = $this->getDoctrine()->getRepository(Wording::class);
+        $wordings = $repo->findAll();
+        return $this->render('admin/categories.html.twig', [
+            'wordings' => $wordings
+        ]);
+    }
 }

@@ -18,3 +18,8 @@
     color: #FFFFFF;
 }
 
+@media screen and (max-width: 992px) {
+    .description-footer{
+        border: solid red;
+    }
+}
