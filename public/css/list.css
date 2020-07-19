@@ -54,4 +54,7 @@ a:hover {
     .page-link{
         font-size: 0.6rem;
     }
+    .search-container{
+        flex-direction: column;
+    }
 }
