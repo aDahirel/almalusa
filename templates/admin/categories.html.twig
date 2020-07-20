@@ -2,15 +2,23 @@
 {% block title %}Modifer les catégories{% endblock %}
 {% block body %}
     <h2 class="text-center my-3">Gestion des catégories</h2>
-    <div style="border: solid grey; background-color: white; max-width: 250px; margin: auto;">
+    <div>
         <ul style="list-style-type: none; font-size: 28px;">
             {% for wording in wordings %}
             <li class="text-left">
                 {{ wording.title }}
+                <form method="post" action="{{ path('delete_categorie', {'id': wording.id}) }}" style="display: inline-block;" 
+                onsubmit="return confirm('Êtes-vous vraiment sûr ? Supprimer cette catégorie supprimera les articles associés')">
+					<input type="hidden" name="_method" value="DELETE">
+                    <button class="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </form>
             </li>
             {% endfor %}
         </ul>
     </div>
+   
     <style>
         footer{
             display: none;

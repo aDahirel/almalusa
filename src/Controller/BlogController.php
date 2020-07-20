@@ -246,11 +246,29 @@ class BlogController extends AbstractController
      * @IsGranted("ROLE_ADMIN")
      */
     public function category_edit(){
-
+        
         $repo = $this->getDoctrine()->getRepository(Wording::class);
         $wordings = $repo->findAll();
         return $this->render('admin/categories.html.twig', [
             'wordings' => $wordings
         ]);
+    }
+
+    /**
+     * @Route("/admin/category/delete/{id}", name="delete_categorie", methods="DELETE")
+     *
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function delete_categorie($id, ManagerRegistry $managerRegistry)
+    {   
+        $repo = $this->getDoctrine()->getRepository(Wording::class);
+        $wording = $repo->find($id);
+
+        $em = $managerRegistry->getManager();
+        $em->remove($wording);
+        $em->flush();
+       
+        $this->addFlash('success', 'Vous avez bien supprimé cette catégorie');
+        return $this->redirectToRoute('blog');
     }
 }
