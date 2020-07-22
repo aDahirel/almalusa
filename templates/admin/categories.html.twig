@@ -1,27 +1,39 @@
 {% extends "base.html.twig" %}
-{% block title %}Modifer les catégories{% endblock %}
+{% block title %}Modifer les catégories
+{% endblock %}
 {% block body %}
-    <h2 class="text-center my-3">Gestion des catégories</h2>
-    <div>
-        <ul style="list-style-type: none; font-size: 28px;">
-            {% for wording in wordings %}
-            <li class="text-left">
-                {{ wording.title }}
-                <form method="post" action="{{ path('delete_categorie', {'id': wording.id}) }}" style="display: inline-block;" 
-                onsubmit="return confirm('Êtes-vous vraiment sûr ? Supprimer cette catégorie supprimera les articles associés')">
-					<input type="hidden" name="_method" value="DELETE">
-                    <button class="close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </form>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-   
-    <style>
-        footer{
-            display: none;
-        }
-    </style>
+	<header>
+		<link rel="stylesheet" href="{{ asset('css/categories.css') }}">
+	</header>
+	<div class="first-container mt-5">
+		<div class="second-container">
+			<ul>
+				<h3 class="card-header">Liste des catégories</h3>
+				<div class="card-body">
+					{% for wording in wordings %}
+						<li class="text-left list-group-item">
+							<span style="vertical-align: top;">{{ wording.title }}</span>
+							<form method="post" action="{{ path('delete_categorie', {'id': wording.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous vraiment sûr ? Supprimer cette catégorie supprimera les articles associés')">
+								<input type="hidden" name="_method" value="DELETE">
+								<button class="close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</form>
+						</li>
+					{% endfor %}
+				</div>
+			</ul>
+		</div>
+		<div class="second-container mb-5" style="padding-inline-start: 40px;">
+			<h3 class="card-header">Ajouter une catégorie</h3>
+			<div class="card-body">
+				{{ form_start(form) }}
+				{{ form_errors(form) }}
+				{{ form_row(form.title, { 'label': 'Titre' }) }}
+				{{ form_row(form.description, { 'label': 'Description' }) }}
+				<button type="submit" class="btn btn-secondary">Envoyer</button>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
 {% endblock %}

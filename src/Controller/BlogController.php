@@ -14,6 +14,7 @@ use App\Entity\Wording;
 use App\Form\ArticleType;
 use App\Form\CommentType;
 use App\Form\SearchType;
+use App\Form\WordingType;
 use App\Repository\ArticleRepository;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -245,12 +246,31 @@ class BlogController extends AbstractController
      *
      * @IsGranted("ROLE_ADMIN")
      */
-    public function category_edit(){
+    public function category_edit(Request $request, ManagerRegistry $managerRegistry)
+    {
+        $wording = new Wording();
         
+        $form = $this->createForm(WordingType::class, $wording);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $em = $managerRegistry->getManager();
+            $em->persist($wording);
+
+            $em->flush();
+            $this->addFlash('success', 'Votre catégorie a bien été créer');
+
+            return $this->redirectToRoute('category_edit');
+        }
+
         $repo = $this->getDoctrine()->getRepository(Wording::class);
         $wordings = $repo->findAll();
+
         return $this->render('admin/categories.html.twig', [
-            'wordings' => $wordings
+            'wordings' => $wordings,
+            'form' => $form->createView()
         ]);
     }
 
@@ -269,6 +289,6 @@ class BlogController extends AbstractController
         $em->flush();
        
         $this->addFlash('success', 'Vous avez bien supprimé cette catégorie');
-        return $this->redirectToRoute('blog');
+        return $this->redirectToRoute('category_edit');
     }
 }

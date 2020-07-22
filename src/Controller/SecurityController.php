@@ -44,6 +44,8 @@ class SecurityController extends AbstractController
             $em->persist($user);
             $em->flush();
 
+            $this->addFlash('success', 'Vous avez créé votre profil');
+
             // Return to the login page
             return $this->redirectToRoute('security_login');
         }
