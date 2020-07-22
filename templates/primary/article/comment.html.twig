@@ -1,13 +1,12 @@
 {% block body %}
-	<section
-		class="container">
+	<section class="container">
 		<!-- Display the amount of comments -->
 		<h2>
 			Commentaires ({{ article.comments | length }}) :
-		</h2><hr>
+		</h2>
 		<!-- Display the comments -->
 		{% for comment in article.comments %}
-			<div class="media border p-3">
+			<div class="media p-3">
 				<img src="{{ vich_uploader_asset( comment.user, 'imageFile') }}" alt="{{ comment.user.username }} picture" class="mr-3 mt-3 rounded-circle" style="width: 60px; height: 60px;">
 				<div class="media-body">
 					<h4 class="text-capitalize">{{ comment.user.username }}<small>

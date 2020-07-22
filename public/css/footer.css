@@ -17,9 +17,21 @@
 .footer-p {
     color: #FFFFFF;
 }
+.page-footer{
+    padding-top: 1.5rem;
+}
 
 @media screen and (max-width: 992px) {
     .description-footer{
-        border: solid red;
+        display: none;
+    }
+    .page-footer{
+        padding-top: 0;
+    }
+    hr{
+        display: none;
+    }
+    .footer-link-div{
+        padding-top: 5px;
     }
 }
