@@ -7,9 +7,9 @@
 {% block body %}
 	<link rel="stylesheet" href="{{ asset('css/article.css') }}">
 	<!-- Article page -->
-	<article class="container d-flex flex-column justify-content-between">
+	<article class="container d-flex flex-column justify-content-between my-5">
 		<!-- Article title -->
-		<h2 class="py-3">{{ article.title }}</h2>
+		<h2>{{ article.title }}</h2>
 		<!-- Article picture -->
 		{% if article.content | length > 200 ? article.content %}
 		<div class="d-flex">
@@ -17,9 +17,6 @@
 			<span>{{ article.content | raw }}</span>
 		{% else %}
 		<div>
-			<div id="image_container" style="width: auto;">
-				<img id="article_picture" src="{{ vich_uploader_asset(article, 'imageFile') }}">
-			</div>
 			<!-- Article content -->
 			<div class="py-3">{{ article.content | raw }}</div>
 		{% endif %}

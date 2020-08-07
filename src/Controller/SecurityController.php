@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Twig\Environment;
 
 class SecurityController extends AbstractController
@@ -24,7 +25,8 @@ class SecurityController extends AbstractController
     /**
      * @Route("/inscription", name="security_registration")
      */
-    public function registration(Request $request, ManagerRegistry $managerRegistry, UserPasswordEncoderInterface $encoder)
+    public function registration(Request $request, ManagerRegistry $managerRegistry, 
+    UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer)
     {
         // Create a use entity
         $user = new User();
@@ -39,10 +41,30 @@ class SecurityController extends AbstractController
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
 
+            // Generate the activation token
+            $user->setActivationToken(md5(uniqid()));
+
             // Create the user
             $em = $managerRegistry->getManager();
             $em->persist($user);
             $em->flush();
+
+            // Sending an email
+            $message = (new \Swift_Message('Activation de votre compte'))
+            // Expeditor
+            ->setFrom('votre@adresse.fr')
+            // Recipient
+            ->setTo($user->getEmail())
+            // Mail content
+            ->setBody(
+                $this->renderView(
+                    'primary/user/activation.html.twig', ['token' => $user->getActivationToken()]
+                ),
+                'text/html'
+            )
+            ;
+            // Sending mail
+            $mailer->send($message);
 
             $this->addFlash('success', 'Vous avez créé votre profil');
 
@@ -125,83 +147,32 @@ class SecurityController extends AbstractController
         $session->invalidate();
         return $this->redirectToRoute('security_logout');
     }
-    /*
-    /**
-     * @Route("/forgotten_password", name="app_forgotten_password")
-
-    public function forgottenPassword(Request $request, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator, Environment $renderer): Response
-    {
-
-        if ($request->isMethod('POST')) {
-
-            $email = $request->request->get('email');
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $user = $entityManager->getRepository(User::class)->findOneByEmail($email);
-            /* @var $user User
-
-            if ($user === null) {
-                $this->addFlash('danger', 'Email Inconnu'); // notice doesnt work
-                return $this->redirectToRoute('home');
-            }
-            $token = $tokenGenerator->generateToken();
-
-            try {
-                $user->setResetToken($token);
-                $entityManager->flush();
-            } catch (\Exception $e) {
-                $this->addFlash('warning', $e->getMessage());
-                return $this->redirectToRoute('home');
-            }
-
-            $url = $this->generateUrl('app_reset_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
-            $message = (new \Swift_Message('Forgot Password'))
-                ->setFrom('noreply@almalusa.com') //insert mail
-                ->setTo($user->getEmail())
-                ->setBody($renderer->render('emails/forget.html.twig', [ // body de l'email a écrire
-                    'contact' => $user->getUsername(),
-                ]), 'text/html');
-            $mailer->send($message); //erreur au niveau de l'envoi du au port 25
-
-
-            $this->addFlash('notice', 'Mail envoyé');
-
-            return $this->redirectToRoute('home');
-        }
-
-        return $this->render('admin/forgotten_password.html.twig');
-    }
-*/
-
 
     /**
-     * @Route("/reset_password/{token}", name="app_reset_password")
+     * @Route("activation/{token}", name="activation")
      */
-    public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)
-    {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        if ($request->isMethod('POST')) {
-            $entityManager = $this->getDoctrine()->getManager();
+    public function activation($token, UserRepository $user){
 
-            $user = $entityManager->getRepository(User::class)->findOneByResetToken($token);
-            /* @var $user User */
+        // Veryfing if the un user has a token
+        $user = $user->findOneBy(['activationToken' => $token]);
 
-            if ($user === null) {   
-                $this->addFlash('danger', 'Token Inconnu');
-                return $this->redirectToRoute('home');
-            }
-
-            $user->setResetToken(null);
-            if ($request->request->get('password') === $request->request->get('password2')) {
-                $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
-                $entityManager->flush();
-                $this->addFlash('success', 'Mot de passe mis à jour');
-            } else {
-                return $this->render('primary/user/password/reset_password.html.twig', ['token' => $token]);
-            }
-            return $this->redirectToRoute('home');
-        } else {
-            return $this->render('primary/user/password/reset_password.html.twig', ['token' => $token]);
+        // If no user exists with the token
+        if(!$user){
+            // Error 404
+            throw $this->createNotFoundException('Cet utilisateur n\'existe pas');
         }
+
+        // Deleting token
+        $user->setActivationToken(null);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        // Sending flash message
+        $this->addFlash('success', 'Vous avez  bien activé votre compte');
+
+        // Returning to home page
+        return $this->redirectToRoute('home');
     }
+
 }

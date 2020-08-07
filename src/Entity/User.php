@@ -86,6 +86,11 @@ class User implements UserInterface
     protected $resetToken;
 
     /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $activationToken;
+
+    /**
      * @return string
      */
     public function getResetToken(): string
@@ -255,5 +260,17 @@ class User implements UserInterface
     {
         $this->profileImage = base64_decode($this->imageFile);
 
+    }
+
+    public function getActivationToken(): ?string
+    {
+        return $this->activationToken;
+    }
+
+    public function setActivationToken(?string $activationToken): self
+    {
+        $this->activationToken = $activationToken;
+
+        return $this;
     }
 }
