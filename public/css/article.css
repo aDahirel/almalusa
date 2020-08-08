@@ -12,11 +12,6 @@ a:hover{
     padding: 5px;
     transition-duration: 0.3s;
 }
-
-.wording_link:hover{
-    background-color: black;
-    color: white;
-}
 #article_picture
 {
     display: table-cell;

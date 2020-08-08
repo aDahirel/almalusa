@@ -2,7 +2,7 @@
 {% block title %}Créer un article
 {% endblock %}
 {% block body %}
-    <div class="container">
+    <div class="container my-5">
         <!-- Creation title -->
         <h1>Création d'un article</h1>
 
@@ -18,7 +18,7 @@
             {{ form_widget(formArticle.content, {'attr' : {'placeholder': "Contenu de l'article"}}) }}
         </div>
         <div class="form-group">
-            <label for="">Image</label>
+            <label for="">Image de prévisualisation  (facultatif)</label>
             {# Bootstrap issue to see selected file on the input, not resolved yet -> check the style#}
             {{ form_widget(formArticle.imageFile ) }}
         </div>

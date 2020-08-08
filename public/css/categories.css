@@ -15,7 +15,7 @@ footer {
     flex-direction: row;
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 750px) {
     .first-container
     {
         flex-direction: column;
