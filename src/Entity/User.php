@@ -83,12 +83,12 @@ class User implements UserInterface
      * @var string le token qui servira lors de l'oubli de mot de passe
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    protected $resetToken;
+    protected $reset_token;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      */
-    private $activationToken;
+    private $activation_token;
 
     /**
      * @return string
@@ -165,6 +165,11 @@ class User implements UserInterface
     public function getRoles()
     {
         return $this->roles;
+    }
+
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
     }
 
     public function eraseCredentials()

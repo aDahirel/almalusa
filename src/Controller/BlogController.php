@@ -199,25 +199,8 @@ class BlogController extends AbstractController
             if ($request->request->get('user') === 'null') {
                 return $this->redirectToRoute('user_profil');
             } else {
-                $email = $request->request->get('user');
-                $entityManager = $this->getDoctrine()->getManager();
-                $user = $entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
 
-                if ($user === null) {
-                    $this->addFlash('danger', 'Email Inconnu'); // notice doesnt work
-                    return $this->redirectToRoute('home');
-                }
-
-                $token = $tokenGenerator->generateToken();
-
-                try {
-                    $user->setResetToken($token);
-                    $entityManager->flush();
-                } catch (\Exception $e) {
-                    $this->addFlash('warning', $e->getMessage());
-                    return $this->redirectToRoute('home');
-                }
-                return $this->redirectToRoute('app_reset_password', array('token' => $token));
+                return $this->redirectToRoute('forgotten_password');
             }
         }
         $user = $this->getUser();
