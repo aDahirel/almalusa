@@ -27,13 +27,15 @@
 			</div>
 		{% endfor %}
 		<!-- If a user is connected, display the comment form -->
-		{% if app.user %}
+		{% if is_granted('ROLE_VERIFIED_USER') %}
             {{ form_start(commentForm) }}
             <div class="pt-3">
             {{ form_row(commentForm.content, {'attr': {'placeholder': "Votre commentaire"}}) }}
             </div>
 			<button type="submit" class="btn btn-secondary mb-5">Envoyer</button>
 			{{ form_end(commentForm) }}
+			{% elseif is_granted('ROLE_USER') %}
+			<p>Merci de vérifier votre compte pour poster</p>
 			<!-- Else display a connexion button -->
 		{% else %}
 			<h3 class="py-5"><a href="{{ path('security_login') }}" style="color: grey;">Se connecter</a> pour commenter</h3>

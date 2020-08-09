@@ -18,6 +18,10 @@ security:
         main:
             anonymous: true
 
+            guard:
+                authenticators:
+                    - App\Security\UserAuthenticator
+
             provider: in_database
 
             form_login:
