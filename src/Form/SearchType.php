@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Data\SearchData;
-use App\Entity\Wording;
+use App\Entity\Category;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -22,10 +22,10 @@ class SearchType extends AbstractType
                     'placeholder' => 'Rechercher'
                 ]
             ])
-            ->add('wordings', EntityType::class, [
+            ->add('categories', EntityType::class, [
                 'label' => false,
                 'required' => false,
-                'class' => Wording::class,
+                'class' => Category::class,
                 'expanded' => true,
                 'multiple' => true
             ]);

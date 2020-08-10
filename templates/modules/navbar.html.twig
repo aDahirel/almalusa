@@ -10,15 +10,15 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('blog') }}">Articles</a>
+                    <a class="nav-link" href="{{ path('articles') }}">Articles</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('subscribtion') }}">Adhésion</a>
+                    <a class="nav-link" href="{{ path('subscription') }}">Adhésion</a>
                 </li>
                 <!-- Check if a user is logged in to display appropriate features -->
                 {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('blog_create') }}">Créer un article</a>
+                        <a class="nav-link" href="{{ path('article_create') }}">Créer un article</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('category_edit') }}">Gérer une catégorie</a>
@@ -33,7 +33,7 @@
                             <img class="my-auto rounded-circle" src="{{ vich_uploader_asset(app.user, 'imageFile') }}"
                                  alt="User picture"
                                  width="30px" height="30px" style="margin-left: 0.5rem; margin-right: 0.5rem;">
-                            <a class="nav-link text-capitalize" href="{{ path('profile_manager') }}">
+                            <a class="nav-link text-capitalize" href="{{ path('profil') }}">
                                 {{ app.user.username }}
                             </a>
                         </li>

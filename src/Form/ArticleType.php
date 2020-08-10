@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Article;
-use App\Entity\Wording;
+use App\Entity\Category;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,8 +20,8 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('title', TextType::class)
-            ->add('wordings', EntityType::class, [
-                'class' => Wording::class,
+            ->add('categories', EntityType::class, [
+                'class' => Category::class,
                 'choice_label' => 'title',
                 'multiple' => true
             ])

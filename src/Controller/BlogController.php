@@ -1,165 +1,116 @@
 <?php
 
-/**
- * Blog Controller with article functions
- */
-
+// src/Controller/BlogController.php
 namespace App\Controller;
 
 use App\Data\SearchData;
 use App\Entity\Article;
 use App\Entity\Comment;
 use App\Entity\User;
-use App\Entity\Wording;
-use App\Form\ArticleType;
+use App\Entity\Category;
 use App\Form\CommentType;
 use App\Form\SearchType;
-use App\Form\WordingType;
 use App\Repository\ArticleRepository;
-use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-
 use Knp\Component\Pager\PaginatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class BlogController extends AbstractController
 {
     /**
      * @Route("/", name="home")
      */
-    public function home(Request $request)
+    public function home()
     {
-        // Grab all the articles from the database
+        // Take all the articles from the database
         $repo = $this->getDoctrine()->getRepository(Article::class);
 
-        $newArticles = $repo->findBy([], ['createdAt' => 'DESC'], 1, 0);
+        // Take the most recent article
+        $lastArticle = $repo->findBy([], ['createdAt' => 'DESC'], 1, 0);
 
+        // Takes the 10 most recent articles without the very first one
         $articles = $repo->findBy([], ['createdAt' => 'DESC'], 10, 1);
-        // Return the home view with a title variable
+
+        // Redirect to the homepage with the articles
         return $this->render('primary/home.html.twig', [
             'articles' => $articles,
-            'newArticles' => $newArticles
+            'lastArticle' => $lastArticle
         ]);
     }
 
     /**
-     * @Route("/blog", name="blog")
+     * @Route("/articles", name="articles")
      */
-    public function index(Request $request, PaginatorInterface $paginator, ArticleRepository $repository)
+    public function articles(Request $request, PaginatorInterface $paginator, ArticleRepository $repository)
     {
+        // Initializing a data object
         $data = new SearchData();
+        // Create a search form
         $form = $this->createForm(SearchType::class, $data);
+        // Take the request
         $form->handleRequest($request);
 
-        // Grab all the articles from the database
-
+        // Paginates all the articles from the db
         $articles = $paginator->paginate(
-
+            // Get the articles related to the search
             $articles = $repository->findSearch($data),
-
+            // Paginate with n number articles on a page
             $request->query->getInt('page', 1),
             15
         );
 
-        $repo = $this->getDoctrine()->getRepository(Wording::class);
-        $wordings = $repo->findAll();
+        // Bring all the categories from the database
+        $repo = $this->getDoctrine()->getRepository(Category::class);
+        // Bring all the categories
+        $categories = $repo->findAll();
 
-        // Return the articles list view with the articles
-        return $this->render('primary/list.html.twig', [
-            //'controller_name' => 'BlogController',
+        // Return the view with the articles
+        return $this->render('primary/articles.html.twig', [
             'articles' => $articles,
-            'wordings' => $wordings,
+            'categories' => $categories,
             'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/adhesion", name="subscribtion")
+     * @Route("/adhesion", name="subscription")
      */
     public function Subscription()
     {
-        // Return the home view with a title variable
-        return $this->render('primary/membership.html.twig', [
-            'title' => "Rejoignez-nous",
-        ]);
-    }
-
-    // Function to Create or Edit an article
-
-    /**
-     * @Route("/blog/new", name="blog_create", methods="GET|POST")
-     * @Route("/blog/{slug}/{id}/edit", name="blog_edit", methods="GET|POST")
-     *
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function form(Article $article = null, Request $request, ManagerRegistry $managerRegistry)
-    {
-        // If the article variable empty, build a new Article
-        if (!$article) {
-            $article = new Article();
-        }
-        // Create the ArticleType form
-        $form = $this->createForm(ArticleType::class, $article);
-        // Process the form data
-        $form->handleRequest($request);
-
-        // If the submit button is pressed
-        if ($form->isSubmitted() && $form->isValid()) {
-            $slug = $article->getSlug();
-            // Save the created date if the article doesnt exist
-            if (!$article->getId()) {
-                $article->setCreatedAt(new \DateTime());
-            }
-
-            // Process the form data and send it
-            $em = $managerRegistry->getManager();
-            $em->persist($article);
-            // send article
-            $em->flush();
-            $this->addFlash('success', 'Votre article a bien été créer');
-            // Redirect to the new article
-            return $this->redirectToRoute('blog_show', [
-                'id' => $article->getId(),
-                'slug' => $article->getSlug()
-            ]);
-        }
-        // Create the article view with the 'editMode'
-        return $this->render('admin/create.html.twig', [
-            'formArticle' => $form->createView(),
-            'editMode' => $article->getId() !== null
-        ]);
+        // Return the home view
+        return $this->render('primary/membership.html.twig');
     }
 
     /**
-     * @Route("/blog/{slug}/{id}", name="blog_show", requirements={"slug": "[a-z0-9\-]*"}   )
+     * @Route("/articles/{slug}/{id}", name="article", requirements={"slug": "[a-z0-9\-]*"}   )
      */
-    public function show(string $slug, $id, Article $article, User $user = null, Request $request, ManagerRegistry $managerRegistry)
+    public function article($id, Article $article, User $user = null, Request $request, ManagerRegistry $managerRegistry)
     {
         // Create a new comment
         $comment = new Comment();
+        // Create the CommentType form
         $form = $this->createForm(CommentType::class, $comment);
-
+        // Get the user
         $user = $this->getUser();
-
+        // Inspect request
         $form->handleRequest($request);
-
-        // If submit button pressed create a new comment
+        // Create a new comment if the form is valid
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setCreatedAt(new \DateTime())
                 ->setArticle($article)
                 ->setUser($user);
-
+            // Process the form data
             $em = $managerRegistry->getManager();
+            // Persist the data
             $em->persist($comment);
+            // Send the comment in the database
             $em->flush();
-
+            // Add a flash message for the user
             $this->addFlash('success', 'Vous avez posté un commentaire');
-            // redirect to the same page
-            return $this->redirectToRoute('blog_show', [
+            // Redirect to the same page with the new comment
+            return $this->redirectToRoute('article', [
                 'id' => $article->getId(),
                 'slug' => $article->getSlug()
             ]);
@@ -176,34 +127,24 @@ class BlogController extends AbstractController
         ]);
     }
 
-    // Function to Delete an article
-
     /**
-     * @Route("/blog/{slug}/{id}/delete", name="blog_delete", methods="DELETE")
-     * @IsGranted("ROLE_ADMIN")
+     * @Route("/profil", name="profil")
      */
-    public function delete(Article $article, Request $request, ManagerRegistry $managerRegistry)
+    public function profil(Request $request)
     {
-        $em = $managerRegistry->getManager();
-        $em->remove($article);
-        $em->flush();
-        return $this->redirectToRoute('blog');
-    }
-
-    /**
-     * @Route("/gestionProfile", name="profile_manager")
-     */
-    public function profileManager(Request $request, TokenGeneratorInterface $tokenGenerator)
-    {
+        // If the user trigger an input
         if ($request->isMethod('POST')) {
             if ($request->request->get('user') === 'null') {
+                // Redirect to the user editing page
                 return $this->redirectToRoute('user_profil');
             } else {
-
+                // Return to the forget password page
                 return $this->redirectToRoute('forgotten_password');
             }
         }
+        // Get the user
         $user = $this->getUser();
+        // Return to the same page with user data
         return $this->render('primary/user/profile.html.twig', [
             'user' => $user
         ]);
@@ -212,66 +153,19 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog/{slug}/{idarticle}/{id}/delete_comment", name="delete_comment", methods="DELETE")
      */
-    public function delete_comment($slug, $idarticle, Comment $comment, Request $request, ManagerRegistry $managerRegistry)
+    public function delete_comment($slug, $idarticle, Comment $comment, ManagerRegistry $managerRegistry)
     {
+        // Remove the comment
         $em = $managerRegistry->getManager();
         $em->remove($comment);
+        // Remove the comment in the database
         $em->flush();
+        // Add a flash message to the user
         $this->addFlash('success', 'Vous avez bien supprimé ce commentaire');
-        return $this->redirectToRoute('blog_show', [
+        // Return to the same article
+        return $this->redirectToRoute('article', [
             'slug' => $slug,
             'id' => $idarticle
         ]);
-    }
-
-    /**
-     * @Route("/admin/category", name="category_edit", methods="GET|POST")
-     *
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function category_edit(Request $request, ManagerRegistry $managerRegistry)
-    {
-        $wording = new Wording();
-        
-        $form = $this->createForm(WordingType::class, $wording);
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-
-            $em = $managerRegistry->getManager();
-            $em->persist($wording);
-
-            $em->flush();
-            $this->addFlash('success', 'Votre catégorie a bien été créer');
-
-            return $this->redirectToRoute('category_edit');
-        }
-
-        $repo = $this->getDoctrine()->getRepository(Wording::class);
-        $wordings = $repo->findAll();
-
-        return $this->render('admin/categories.html.twig', [
-            'wordings' => $wordings,
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/admin/category/delete/{id}", name="delete_categorie", methods="DELETE")
-     *
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function delete_categorie($id, ManagerRegistry $managerRegistry)
-    {   
-        $repo = $this->getDoctrine()->getRepository(Wording::class);
-        $wording = $repo->find($id);
-
-        $em = $managerRegistry->getManager();
-        $em->remove($wording);
-        $em->flush();
-       
-        $this->addFlash('success', 'Vous avez bien supprimé cette catégorie');
-        return $this->redirectToRoute('category_edit');
     }
 }

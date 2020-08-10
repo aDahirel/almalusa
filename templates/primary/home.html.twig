@@ -16,21 +16,21 @@
 	</div>
 	<div class="container">
 		<h2 class="py-5 text-uppercase">Nos derniers articles :</h2>
-		{% for newArticle in newArticles %}
+		{% for lastArticle in lastArticle %}
 	
 			<div class="article">
 				
-				<img class="article_image" src="{{ vich_uploader_asset(newArticle, 'imageFile') }}" alt="Photo de l'article">
+				<img class="article_image" src="{{ vich_uploader_asset(lastArticle, 'imageFile') }}" alt="Photo de l'article">
 				<div class="article_container">
 					<span class="badge badge-success float-right">Nouveau</span>
-					<a href="{{ path('blog_show', {'id' : newArticle.id, 'slug': newArticle.slug }) }}">
-						<h4>{{ newArticle.title }}</h4>
-					<p>{{ newArticle.createdAt | date('d/m') }}</p></a>
+					<a href="{{ path('article', {'id' : lastArticle.id, 'slug': lastArticle.slug }) }}">
+						<h4>{{ lastArticle.title }}</h4>
+					<p>{{ lastArticle.createdAt | date('d/m') }}</p></a>
 					<li class="list-unstyled d-flex flex-wrap">
-						{% for wording in newArticle.wordings %}
+						{% for category in lastArticle.categories %}
 
-							<a href="{{ path('blog') }}" class="wording_link mr-1">
-								{{ wording.title }}
+							<a class="wording_link mr-1">
+								{{ category.title }}
 							</a>
 
 						{% endfor %}
@@ -42,18 +42,18 @@
 		<div class="article_list d-flex flex-wrap justify-content-between align-content-between">
 			{% for article in articles|slice(0, 9) %}
 				<div>
-					<a href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}">
+					<a href="{{ path('article', {'id' : article.id, 'slug': article.slug }) }}">
 						<div id="image_container">
 							<img id="article_picture" src="{{ vich_uploader_asset(article, 'imageFile') }}">
 						</div>
 					</a>
 					<div class="article_card d-flex flex-column justify-content-between">
-						<a href="{{ path('blog_show', {'id' : article.id, 'slug': article.slug }) }}">
+						<a href="{{ path('article', {'id' : article.id, 'slug': article.slug }) }}">
 						<span style="min-height: 54px;">{{ article.title }}</span>
 						<li class="list-unstyled d-flex flex-wrap">
-							{% for wording in article.wordings %}
-								<a href="{{ path('blog') }}" class="wording_link mr-1">
-									{{ wording.title }}
+							{% for category in article.categories %}
+								<a class="wording_link mr-1">
+									{{ category.title }}
 								</a>
 							{% endfor %}
 						</li>
@@ -62,7 +62,7 @@
 					</div>
 				</div>
 			{% endfor %}
-			<a class="py-4 ml-auto" href="{{ path('blog') }}">
+			<a class="py-4 ml-auto" href="{{ path('articles') }}">
 				<input class="text-uppercase p-2 list_button" value="Tous les articles ->"></input>
 			</a>
 		</div>
