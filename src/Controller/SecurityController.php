@@ -26,35 +26,27 @@ class SecurityController extends AbstractController
     /**
      * @Route("/inscription", name="security_registration")
      */
-    public function registration(
-        Request $request,
-        ManagerRegistry $managerRegistry,
-        UserPasswordEncoderInterface $encoder,
-        \Swift_Mailer $mailer,
-        GuardAuthenticatorHandler $guardHandler,
-        UserAuthenticator $authenticator
-    ) {
-        // Create a use entity
+    public function registration(Request $request, ManagerRegistry $managerRegistry,
+        UserPasswordEncoderInterface $encoder,\Swift_Mailer $mailer, 
+        GuardAuthenticatorHandler $guardHandler, UserAuthenticator $authenticator) 
+    {
+        // Create a user entity
         $user = new User();
-
+        // Create the registration form
         $form = $this->createForm(RegistrationType::class, $user);
         // Process the data
         $form->handleRequest($request);
-
         // If the submit button is pushed and the form is valid
         if ($form->isSubmitted() && $form->isValid()) {
             // Crypt the passwords
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
-
             // Generate the activation token
             $user->setActivationToken(md5(uniqid()));
-
             // Create the user
             $em = $managerRegistry->getManager();
             $em->persist($user);
             $em->flush();
-
             // Sending an email
             $message = (new \Swift_Message('Activation de votre compte'))
                 // Expeditor
@@ -63,6 +55,7 @@ class SecurityController extends AbstractController
                 ->setTo($user->getEmail())
                 // Mail content
                 ->setBody(
+                    // Mail content file
                     $this->renderView(
                         'primary/user/activation.html.twig',
                         ['token' => $user->getActivationToken()]
@@ -72,14 +65,10 @@ class SecurityController extends AbstractController
 
             // Sending mail
             $mailer->send($message);
-
+            // Add a flash message to the user
             $this->addFlash('success', 'Vous avez créé votre profil');
-
-            return $guardHandler->authenticateUserAndHandleSuccess(
-                $user,
-                $request,
-                $authenticator,
-                'main'
+            // Method for authenticating the user and returning the Response
+            return $guardHandler->authenticateUserAndHandleSuccess($user,$request,$authenticator,'main'
             );
 
             // Return to the login page
@@ -96,12 +85,11 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-
-        // get the login error if there is one
+        // Get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
+        // Last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-
+        // Redirect to the same page
         return $this->render('primary/user/connexion/connexion.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error
@@ -113,30 +101,27 @@ class SecurityController extends AbstractController
      */
     public function profil(Request $request, ManagerRegistry $managerRegistry, UserPasswordEncoderInterface $encoder)
     {
-        // allow any authenticated user - we don't care if they just
+        // Allow any authenticated user - we don't care if they just
         // logged in, or are logged in via a remember me cookie
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
-
+        // Get the current user date
         $user = $this->getUser();
-
+        // Create the modification form
         $form = $this->createForm(ModificationType::class, $user);
-
+        // Inspect the request
         $form->handleRequest($request);
-
         // If the submit button is pushed and the form is valid
         if ($form->isSubmitted() && $form->isValid()) {
-
-            // Create the user
+            // Send the user data in the database
             $em = $managerRegistry->getManager();
             $em->persist($user);
             $em->flush();
-
-            // Return to the login page
-
+            // Add a flash message to the user
             $this->addFlash('success', 'Vous avez mis a jour votre profil !');
+            // Return to the login page
             return $this->redirectToRoute('security_login');
         }
-
+        // Render the modification page
         return $this->render('primary/user/user_modification.html.twig', [
             'user' => $user,
             'form' => $form->createview()
@@ -148,6 +133,7 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
+        // The logout function is supported by symfony in security.yaml
     }
 
     /**
@@ -155,11 +141,14 @@ class SecurityController extends AbstractController
      */
     public function delete_user(User $user, Request $request, ManagerRegistry $managerRegistry)
     {
+        // Remove the user in the database
         $em = $managerRegistry->getManager();
         $em->remove($user);
         $em->flush();
+        // clear the session attribute
         $session = new Session();
         $session->invalidate();
+        // Log out the user
         return $this->redirectToRoute('security_logout');
     }
 
@@ -168,28 +157,23 @@ class SecurityController extends AbstractController
      */
     public function activation($token, UserRepository $user)
     {
-
-        // Veryfing if the un user has a token
+        // Veryfing if the user has an activation token
         $user = $user->findOneBy(['activationToken' => $token]);
-
         // If no user exists with the token
         if (!$user) {
-            // Error 404
+            // Send an error 404
             throw $this->createNotFoundException('Cet utilisateur n\'existe pas');
         }
-
-        // Deleting token
+        // Deleting the token
         $user->setActivationToken(null);
-
+        // Set the a new role to the user
         $user->setRoles(array('ROLE_VERIFIED_USER'));
-
+        // Update the database
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
         $entityManager->flush();
-
         // Sending flash message
         $this->addFlash('success', 'Vous avez  bien activé votre compte');
-
         // Returning to home page
         return $this->redirectToRoute('home');
     }
@@ -198,60 +182,64 @@ class SecurityController extends AbstractController
      * @Route("/oubli-pass", name="forgotten_password")
      */
     public function forgottenPass(Request $request,UserRepository $userRepo,\Swift_Mailer $mailer,
-        TokenGeneratorInterface $tokenGenerator
-    ) {
-        // Form
+        TokenGeneratorInterface $tokenGenerator) 
+    {
+        // Create a reset password form
         $form = $this->createForm(ResetPassType::class);
-
+        // Handle the request
         $form->handleRequest($request);
-
+        // If the is valid and submitted
         if ($form->isSubmitted() && $form->isValid()) {
+            // Get the form data
             $data = $form->getData();
-
+            // Look in the database if the mail exists
             $user = $userRepo->findOneByEmail($data['email']);
-
+            // If no email found
             if (!$user) {
+                // Send a flash message to the user
                 $this->addFlash('danger', 'Cette adresse n\'existe pas');
-
+                // Redirect to the login page
                 $this->redirectToRoute('security_login');
             }
-
+            // Generate a token
             $token = $tokenGenerator->generateToken();
-
+            // Trying to push in the database
             try {
                 $user->setResetToken($token);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
                 $entityManager->flush();
             } catch (\Exception $e) {
+                // Send a flash message to the user
                 $this->addFlash('warning', 'Une erreur est survenue : ' . $e->getMessage());
                 return $this->redirectToRoute('security_login');
             }
 
             // Generating url reset password
-            $url = $this->generateUrl(
-                'reset-password',
-                ['token' => $token],
-                UrlGeneratorInterface::ABSOLUTE_URL
+            $url = $this->generateUrl('reset-password',['token' => $token],
+            UrlGeneratorInterface::ABSOLUTE_URL
             );
 
             // Sending the mail
             $message = (new \Swift_Message('Mot de passe oublié'))
+                // Expeditor
                 ->setFrom('votre@adresse.fr')
+                // Recipient
                 ->setTo($user->getEmail())
+                // Mail content
                 ->setBody(
                     "Bonjour,<br><br>Une demande de réinitialisation de mot de passe a été effectuée pour le 
                     site Alma Lusa. Veuillez cliquer sur le lien suivant : " . $url . '</p>',
                     'text/html'
                 );
-
+            // Sending mail
             $mailer->send($message);
-
+            // Sending a  flash message to the user
             $this->addFlash('message', 'E-mail de réinitialisation du mot de passe envoyé !');
-
+            // Redirect to the login page
             return $this->redirectToRoute('security_login');
         }
-
+        // Render the forgotten password view and form
         return $this->render('primary/user/password/forgotten_password.html.twig', ['emailForm' => $form->createView()]);
     }
 
@@ -262,27 +250,29 @@ class SecurityController extends AbstractController
     {
         // Searching the user with appropriate token
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['reset_token' => $token]);
-
+        // if no user found
         if (!$user) {
+            // Error messageto the user
             $this->addFlash('danger', 'Token inconnu');
+            // Login page redirection
             return $this->redirectToRoute('security_login');
         }
         // If form is sent in post method
         if ($request->isMethod('POST')) {
             // Delete the User token
             $user->setResetToken(null);
-
             // Crypting the password
             $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
-
+            // Persisting user data in database
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-
+            // Sending flash message to the user
             $this->addFlash('message', 'Mot de pass modifié avec succès');
-
+            // Return to the login page
             return  $this->redirectToRoute('security_login');
         } else {
+            // Render the reset password view
             return $this->render('primary/user/password/reset_password.html.twig', ['token' => $token]);
         }
     }

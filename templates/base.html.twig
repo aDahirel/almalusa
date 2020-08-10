@@ -2,16 +2,6 @@
 <html lang="fr">
 	<head>
 		<!-- Required meta tags -->
-		<!--
-				     _   U _____ u   _     _   _        U _____ u _____          _     __  __ U _____ u _
-				  U |"| u\| ___"|U  /"\  u| \ |"|       \| ___"|/|_ " _|     U  /"\  u \ \/"/ \| ___"|/|"|
-				 _ \| |/  |  _|"  \/ _ \/<|  \| |>       |  _|"    | |        \/ _ \/  /\  /\  |  _|"U | | u
-				| |_| |_,-| |___  / ___ \U| |\  |u       | |___   /| |\       / ___ \ U /  \ u | |___ \| |/__
-				 \___/-(_/|_____|/_/   \_\|_| \_|        |_____| u |_|U      /_/   \_\ /_/\_\  |_____| |_____|
-				  _//     <<   >> \\    >>||   \\,-.     <<   >> _// \\_      \\    >,-,>> \\_ <<   >> //  \\
-				 (__)    (__) (__(__)  (__(_")  (_/     (__) (__(__) (__)    (__)  (__\_)  (__(__) (__(_")("_)
-				  -->
-
 		<meta charset="UTF-8"> <meta
 		name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Website title -->
@@ -31,17 +21,17 @@
 			{% include 'modules/navbar.html.twig' %}
 
 			{% for message in app.flashes('success') %}
-				<div class="alert-success" style="position: absolute; width: 100%; padding: 0.75rem 1.25rem; border: 1px solid transparent; border-radius: 0.4rem;">
+				<div class="alert-success flash-message">
 					{{ message }}
 				</div>
 			{% endfor %}
 			{% for message in app.flashes('notice') %}
-				<div class="alert-success" style="position: absolute; width: 100%; padding: 0.75rem 1.25rem; border: 1px solid transparent; border-radius: 0.4rem;">
+				<div class="alert-success flash-message">
 					{{ message }}
 				</div>
 			{% endfor %}
 			{% for message in app.flashes('danger') %}
-				<div class="alert-danger" style="position: absolute; width: 100%; padding: 0.75rem 1.25rem; border: 1px solid transparent; border-radius: 0.4rem;">
+				<div class="alert-danger flash-message">
 					{{ message }}
 				</div>
 			{% endfor %}
@@ -59,4 +49,15 @@
 			</script>
 			{{ encore_entry_script_tags('app') | replace({'scr=': 'defer src='}) | raw }}
 		</body>
+		<style>
+			.flash-message
+			{
+				position: absolute; 
+				width: 100%; 
+				padding: 0.75rem 1.25rem; 
+				border: 1px solid transparent; 
+				border-radius: 0.4rem; 
+				z-index: 999;
+			}
+		</style>
 	</html>

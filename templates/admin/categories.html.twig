@@ -10,10 +10,10 @@
 			<ul>
 				<h3 class="card-header">Liste des catégories</h3>
 				<div class="card-body">
-					{% for wording in wordings %}
+					{% for category in categories %}
 						<li class="text-left list-group-item">
-							<span style="vertical-align: top;">{{ wording.title }}</span>
-							<form method="post" action="{{ path('delete_categorie', {'id': wording.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous vraiment sûr ? Supprimer cette catégorie supprimera les articles associés')">
+							<span style="vertical-align: top;">{{ category.title }}</span>
+							<form method="post" action="{{ path('delete_categorie', {'id': category.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous vraiment sûr ? Supprimer cette catégorie supprimera les articles associés')">
 								<input type="hidden" name="_method" value="DELETE">
 								<button class="close">
 									<span aria-hidden="true">&times;</span>

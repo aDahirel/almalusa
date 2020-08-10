@@ -30,9 +30,9 @@ class ArticleRepository extends ServiceEntityRepository
 
         $query = $this
             ->createQueryBuilder('a')
-            ->select('w', 'a')
+            ->select('c', 'a')
             ->orderBy('a.createdAt', 'DESC')
-            ->join('a.wordings', 'w');
+            ->join('a.categories', 'c');
 
 
         if (!empty($search->q)) {
@@ -41,10 +41,10 @@ class ArticleRepository extends ServiceEntityRepository
                 ->setParameter('q', "%{$search->q}%");
         }
 
-        if (!empty($search->wordings)) {
+        if (!empty($search->categories)) {
             $query = $query
-                ->andWhere('w.id IN (:wordings)')
-                ->setParameter('wordings', $search->wordings);
+                ->andWhere('c.id IN (:categories)')
+                ->setParameter('categories', $search->categories);
         }
 
         return $query->getQuery()->getResult();

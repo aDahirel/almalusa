@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Article;
-use App\Entity\Wording;
+use App\Entity\Category;
 use App\Entity\Comment;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -16,13 +16,13 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
 
         $faker = \Faker\Factory::create('fr_FR');
 
-        // Create 5 fake wordings
+        // Create 5 fake categories
         for ($i = 1; $i <= 5; $i++) {
-            $wording = new Wording();
-            $wording->setTitle($faker->name())
+            $category = new Category();
+            $category->setTitle($faker->name())
                     ->setDescription($faker->paragraph());
 
-            $manager->persist($wording);
+            $manager->persist($category);
 
             // Create 30 random articles
             for ($j = 1; $j <= 30; $j++) {
@@ -34,7 +34,7 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
                     ->setContent($content)
                     ->setCreatedAt($faker->dateTimeBetween('-6 months'))
                     ->setUpdatedAt(new \DateTime(sprintf('-%d days', rand(1, 100))))
-                    ->addWording($wording);
+                    ->addWording($category);
 
                 $manager->persist($article);
 

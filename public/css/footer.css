@@ -2,20 +2,20 @@
 /* FOOTER */
 
 .footer-a {
-    color: rgba(255, 255, 255, 0.6);
+    
 }
 
 .footer-a:hover {
-    color: #FFFFFF;
+    color: black;
     text-decoration: none;
 }
 
-.footer-tittle {
-    color: #FFFFFF;
+.footer-title {
+    color: black;
 }
 
 .footer-p {
-    color: #FFFFFF;
+    color: black;
 }
 .page-footer{
     padding-top: 1.5rem;

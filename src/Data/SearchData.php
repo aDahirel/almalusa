@@ -10,8 +10,8 @@ class SearchData
     public $q = '';
 
     /**
-     * @var Wording[]
+     * @var Category[]
      */
-    public $wordings = [];
+    public $categories = [];
     
 }

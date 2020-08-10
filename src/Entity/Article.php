@@ -69,14 +69,14 @@ class Article
     private $updated_at;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Wording", inversedBy="articles")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="articles")
      */
-    private $wordings;
+    private $categories;
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
-        $this->wordings = new ArrayCollection();
+        $this->categories = new ArrayCollection();
         $this->fileName = "almalusalogo.png";
     }
 
@@ -222,28 +222,28 @@ class Article
     }
 
     /**
-     * @return Collection|Wording[]
+     * @return Collection|Category[]
      */
-    public function getWordings(): Collection
+    public function getCategories(): Collection
     {
-        return $this->wordings;
+        return $this->categories;
     }
 
-    public function addWording(Wording $wording): self
+    public function addCategory(Category $category): self
     {
-        if (!$this->wordings->contains($wording)) {
-            $this->wordings[] = $wording;
-            $wording->addArticle($this);
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+            $category->addArticle($this);
         }
 
         return $this;
     }
 
-    public function removeWording(Wording $wording): self
+    public function removeCategory(Category $category): self
     {
-        if ($this->wordings->contains($wording)) {
-            $this->wordings->removeElement($wording);
-            $wording->removeArticle($this);
+        if ($this->categories->contains($category)) {
+            $this->categories->removeElement($category);
+            $category->removeArticle($this);
         }
 
         return $this;

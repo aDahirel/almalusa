@@ -22,9 +22,9 @@
 		{% endif %}
 		</div>
 		<li class="list-unstyled d-flex flex-wrap mb-3">
-			{% for wording in article.wordings %}
+			{% for category in article.categories %}
 				<a href="#" class="wording_link mr-1">
-					<span>{{ wording.title }}</span>
+					<span>{{ category.title }}</span>
 				</a>
 			{% endfor %}
 		</li>
@@ -36,15 +36,15 @@
 		<p>Partagez cet article sur les réseaux sociaux</p>
 		<div>
 			<!-- Redirection to articles -->
-			<a href="{{ path('blog') }}">
+			<a href="{{ path('articles') }}">
 				<button type="button" class="btn btn-outline-secondary">Retour</button>
 			</a>
 			<!-- If a user is connected dislay the modify button -->
 			{% if is_granted('ROLE_ADMIN') %}
-				<a href="{{ path('blog_edit', {'id' : article.id, 'slug' : article.slug }) }}">
+				<a href="{{ path('article_edit', {'id' : article.id, 'slug' : article.slug }) }}">
 					<button type="button" class="btn btn-outline-secondary my-4">Modifier</button>
 				</a>
-				<form method="post" action="{{ path('blog_delete', {'id': article.id, 'slug': article.slug} ) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+				<form method="post" action="{{ path('article_delete', {'id': article.id, 'slug': article.slug} ) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
 					<input type="hidden" name="_method" value="DELETE">
 					<button class="btn btn-danger">Supprimer</button>
 				</form>
