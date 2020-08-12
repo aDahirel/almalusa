@@ -20,7 +20,6 @@
                 {{ message }}
             </div>
         {% endfor %}
-        
         <!-- Connexion form -->
         <form action="{{ path('security_login') }}" method="post" class="form-signin mx-auto w-100 p-3">
             <img src="{{ asset('images/almalusalogo.png') }}" height="100px" alt="Logo" class="mb-4">
@@ -42,10 +41,17 @@
                     <button type="submit" class="btn btn-lg btn-success w-100">Connexion</button>
                 </div>
             </div>
-            <p><a href="{{ path('security_registration') }}">S'inscrire sur Alma Lusa</a> ·
-                <a href="{{ path('forgotten_password') }}"> Mot de passe oublié ?</a></p>
+                <a href="{{ path('security_registration') }}"  style="cursor: pointer;">S'inscrire sur Alma Lusa</a>
+                <div id="simpleModal" class="primary-modal">
+                    <div class="modal-content">
+                        <span class="closeBtn">&times;</span>
+                        <p>Hello...I am a modal</p>
+                    </div>
+                </div>
+                ·
+                <a href="{{ path('forgotten_password') }}" id="modalLink"> Mot de passe oublié ?</a>
             <p><a href="{{ path('home') }}">Retour</a></p>
         </form>
     </div>
-
+    <script src="{{ asset('js/login.js') }}"></script>
 {% endblock %}

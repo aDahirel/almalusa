@@ -4,7 +4,6 @@
     display: grid; 
     place-items: center;
 }
-
 .navbar {
     display: none;
 }
@@ -20,6 +19,93 @@
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+footer {
+    display: none;
+}
+
+.primary-modal{
+    display: none;
+    position: fixed;
+    z-index:1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0,0.5);
+    text-align: left;
+}
+
+.modal-content{
+    background-color: white;
+    margin: 20% auto;
+    padding: 20px;
+    width: 500px;
+    box-shadow: 0px 5px 8px 0px rgb(0,0,0,0.2), 0px 7px 20px 0px rgb(0,0,0,0.17);
+    animation-name:modalopen;
+    animation-duration: 0.5s;
+}
+
+.closeBtn{
+    color: #ccc;
+    margin-left: auto;
+    font-size: 30px;
+}
+
+.closeBtn:hover, .closeBtn:focus
+{
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@keyframes modalopen{
+    from{opacity: 0}
+    to{opacity: 1}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#container{
+    background-color: #f5f5f5;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+}
+
+.signup {
+    max-width: 400px;
+}
+
+.navbar {
+    display: none;
+}
+
+.custom-file-label {
+    opacity: 0;
+}
+
+.custom-file-input {
+    opacity: 1;
+}
+
+.form-error {
+    margin-bottom: 5px;
+}
+
 footer {
     display: none;
 }

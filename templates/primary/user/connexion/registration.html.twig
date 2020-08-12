@@ -7,6 +7,7 @@
         <div class="text-center signup">
             <img src="{{ asset('images/almalusalogo.png') }}" height="100px" alt="Logo" class="mb-4">
             <h1 class="h3 mb-3" style="color: black">Inscription</h1>
+            <form action="{{ path('security_registration') }}" method="post">
             <!-- Inscription form -->
             {{ form_start(form) }}
             <div class="form-group">
@@ -42,6 +43,7 @@
                 </button>
             </div>
             {{ form_end(form) }}
+             </form>
             <p><a href="{{ path('security_login') }}">Retour</a></p>
             <!-- / Inscription form -->
         </div>

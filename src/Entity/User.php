@@ -91,11 +91,16 @@ class User implements UserInterface
     private $activation_token;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created_at;
+
+    /**
      * @return string
      */
     public function getResetToken(): string
     {
-        return $this->resetToken;
+        return $this->reset_token;
     }
 
     /**
@@ -103,7 +108,7 @@ class User implements UserInterface
      */
     public function setResetToken(?string $resetToken): void
     {
-        $this->resetToken = $resetToken;
+        $this->reset_token = $resetToken;
     }
 
     public function __construct()
@@ -142,8 +147,6 @@ class User implements UserInterface
 
         return $this;
     }
-
-
 
     public function getPassword(): ?string
     {
@@ -269,12 +272,24 @@ class User implements UserInterface
 
     public function getActivationToken(): ?string
     {
-        return $this->activationToken;
+        return $this->activation_token;
     }
 
     public function setActivationToken(?string $activationToken): self
     {
-        $this->activationToken = $activationToken;
+        $this->activation_token = $activationToken;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }
