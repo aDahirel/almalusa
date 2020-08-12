@@ -2,8 +2,11 @@
 {% block title %}Mon profil{% endblock %}
 
 {% block body %}
-<div class="container">
-	<div class="text-center mx-auto" style="border: 1px solid rgba(0,0,0,.125);box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, .05); height: 500px; max-width: 350px;">
+<head>
+	<link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+</head>
+<div id="container">
+	<div class="text-center mx-auto" style="min-width: 400px;border: 1px solid rgba(0,0,0,.125);box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, .05); max-width: 350px;">
 		<h3 class="card-header">Informations</h3>
 		<div class="card-body text-left">
 			<div class="d-flex">
@@ -13,6 +16,10 @@
 			<div class="d-flex">
 				<p>Votre email :</p>
 				<p class="card-text ml-auto">{{ user.email }}</p>
+			</div>
+			<div class="d-flex">
+				<p>Création du compte :</p>
+				<p class="card-text ml-auto">{{ user.createdAt|date("m/d/Y")  }}</p>
 			</div>
 			<div class="d-flex">
 				<p>Statut du compte :</p>

@@ -100,7 +100,7 @@ class User implements UserInterface
      */
     public function getResetToken(): string
     {
-        return $this->resetToken;
+        return $this->reset_token;
     }
 
     /**
@@ -108,7 +108,7 @@ class User implements UserInterface
      */
     public function setResetToken(?string $resetToken): void
     {
-        $this->resetToken = $resetToken;
+        $this->reset_token = $resetToken;
     }
 
     public function __construct()
@@ -272,12 +272,12 @@ class User implements UserInterface
 
     public function getActivationToken(): ?string
     {
-        return $this->activationToken;
+        return $this->activation_token;
     }
 
     public function setActivationToken(?string $activationToken): self
     {
-        $this->activationToken = $activationToken;
+        $this->activation_token = $activationToken;
 
         return $this;
     }

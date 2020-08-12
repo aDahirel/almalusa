@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Security\UserAuthenticator;
-use DateTime;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
 class RegistrationController extends AbstractController
@@ -32,7 +31,7 @@ class RegistrationController extends AbstractController
         $user = new User();
         // Create the registration form
         $form = $this->createForm(RegistrationType::class, $user);
-        // Process the data
+        // Process the dataz
         $form->handleRequest($request);
         // If the submit button is pushed and the form is valid
         if ($form->isSubmitted() && $form->isValid()) {
