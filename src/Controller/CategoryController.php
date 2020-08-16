@@ -50,11 +50,11 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/admin/category/delete/{id}", name="delete_categorie", methods="DELETE")
+     * @Route("/admin/category/delete/{id}", name="delete_category", methods="DELETE")
      *
      * @IsGranted("ROLE_ADMIN")
      */
-    public function delete_categorie($id, ManagerRegistry $managerRegistry)
+    public function delete_category($id, ManagerRegistry $managerRegistry)
     {
         // Get the categories repository
         $repo = $this->getDoctrine()->getRepository(Category::class);
