@@ -24,14 +24,14 @@ class Category
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $description;
-
-    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="categories")
      */
     private $articles;
+
+    /**
+     * @ORM\Column(type="string", length=25)
+     */
+    private $color;
 
     public function __construct()
     {
@@ -51,18 +51,6 @@ class Category
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
 
         return $this;
     }
@@ -96,5 +84,17 @@ class Category
     public function __toString()
     {
         return $this->title;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $color): self
+    {
+        $this->color = $color;
+
+        return $this;
     }
 }

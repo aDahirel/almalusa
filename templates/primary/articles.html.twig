@@ -12,13 +12,12 @@
 				{% for article in articles %}
 					<article class="d-flex px-3 js-filter-article" style="min-height: 76px;">
 						<div class="d-flex flex-column justify-content-between">
-							<a class="article_title text-uppercase" href="{{ path('article', {'id' : article.id, 'slug': article.slug }) }}">
+							<a class="article_title" href="{{ path('article', {'id' : article.id, 'slug': article.slug }) }}">
 								<h3>{{ article.title }}</h3>
 							</a>
-
 							<li class="list-unstyled d-flex flex-wrap">
 								{% for category in article.categories %}
-									<a href="" class="wording_link mr-1">
+									<a class="wording_link mr-1">
 										{{ category.title }}
 									</a>
 								{% endfor %}

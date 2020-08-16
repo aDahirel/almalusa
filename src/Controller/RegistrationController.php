@@ -83,7 +83,7 @@ class RegistrationController extends AbstractController
     public function activation($token, UserRepository $user)
     {
         // Veryfing if the user has an activation token
-        $user = $user->findOneBy(['activationToken' => $token]);
+        $user = $user->findOneBy(['activation_token' => $token]);
         // If no user exists with the token
         if (!$user) {
             // Send an error 404

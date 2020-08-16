@@ -32,8 +32,6 @@
 		<p class="metadata font-weight-bold">Publié le
 			{{ article.createdAt | date('d/m/y') }}
 		</p>
-		<p>Vous avez aimé cet article ?	Dites nous ce que vous en pensez dans les commentaires</p>
-		<p>Partagez cet article sur les réseaux sociaux</p>
 		<div>
 			<!-- Redirection to articles -->
 			<a href="{{ path('articles') }}">
@@ -52,9 +50,8 @@
 		</div>
 	</article>
 	<!-- / Article page -->
-	<hr>
+
 	<!-- Comment section -->
 	{% include "primary/article/comment.html.twig" %}
 	<!-- / Comment section -->
-	{% include "primary/article/more.html.twig" %}
 {% endblock %}

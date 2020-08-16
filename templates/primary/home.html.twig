@@ -29,7 +29,7 @@
 					<li class="list-unstyled d-flex flex-wrap">
 						{% for category in lastArticle.categories %}
 
-							<a class="wording_link mr-1">
+							<a href="/articles?categories%5B%5D={{ category.id }}&q=" class="btn btn-success">
 								{{ category.title }}
 							</a>
 
@@ -52,7 +52,7 @@
 						<span style="min-height: 54px;">{{ article.title }}</span>
 						<li class="list-unstyled d-flex flex-wrap">
 							{% for category in article.categories %}
-								<a class="wording_link mr-1">
+								<a href="/articles?categories%5B%5D={{ category.id }}&q=" class="wording_link mr-1">
 									{{ category.title }}
 								</a>
 							{% endfor %}
