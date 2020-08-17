@@ -17,7 +17,7 @@
 							</a>
 							<li class="list-unstyled d-flex flex-wrap">
 								{% for category in article.categories %}
-									<a class="wording_link mr-1">
+									<a href="/articles?categories%5B%5D={{ category.id }}&q=" class="btn btn-secondary m-1" style="border: solid black 1px;background-color:{{ category.color }}; color: black;">
 										{{ category.title }}
 									</a>
 								{% endfor %}

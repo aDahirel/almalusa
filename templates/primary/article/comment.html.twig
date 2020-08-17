@@ -1,5 +1,5 @@
 {% block body %}
-	<section class="container">
+	<section class="container my-3">
 		<!-- Display the amount of comments -->
 		<h4>
 			Commentaires ({{ article.comments | length }}) :
@@ -18,7 +18,7 @@
 			<p>Merci de vérifier votre compte pour poster</p>
 			<!-- Else display a connexion button -->
 		{% else %}
-			<h3 class="py-5"><a href="{{ path('security_login') }}" style="color: grey;">Se connecter</a> pour commenter</h3>
+			<h5><a href="{{ path('security_login') }}" style="color: grey;">Se connecter</a> pour commenter</h5>
 		{% endif %}
 		<!-- Display the comments -->
 		{% for comment in article.comments %}

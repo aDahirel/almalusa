@@ -114,43 +114,47 @@ class SecurityController extends AbstractController
                 // Redirect to the login page
                 $this->redirectToRoute('security_login');
             }
-            // Generate a token
-            $token = $tokenGenerator->generateToken();
-            // Trying to push in the database
-            try {
-                $user->setResetToken($token);
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($user);
-                $entityManager->flush();
-            } catch (\Exception $e) {
-                // Send a flash message to the user
-                $this->addFlash('warning', 'Une erreur est survenue : ' . $e->getMessage());
-                return $this->redirectToRoute('security_login');
+            else
+            {
+// Generate a token
+$token = $tokenGenerator->generateToken();
+// Trying to push in the database
+try {
+    $user->setResetToken($token);
+    $entityManager = $this->getDoctrine()->getManager();
+    $entityManager->persist($user);
+    $entityManager->flush();
+} catch (\Exception $e) {
+    // Send a flash message to the user
+    $this->addFlash('warning', 'Une erreur est survenue : ' . $e->getMessage());
+    return $this->redirectToRoute('security_login');
+}
+
+// Generating url reset password
+$url = $this->generateUrl('reset-password',['token' => $token],
+UrlGeneratorInterface::ABSOLUTE_URL
+);
+
+// Sending the mail
+$message = (new \Swift_Message('Mot de passe oublié'))
+    // Expeditor
+    ->setFrom('votre@adresse.fr')
+    // Recipient
+    ->setTo($user->getEmail())
+    // Mail content
+    ->setBody(
+        "Bonjour,<br><br>Une demande de réinitialisation de mot de passe a été effectuée pour le 
+        site Alma Lusa. Veuillez cliquer sur le lien suivant : " . $url . '</p>',
+        'text/html'
+    );
+// Sending mail
+$mailer->send($message);
+// Sending a  flash message to the user
+$this->addFlash('message', 'E-mail de réinitialisation du mot de passe envoyé !');
+// Redirect to the login page
+return $this->redirectToRoute('security_login');
             }
-
-            // Generating url reset password
-            $url = $this->generateUrl('reset-password',['token' => $token],
-            UrlGeneratorInterface::ABSOLUTE_URL
-            );
-
-            // Sending the mail
-            $message = (new \Swift_Message('Mot de passe oublié'))
-                // Expeditor
-                ->setFrom('votre@adresse.fr')
-                // Recipient
-                ->setTo($user->getEmail())
-                // Mail content
-                ->setBody(
-                    "Bonjour,<br><br>Une demande de réinitialisation de mot de passe a été effectuée pour le 
-                    site Alma Lusa. Veuillez cliquer sur le lien suivant : " . $url . '</p>',
-                    'text/html'
-                );
-            // Sending mail
-            $mailer->send($message);
-            // Sending a  flash message to the user
-            $this->addFlash('message', 'E-mail de réinitialisation du mot de passe envoyé !');
-            // Redirect to the login page
-            return $this->redirectToRoute('security_login');
+            
         }
         // Render the forgotten password view and form
         return $this->render('primary/user/password/forgotten_password.html.twig', ['emailForm' => $form->createView()]);

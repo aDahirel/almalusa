@@ -19,7 +19,7 @@ class RegistrationType extends AbstractType
             ->add('email',EmailType::class)
             ->add('username')
             ->add('imageFile', FileType::class, [
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new Image([
                         'maxSize' => '4M',

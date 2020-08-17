@@ -7,12 +7,12 @@
 {% block body %}
 	<link rel="stylesheet" href="{{ asset('css/article.css') }}">
 	<!-- Article page -->
-	<article class="container d-flex flex-column justify-content-between my-5">
+	<article class="container d-flex flex-column justify-content-between py-3">
 		<!-- Article title -->
-		<h2>{{ article.title }}</h2>
+		<h2>{{ article.title }}</h2><br>
 		<!-- Article picture -->
 		{% if article.content | length > 200 ? article.content %}
-		<div class="d-flex">
+		<div class="d-flex w-75 py-3">
 			<!-- Article content -->
 			<span>{{ article.content | raw }}</span>
 		{% else %}
@@ -21,17 +21,18 @@
 			<div class="py-3">{{ article.content | raw }}</div>
 		{% endif %}
 		</div>
-		<li class="list-unstyled d-flex flex-wrap mb-3">
-			{% for category in article.categories %}
-				<a href="#" class="wording_link mr-1">
-					<span>{{ category.title }}</span>
-				</a>
-			{% endfor %}
-		</li>
 		<!-- Article date -->
 		<p class="metadata font-weight-bold">Publié le
 			{{ article.createdAt | date('d/m/y') }}
 		</p>
+		Catégories :
+		<li class="list-unstyled d-flex flex-wrap mb-3">
+			{% for category in article.categories %}
+				<a href="/articles?categories%5B%5D={{ category.id }}&q=" class="btn btn-secondary m-1" style="border: solid grey 1px;background-color:{{ category.color }}; color: black;padding: .180rem .50rem;">
+					{{ category.title }}
+				</a>
+			{% endfor %}
+		</li>
 		<div>
 			<!-- Redirection to articles -->
 			<a href="{{ path('articles') }}">
