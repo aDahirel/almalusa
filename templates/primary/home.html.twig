@@ -28,11 +28,9 @@
 					<p>{{ lastArticle.createdAt | date('d/m') }}</p></a>
 					<li class="list-unstyled d-flex flex-wrap">
 						{% for category in lastArticle.categories %}
-
-							<a href="/articles?categories%5B%5D={{ category.id }}&q=" class="btn btn-success">
+							<a href="/articles?categories%5B%5D={{ category.id }}&q=" style="background-color: {{ category.color }};" class="btn">
 								{{ category.title }}
 							</a>
-
 						{% endfor %}
 					</li>
 				</div>
@@ -52,7 +50,7 @@
 						<span style="min-height: 54px;">{{ article.title }}</span>
 						<li class="list-unstyled d-flex flex-wrap">
 							{% for category in article.categories %}
-								<a href="/articles?categories%5B%5D={{ category.id }}&q=" class="wording_link mr-1">
+								<a href="/articles?categories%5B%5D={{ category.id }}&q=" style="background-color: {{ category.color }}; border: solid black 1px" class="btn mr-1">
 									{{ category.title }}
 								</a>
 							{% endfor %}

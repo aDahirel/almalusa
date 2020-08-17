@@ -11,9 +11,9 @@
 				<h3 class="card-header">Liste des catégories</h3>
 				<div class="card-body">
 					{% for category in categories %}
-						<li class="text-left list-group-item" style="background-color: {{ category.color }}">
+						<li class="text-left list-group-item" style="background-color: {{category.color}} ">
 							<span style="vertical-align: top;">{{ category.title }}</span>
-							<form method="post" action="{{ path('delete_categorie', {'id': category.id}) }}" style="float: right;" onsubmit="return confirm('Êtes-vous vraiment sûr ? Supprimer cette catégorie supprimera les articles associés')">
+							<form method="post" action="{{ path('delete_category', {'id': category.id}) }}" style="float: right;" onsubmit="return confirm('Êtes-vous vraiment sûr ? Supprimer cette catégorie supprimera les articles associés')">
 								<input type="hidden" name="_method" value="DELETE">
 								<button class="close">
 									<span aria-hidden="true">&times;</span>
