@@ -31,7 +31,7 @@ class User implements UserInterface
 
     /**
      * @var string|null
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $fileName;
 
@@ -96,6 +96,17 @@ class User implements UserInterface
     private $created_at;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
+
+    public function __construct()
+    {
+        $this->roles = array('ROLE_USER');
+        $this->comments = new ArrayCollection();
+    }
+
+    /**
      * @return string
      */
     public function getResetToken(): string
@@ -110,14 +121,6 @@ class User implements UserInterface
     {
         $this->reset_token = $resetToken;
     }
-
-    public function __construct()
-    {
-        $this->roles = array('ROLE_USER');
-        $this->comments = new ArrayCollection();
-        $this->fileName = "default_user.png";
-    }
-
 
     public function getId(): ?int
     {
@@ -290,6 +293,18 @@ class User implements UserInterface
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

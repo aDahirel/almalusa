@@ -143,7 +143,7 @@
 
   @media (max-width: 768px) {
 
-    .article_list{
+    .article-list{
         flex-direction: column;
     }
     #image_container{

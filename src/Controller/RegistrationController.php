@@ -31,10 +31,10 @@ class RegistrationController extends AbstractController
         $user = new User();
         // Create the registration form
         $form = $this->createForm(RegistrationType::class, $user);
-        // Process the dataz
+        // Process the data
         $form->handleRequest($request);
         // If the submit button is pushed and the form is valid
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) { 
             // Crypt the passwords
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
@@ -42,6 +42,9 @@ class RegistrationController extends AbstractController
             $user->setActivationToken(md5(uniqid()));
             // Set the actual date
             $user->setCreatedAt((new \DateTime('now')));
+            // Set the updated date
+            $user->setUpdatedAt((new \DateTime('now')));
+
             // Create the user
             $em = $managerRegistry->getManager();
             $em->persist($user);
@@ -74,7 +77,7 @@ class RegistrationController extends AbstractController
         }
         // Return the inscription page
         return $this->render('primary/user/connexion/registration.html.twig', [
-            'form' => $form->createview()
+            'formRegister' => $form->createview()
         ]);
     }
     /**

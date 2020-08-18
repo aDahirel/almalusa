@@ -4,9 +4,11 @@ fm_elfinder:
             locale: fr
             editor: ckeditor
             fullscreen: true
+            theme: smoothness
             connector:
                 roots:
                     uploads:
                         driver: LocalFileSystem
                         path: uploads/images
+                        
 

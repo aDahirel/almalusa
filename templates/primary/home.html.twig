@@ -14,7 +14,7 @@
 		</div>
 		<img id="welcome_picture" src="{{ asset('images/algarve.jpg') }}" alt="Photo de bienvenue">
 	</div>
-	<div class="container">
+	<div class="container" style="background-color: white;">
 		<h2 class="py-5 text-uppercase">Nos derniers articles :</h2>
 		{% for lastArticle in lastArticle %}
 			<div class="article">
@@ -36,7 +36,7 @@
 			</div>
 		
 		{% endfor %}
-		<div class="article_list d-flex flex-wrap justify-content-between align-content-between">
+		<div class="pt-5 article-list d-flex flex-wrap justify-content-between align-content-between">
 			{% for article in articles|slice(0, 9) %}
 				<div>
 					<a href="{{ path('article', {'id' : article.id, 'slug': article.slug }) }}">
