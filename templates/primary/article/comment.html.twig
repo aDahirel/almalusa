@@ -1,5 +1,5 @@
 {% block body %}
-	<section class="container">
+	<section class="container py-3" style="background-color: white;">
 		<!-- Display the amount of comments -->
 		<h4>
 			Commentaires ({{ article.comments | length }}) :
@@ -18,12 +18,16 @@
 			<p>Merci de vérifier votre compte pour poster</p>
 			<!-- Else display a connexion button -->
 		{% else %}
-			<h3 class="py-5"><a href="{{ path('security_login') }}" style="color: grey;">Se connecter</a> pour commenter</h3>
+			<h5><a href="{{ path('security_login') }}" style="color: grey;">Se connecter</a> pour commenter</h5>
 		{% endif %}
 		<!-- Display the comments -->
 		{% for comment in article.comments %}
 			<div class="media px-3 pt-3">
+				{% if comment.user.filename == null %}
+				<img src="{{ asset('images/default_user.png') }}" alt="{{ comment.user.username }} picture" class="mr-2 rounded-circle" style="width: 40px; height: 40px;">
+				{% else %}
 				<img src="{{ vich_uploader_asset( comment.user, 'imageFile') }}" alt="{{ comment.user.username }} picture" class="mr-2 rounded-circle" style="width: 40px; height: 40px;">
+				{% endif %}
 				<div class="media-body">
 					<h5 class="mb-0">{{ comment.user.username }}</h5>
 						<span class="mb-2 blockquote-footer" >{{ comment.createdAt | date('\\l\\e d/m/Y à H:i') }}</span>

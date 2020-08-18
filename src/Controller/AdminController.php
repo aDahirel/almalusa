@@ -39,6 +39,7 @@ class AdminController extends AbstractController
             if (!$article->getId()) {
                 $article->setCreatedAt(new \DateTime());
             }
+            $article->setUpdatedAt(new \DateTime());
             // Process the form data
             $em = $managerRegistry->getManager();
             // Tell the manager to  persist

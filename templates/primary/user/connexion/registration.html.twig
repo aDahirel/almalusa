@@ -7,44 +7,44 @@
         <div class="text-center signup">
             <img src="{{ asset('images/almalusalogo.png') }}" height="100px" alt="Logo" class="mb-4">
             <h1 class="h3 mb-3" style="color: black">Inscription</h1>
-            <form action="{{ path('security_registration') }}" method="post">
+            <form action="{{ path('security_registration') }}" method="post" enctype="multipart/form-data">
             <!-- Inscription form -->
-            {{ form_start(form) }}
-            <div class="form-group">
-                {{ form_widget(form.username, {'attr': {'placeholder': 'Nom d\'utilisateur'}}) }}
-            </div>
-            <div class="form-error">
-                {{ form_errors(form.email) }}
-            </div>
-            <div class="form-group">
-                {{ form_widget(form.email, {'attr': {'placeholder': 'Adresse email'}}) }}
-            </div>
-            <div class="form-error">
-                {{ form_errors(form.password) }}
-            </div>
-            <div class="form-group">
-                {{ form_widget(form.password, {'attr': {'placeholder': 'Mot de passe', 'type' : 'hidden'}}) }}
-            </div>
-            <div class="form-error">
-                {{ form_errors(form.confirm_password) }}
-            </div>
-            <div class="form-group">
-                {{ form_widget(form.confirm_password, {'attr': {'placeholder': 'Confirmation du Mot de passe'}}) }}
-            </div>
-            <div class="form-group">
-                <label class="h5 mb-3 float-left">
-                    Une photo de profil ?
-                </label>
-                {{ form_widget(form.imageFile) }}
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-lg btn-success w-100">
-                    Inscription
-                </button>
-            </div>
-            {{ form_end(form) }}
+            {{ form_start(formRegister) }}
+                <div class="form-group">
+                    {{ form_widget(formRegister.username, {'attr': {'placeholder': 'Nom d\'utilisateur'}}) }}
+                </div>
+                <div class="form-error">
+                    {{ form_errors(formRegister.email) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(formRegister.email, {'attr': {'placeholder': 'Adresse email'}}) }}
+                </div>
+                <div class="form-error">
+                    {{ form_errors(formRegister.password) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(formRegister.password, {'attr': {'placeholder': 'Mot de passe', 'type' : 'hidden'}}) }}
+                </div>
+                <div class="form-error">
+                    {{ form_errors(formRegister.confirm_password) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(formRegister.confirm_password, {'attr': {'placeholder': 'Confirmation du Mot de passe'}}) }}
+                </div>
+                <div class="form-group">
+                    <label class="h5 mb-3 float-left">
+                        Une photo de profil ? (facultatif)
+                    </label>
+                    {{ form_widget(formRegister.imageFile) }}
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-lg btn-success w-100">
+                        Inscription
+                    </button>
+                </div>
+            {{ form_end(formRegister) }}
              </form>
-            <p><a href="{{ path('security_login') }}">Retour</a></p>
+             <a href="{{ path('security_login') }}"><p class="m-3">Retour</p></a>
             <!-- / Inscription form -->
         </div>
     </div>

@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Form\ModificationType;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -17,6 +16,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use App\Entity\User;
 use App\Form\ResetPassType;
 use App\Repository\UserRepository;
+use SebastianBergmann\Environment\Console;
 
 class SecurityController extends AbstractController
 {
@@ -37,43 +37,10 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/profil", name="user_profil")
-     */
-    public function profil(Request $request, ManagerRegistry $managerRegistry, UserPasswordEncoderInterface $encoder)
-    {
-        // Allow any authenticated user - we don't care if they just
-        // logged in, or are logged in via a remember me cookie
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
-        // Get the current user date
-        $user = $this->getUser();
-        // Create the modification form
-        $form = $this->createForm(ModificationType::class, $user);
-        // Inspect the request
-        $form->handleRequest($request);
-        // If the submit button is pushed and the form is valid
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Send the user data in the database
-            $em = $managerRegistry->getManager();
-            $em->persist($user);
-            $em->flush();
-            // Add a flash message to the user
-            $this->addFlash('success', 'Vous avez mis a jour votre profil !');
-            // Return to the login page
-            return $this->redirectToRoute('security_login');
-        }
-        // Render the modification page
-        return $this->render('primary/user/user_modification.html.twig', [
-            'user' => $user,
-            'form' => $form->createview()
-        ]);
-    }
-
-    /**
      * @Route("/deconnexion", name="security_logout")
      */
     public function logout()
     {
-        // The logout function is supported by symfony in security.yaml
     }
 
     /**
@@ -81,22 +48,35 @@ class SecurityController extends AbstractController
      */
     public function delete_user(User $user, Request $request, ManagerRegistry $managerRegistry)
     {
-        // Remove the user in the database
-        $em = $managerRegistry->getManager();
-        $em->remove($user);
-        $em->flush();
-        // clear the session attribute
-        $session = new Session();
-        $session->invalidate();
-        // Log out the user
-        return $this->redirectToRoute('security_logout');
+        $fileName = $user->getFileName();
+
+        if ($fileName == "default_user.png") 
+        {
+
+        } 
+        else 
+        {
+            // Remove the user in the database
+            $em = $managerRegistry->getManager();
+            $em->remove($user);
+            $em->flush();
+            // clear the session attribute
+            $session = new Session();
+            $session->invalidate();
+            // Log out the user
+            return $this->redirectToRoute('security_logout');
+        }
     }
+
     /**
      * @Route("/oubli-pass", name="forgotten_password")
      */
-    public function forgottenPass(Request $request,UserRepository $userRepo,\Swift_Mailer $mailer,
-        TokenGeneratorInterface $tokenGenerator) 
-    {
+    public function forgottenPass(
+        Request $request,
+        UserRepository $userRepo,
+        \Swift_Mailer $mailer,
+        TokenGeneratorInterface $tokenGenerator
+    ) {
         // Create a reset password form
         $form = $this->createForm(ResetPassType::class);
         // Handle the request
@@ -113,44 +93,47 @@ class SecurityController extends AbstractController
                 $this->addFlash('danger', 'Cette adresse n\'existe pas');
                 // Redirect to the login page
                 $this->redirectToRoute('security_login');
-            }
-            // Generate a token
-            $token = $tokenGenerator->generateToken();
-            // Trying to push in the database
-            try {
-                $user->setResetToken($token);
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($user);
-                $entityManager->flush();
-            } catch (\Exception $e) {
-                // Send a flash message to the user
-                $this->addFlash('warning', 'Une erreur est survenue : ' . $e->getMessage());
+            } else {
+                // Generate a token
+                $token = $tokenGenerator->generateToken();
+                // Trying to push in the database
+                try {
+                    $user->setResetToken($token);
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+                } catch (\Exception $e) {
+                    // Send a flash message to the user
+                    $this->addFlash('warning', 'Une erreur est survenue : ' . $e->getMessage());
+                    return $this->redirectToRoute('security_login');
+                }
+
+                // Generating url reset password
+                $url = $this->generateUrl(
+                    'reset-password',
+                    ['token' => $token],
+                    UrlGeneratorInterface::ABSOLUTE_URL
+                );
+
+                // Sending the mail
+                $message = (new \Swift_Message('Mot de passe oublié'))
+                    // Expeditor
+                    ->setFrom('votre@adresse.fr')
+                    // Recipient
+                    ->setTo($user->getEmail())
+                    // Mail content
+                    ->setBody(
+                        "Bonjour,<br><br>Une demande de réinitialisation de mot de passe a été effectuée pour le 
+        site Alma Lusa. Veuillez cliquer sur le lien suivant : " . $url . '</p>',
+                        'text/html'
+                    );
+                // Sending mail
+                $mailer->send($message);
+                // Sending a  flash message to the user
+                $this->addFlash('message', 'E-mail de réinitialisation du mot de passe envoyé !');
+                // Redirect to the login page
                 return $this->redirectToRoute('security_login');
             }
-
-            // Generating url reset password
-            $url = $this->generateUrl('reset-password',['token' => $token],
-            UrlGeneratorInterface::ABSOLUTE_URL
-            );
-
-            // Sending the mail
-            $message = (new \Swift_Message('Mot de passe oublié'))
-                // Expeditor
-                ->setFrom('votre@adresse.fr')
-                // Recipient
-                ->setTo($user->getEmail())
-                // Mail content
-                ->setBody(
-                    "Bonjour,<br><br>Une demande de réinitialisation de mot de passe a été effectuée pour le 
-                    site Alma Lusa. Veuillez cliquer sur le lien suivant : " . $url . '</p>',
-                    'text/html'
-                );
-            // Sending mail
-            $mailer->send($message);
-            // Sending a  flash message to the user
-            $this->addFlash('message', 'E-mail de réinitialisation du mot de passe envoyé !');
-            // Redirect to the login page
-            return $this->redirectToRoute('security_login');
         }
         // Render the forgotten password view and form
         return $this->render('primary/user/password/forgotten_password.html.twig', ['emailForm' => $form->createView()]);

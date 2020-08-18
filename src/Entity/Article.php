@@ -64,14 +64,14 @@ class Article
     private $comments;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $updated_at;
-
-    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="articles")
      */
     private $categories;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
 
     public function __construct()
     {
@@ -207,20 +207,6 @@ class Article
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updated_at;
-    }
-    /**
-     * @param  Date|null  $imageFile
-     */
-    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
-    {
-        $this->updated_at = $updated_at;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Category[]
      */
@@ -245,6 +231,18 @@ class Article
             $this->categories->removeElement($category);
             $category->removeArticle($this);
         }
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

@@ -1,5 +1,5 @@
 {% block body %}
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #eee;">
         <a class="navbar-brand" href="{{ path('home') }}">
             <img src="{{ asset('images/almalusalogo.png') }}" alt="logo">
         </a>
@@ -30,10 +30,16 @@
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') or is_granted('ROLE_VERIFIED_USER') %}
                     {% if app.user %}
                         <li class="nav-item d-flex">
-                            <img class="my-auto rounded-circle" src="{{ vich_uploader_asset(app.user, 'imageFile') }}"
+                            {% if app.user.filename == null %}
+                            <img class="my-auto rounded-circle" src="{{ asset('images/default_user.png') }}"
                                  alt="User picture"
                                  width="30px" height="30px" style="margin-left: 0.5rem; margin-right: 0.5rem;">
-                            <a class="nav-link" href="{{ path('profil') }}">
+                            {% else %}
+                            <img class="my-auto rounded-circle" src="{{ vich_uploader_asset(app.user, 'imageFile')  }}"
+                                 alt="User picture"
+                                 width="30px" height="30px" style="margin-left: 0.5rem; margin-right: 0.5rem;">
+                            {% endif %}
+                            <a class="nav-link" href="{{ path('profile') }}">
                                 {{ app.user.username }}
                             </a>
                         </li>

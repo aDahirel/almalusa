@@ -9,6 +9,7 @@ use App\Entity\Comment;
 use App\Entity\User;
 use App\Entity\Category;
 use App\Form\CommentType;
+use App\Form\ModificationType;
 use App\Form\SearchType;
 use App\Repository\ArticleRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -128,25 +129,38 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/profil", name="profil")
+     * @Route("/profile", name="profile")
      */
-    public function profil(Request $request)
+    public function profile(Request $request)
     {
-        // If the user trigger an input
-        if ($request->isMethod('POST')) {
-            if ($request->request->get('user') === 'null') {
-                // Redirect to the user editing page
-                return $this->redirectToRoute('user_profil');
-            } else {
-                // Return to the forget password page
-                return $this->redirectToRoute('forgotten_password');
-            }
-        }
         // Get the user
         $user = $this->getUser();
         // Return to the same page with user data
-        return $this->render('primary/user/profile.html.twig', [
+        return $this->render('primary/user/profile/profile.html.twig', [
             'user' => $user
+        ]);
+    }
+
+    /**
+     * @Route("/modify", name="user_modify")
+     */
+    public function user_modify(Request $request, ManagerRegistry $managerRegistry)
+    {
+        // Get the user
+        $user = $this->getUser();
+        // Create the UserType form
+        $form = $this->createForm(ModificationType::class, $user);
+        // Take the request
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            dd($user);
+        }
+
+        // Return to the same page with user data
+        return $this->render('primary/user/profile/modification.html.twig', [
+            'user' => $user,
+            'form' => $form->createView()
         ]);
     }
 
