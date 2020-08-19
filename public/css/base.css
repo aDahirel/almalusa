@@ -33,6 +33,12 @@ nav{
     font-size: 1.25rem;
 }
 
+input{
+    border-radius: 0px;
+}
+.form-control{
+    border-radius: 0px; 
+}
 /** Pagination style */
 
 .page-link{

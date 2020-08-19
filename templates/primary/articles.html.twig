@@ -4,13 +4,13 @@
 		<link rel="stylesheet" href="{{ asset('css/articles.css') }}">
 	</header>
 	<!-- Articles section -->
-	<section class="container js-filter" style="background-color: white;">
+	<section class="container js-filter">
 		<!-- Display all the articles in database -->
 		<div class="d-flex justify-content-between">
 			<div class="flex-grow-1">
 				{% include 'primary/search/search.html.twig' with {form: form} only %}
 				{% for article in articles %}
-					<article class="d-flex px-3 js-filter-article" style="min-height: 76px;">
+					<article class="d-flex p-3 js-filter-article" style="min-height: 76px; background-color: white;">
 						<div class="d-flex flex-column justify-content-between">
 							<a class="article_title" href="{{ path('article', {'id' : article.id, 'slug': article.slug }) }}">
 								<h3>{{ article.title }}</h3>
@@ -32,7 +32,6 @@
 							</div>
 						{% endif %}
 					</article>
-					<hr>
 				{% endfor %}
 			</div>
 		</div>

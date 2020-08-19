@@ -5,8 +5,8 @@
 <head>
 	<link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 </head>
-<div id="container">
-	<div class="text-center mx-auto pb-5" style="min-width: 400px;">
+<div class="d-flex justify-content-around" id="container">
+	<div class="text-center" style="width: 400px;">
 		<div>
 			<h3>Informations</h3>
 			<div class="card-body text-left">
@@ -32,12 +32,21 @@
 						<p class="card-text ml-auto text-warning">Administrateur</p>
 					{% endif %}
 				</div>
-				<form method="post" action="{{ path('delete_user', {'id': user.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
-					<input type="hidden" name="_method" value="DELETE">
-					<button class="btn btn-danger">
-						Supprimer le compte
-					</button>
-				</form>
+				<div>
+					<form method="post" action="{{ path('delete_user', {'id': user.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+						<input type="hidden" name="_method" value="DELETE">
+						<button class="btn btn-danger">
+							Supprimer le compte
+						</button>
+					</form>
+				</div>
+				{# {{ form_start(form) }}
+					<div class="d-flex">
+						<p class="w-100">Votre photo de profil :</p>
+						<p class="card-text ml-auto w-50">{{ form_widget(form.imageFile) }}</p>
+					</div>
+					<button>Modifier</button>
+				{{ form_end(form) }} #}
 			</div>
 		</div>
 	</div>

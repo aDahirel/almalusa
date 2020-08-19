@@ -8,12 +8,12 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="navbar-nav mr-auto">
+            <ul id="container" class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('articles') }}">Articles</a>
+                    <a id="nav-articles" class="nav-link" href="{{ path('articles') }}">Articles</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('subscription') }}">Adhésion</a>
+                    <a id="nav-subscription" class="nav-link" href="{{ path('subscription') }}">Adhésion</a>
                 </li>
                 <!-- Check if a user is logged in to display appropriate features -->
                 {% if is_granted('ROLE_ADMIN') %}

@@ -36,7 +36,9 @@ a:hover {
     padding: 5px;
     transition-duration: 0.3s;
 }
-
+#nav-articles{
+    color: black;
+}
 
 /* responsive */
 
