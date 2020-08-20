@@ -31,11 +31,7 @@ a:hover {
     text-decoration: none;
     cursor: pointer;
 }
-.wording_link {
-    border: solid 1px black;
-    padding: 5px;
-    transition-duration: 0.3s;
-}
+
 #nav-articles{
     color: black;
 }

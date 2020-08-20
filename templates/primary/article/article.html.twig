@@ -7,7 +7,7 @@
 {% block body %}
 	<link rel="stylesheet" href="{{ asset('css/article.css') }}">
 	<!-- Article page -->
-	<article class="container d-flex flex-column justify-content-between py-3" style="background-color: white;">
+	<article class="container d-flex flex-column justify-content-between py-3">
 		<!-- Article title -->
 		<h2>{{ article.title }}</h2><br>
 		<!-- Article picture -->
@@ -25,10 +25,9 @@
 		<p class="metadata font-weight-bold">Publié le
 			{{ article.createdAt | date('d/m/y') }}
 		</p>
-		Catégories :
 		<li class="list-unstyled d-flex flex-wrap mb-3">
 			{% for category in article.categories %}
-				<a href="/articles?categories%5B%5D={{ category.id }}&q=" class="btn btn-secondary m-1" style="border: solid grey 1px;background-color:{{ category.color }}; color: black;padding: .180rem .50rem;">
+				<a href="/articles?categories%5B%5D={{ category.id }}&q=" class="category-title btn btn-secondary mt-1" style="background-color:{{ category.color }};">
 					{{ category.title }}
 				</a>
 			{% endfor %}

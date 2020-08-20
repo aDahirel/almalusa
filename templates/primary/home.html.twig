@@ -14,8 +14,8 @@
 		</div>
 		<img id="welcome_picture" src="{{ asset('images/algarve.jpg') }}" alt="Photo de bienvenue">
 	</div>
-	<div class="container" style="background-color: white;">
-		<h2 class="py-5 text-uppercase">Nos derniers articles :</h2>
+	<div class="container">
+		<h2 class="py-5 text-uppercase">Nos articles</h2>
 		{% for lastArticle in lastArticle %}
 			<div class="article">
 				<a href="{{ path('article', {'id' : lastArticle.id, 'slug': lastArticle.slug }) }}" id="primary-link">
@@ -23,11 +23,11 @@
 				</a>
 				<div class="article_container">
 					<span class="badge badge-success float-right">Nouveau</span>
-						<h4>{{ lastArticle.title }}</h4>
+						<a href="{{ path('article', {'id' : lastArticle.id, 'slug': lastArticle.slug }) }}"><h4>{{ lastArticle.title }}</h4></a>
 					<p>{{ lastArticle.createdAt | date('d/m') }}</p>
 					<li class="list-unstyled d-flex flex-wrap">
 						{% for category in lastArticle.categories %}
-							<a href="/articles?categories%5B%5D={{ category.id }}&q=" style="background-color: {{ category.color }}; border: solid black 1px;" class="btn m-1">
+							<a href="/articles?categories%5B%5D={{ category.id }}&q=" style="background-color: {{ category.color }};" class="category-title btn">
 								{{ category.title }}
 							</a>
 						{% endfor %}
@@ -49,7 +49,7 @@
 						<span style="min-height: 54px;">{{ article.title }}</span>
 						<li class="list-unstyled d-flex flex-wrap">
 							{% for category in article.categories %}
-								<a href="/articles?categories%5B%5D={{ category.id }}&q=" style="background-color:{{ category.color }}; border: solid black 1px" class="btn m-1">
+								<a href="/articles?categories%5B%5D={{ category.id }}&q=" style="background-color:{{ category.color }};" class="category-title btn">
 									{{ category.title }}
 								</a>
 							{% endfor %}
