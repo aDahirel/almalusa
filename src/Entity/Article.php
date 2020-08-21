@@ -77,7 +77,6 @@ class Article
     {
         $this->comments = new ArrayCollection();
         $this->categories = new ArrayCollection();
-        $this->fileName = "almalusalogo.png";
     }
 
     public function getId(): ?int

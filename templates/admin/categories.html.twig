@@ -2,38 +2,51 @@
 {% block title %}Modifer les catégories
 {% endblock %}
 {% block body %}
-	<header>
-		<link rel="stylesheet" href="{{ asset('css/categories.css') }}">
-	</header>
-	<div class="first-container mt-5">
-		<div class="second-container">
-			<ul>
-				<h3 class="card-header">Liste des catégories</h3>
-				<div class="card-body">
-					{% for category in categories %}
-						<li class="text-left list-group-item" style="background-color: {{category.color}}">
-							<span style="vertical-align: top;">{{ category.title }}</span>
-							<form method="post" action="{{ path('delete_category', {'id': category.id}) }}" style="float: right;" onsubmit="return confirm('Êtes-vous vraiment sûr ? Supprimer cette catégorie supprimera les articles associés')">
-								<input type="hidden" name="_method" value="DELETE">
-								<button class="close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</form>
-						</li>
-					{% endfor %}
-				</div>
-			</ul>
-		</div>
-		<div class="second-container mb-5" style="padding-inline-start: 40px;">
-			<h3 class="card-header">Ajouter une catégorie</h3>
+<header>
+	<link rel="stylesheet" href="{{ asset('css/categories.css') }}">
+</header>
+<div class="first-container mt-5">
+	<div class="second-container">
+		<ul>
+			<h3>Liste des catégories</h3>
 			<div class="card-body">
-				{{ form_start(form) }}
-				{{ form_errors(form) }}
-				{{ form_row(form.title, { 'label': 'Titre' }) }}
-				{{ form_row(form.color, { 'label': 'Couleur' }) }}
-				<button type="submit" class="btn btn-secondary">Envoyer</button>
-				{{ form_end(form) }}
+				{% for category in categories %}
+				<li class="text-left list-group-item" style="background-color: {{category.color}}">
+					<a href="{{ path('edit_category', {'id' : category.id}) }}"><span
+							style="vertical-align: top;">{{ category.title }}</span></a>
+					<form method="post" action="{{ path('delete_category', {'id': category.id}) }}"
+						style="float: right;"
+						onsubmit="return confirm('Êtes-vous vraiment sûr ? Supprimer cette catégorie supprimera les articles associés')">
+						<input type="hidden" name="_method" value="DELETE">
+						<button class="close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</form>
+				</li>
+				{% endfor %}
 			</div>
+		</ul>
+	</div>
+	<div class="second-container mb-5" style="padding-inline-start: 40px;">
+		{% if editMode %}
+		<h3>Modifier une catégorie</h3>
+		{% else %}
+		<h3>Ajouter une catégorie</h3>
+		{% endif %}
+		<div class="card-body">
+			{{ form_start(form) }}
+			{{ form_errors(form) }}
+			{{ form_row(form.title, { 'label': 'Titre' }) }}
+			{{ form_row(form.color, { 'label': 'Couleur' }) }}
+			<button type="submit" class="btn btn-secondary">
+				{% if editMode %}
+				Modifier
+				{% else %}
+				Ajouter
+				{% endif %}
+			</button>
+			{{ form_end(form) }}
 		</div>
 	</div>
+</div>
 {% endblock %}
