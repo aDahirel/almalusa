@@ -3,7 +3,7 @@
 
 {% block body %}
 <head>
-	<link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/primary/user/profile/profile.css') }}">
 </head>
 <div class="d-flex justify-content-around" id="container">
 	<div class="text-center" style="width: 400px;">
@@ -25,69 +25,31 @@
 				<div class="d-flex">
 					<p>Statut du compte :</p>
 					{% if user.roles[0] == "ROLE_USER" %}
-						<p class="card-text ml-auto text-danger">Non-Vérifié</p>
+					<p class="card-text ml-auto text-danger">Non-Vérifié</p>
 					{% elseif user.roles[0] == "ROLE_VERIFIED_USER" %}
-						<p class="card-text ml-auto text-success">Vérifié</p>
+					<p class="card-text ml-auto text-success">Vérifié</p>
 					{% else %}
-						<p class="card-text ml-auto text-warning">Administrateur</p>
+					<p class="card-text ml-auto text-warning">Administrateur</p>
 					{% endif %}
 				</div>
+				{{ form_start(form) }}
+				<div class="d-flex">
+					<p class="w-100">Photo de profil :</p>
+					<p class="card-text ml-auto w-50">{{ form_widget(form.imageFile) }}</p>
+				</div>
+				<button>Modifier Photo</button>
+				{{ form_end(form) }}
 				<div>
-					<form method="post" action="{{ path('delete_user', {'id': user.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+					<form method="post" action="{{ path('delete_user', {'id': user.id}) }}"
+						onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
 						<input type="hidden" name="_method" value="DELETE">
-						<button class="btn btn-danger">
+						<button class="btn btn-danger mt-3">
 							Supprimer le compte
 						</button>
 					</form>
 				</div>
-				{# {{ form_start(form) }}
-					<div class="d-flex">
-						<p class="w-100">Votre photo de profil :</p>
-						<p class="card-text ml-auto w-50">{{ form_widget(form.imageFile) }}</p>
-					</div>
-					<button>Modifier</button>
-				{{ form_end(form) }} #}
 			</div>
 		</div>
 	</div>
-{# 
-		<div class="card bg-light mb-3">
-			<div class="card-header" style="font-size: 1.5rem">Vos informations</div>
-			<div class="card-body">
-				<div class="col">
-					<h3 class="card-title">Votre Nom :</h3>
-					<p class="card-text">{{ user.username }}</p>
-					<h3 class="card-title">Votre Mail :</h3>
-					<p class="card-text">{{ user.email }}</p>
-					<h3 class="card-title">Supprimer le compte :</h3>
-					<form method="post" action="{{ path('delete_user', {'id': user.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
-						<input type="hidden" name="_method" value="DELETE">
-						<button class="btn btn-danger">
-							Supprimer
-						</button>
-					</form>
-				</div>
-			</div>
-		</div>
-		<div class="d-flex">
-			<form method="post" class="pr-3">
-				<input type="hidden" name="user" id="userId" class="form-control" value="{{ user.email }}">
-				<button class="btn btn-lg btn-secondary mt-3 mb-3" type="submit">
-					Modifier mon mot de passe
-				</button>
-			</form>
-			<form method="post">
-				<input type="hidden" name="user" id="userId" class="form-control" value="null">
-				<button class="btn btn-lg btn-secondary mt-3 mb-3" type="submit">
-					Modifier mes informations
-				</button>
-			</form>
-		</div> #}
-	</div>
-	<style>
-		footer{
-			display: none;
-		}
-	</style>
-
+</div>
 {% endblock %}

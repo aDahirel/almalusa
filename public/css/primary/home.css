@@ -21,6 +21,12 @@ header > img {
     z-index: 1;
     width: 100%;
 }
+/* last article container */
+#last-article {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    grid-auto-rows: minmax(100px, auto);
+}
 /* article image */
 #image-container > img {
     display: table-cell;
@@ -29,29 +35,22 @@ header > img {
     object-fit: cover;
     max-width: 100%;
 }
-
-#last-article {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-    grid-auto-rows: minmax(100px, auto);
-}
-
+/* categories */
 .category-list{
     display: flex;
     list-style: none;
     padding-left: 0px;
     flex-wrap: wrap;
 }
-
-.article_image {
+/* article picture */
+.article-image {
     grid-row: 1 / 6;
     grid-column: 1 / 4;
     width: 750px;
     height: auto;
     opacity: 1;
 }
-
-.article_image:hover {
+.article-image:hover {
     opacity: 0.7;
     transition-duration: 0.3s;
     /* transition time */
@@ -64,7 +63,7 @@ header > img {
     -webkit-transition-duration: 0.3s;
     /*safari and chrome */
 }
-
+/* last article link */
 #primary-link {
     grid-row: 1 / 5;
     grid-column: 1 / 4;
@@ -72,8 +71,8 @@ header > img {
     height: auto;
     opacity: 1;
 }
-
-.article_container {
+/* last article container */
+.article-container {
     padding: 20px;
     background-color: white;
     grid-row: 2;
@@ -82,7 +81,12 @@ header > img {
     box-shadow: 12px 12px 2px 1px rgba(8, 8, 8, 0.2);
     z-index: 1;
 }
-
+/* article picture container */
+#image-container {
+    opacity: 1;
+    height: 350px;
+    width: 350px;
+}
 #image-container:hover {
     opacity: 0.7;
     transition-duration: 0.3s;
@@ -96,13 +100,7 @@ header > img {
     -webkit-transition-duration: 0.3s;
     /*safari and chrome */
 }
-
-#image-container {
-    opacity: 1;
-    height: 350px;
-    width: 350px;
-}
-
+/* article description */
 .article-card {
     width: 350px;
     height: 150px;
@@ -110,19 +108,18 @@ header > img {
     flex-direction: column;
     justify-content: space-around;
 }
-
+/* article index */
 .article-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-content: space-between
 }
-
+/* index button */
 #next-page{
     background-color: #eee; 
     color: black;
 }
-
 #next-page:hover{
     border: 1px solid grey;
     color: grey;
@@ -142,7 +139,7 @@ header > img {
 }
 
 @media screen and (max-width: 992px) {
-    .article_image {
+    .article-image {
         width: 400px;
     }
 
@@ -184,7 +181,7 @@ header > img {
         display: block;
     }
 
-    .article_image {
+    .article-image {
         width: 100%;
     }
 
@@ -192,7 +189,7 @@ header > img {
         box-shadow: none;
     }
 
-    .article_container {
+    .article-container {
         box-shadow: none;
         width: 100%;
     }

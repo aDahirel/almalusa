@@ -149,7 +149,8 @@ class SecurityController extends AbstractController
                     // Mail content
                     ->setBody(
                         "Bonjour,<br><br>Une demande de réinitialisation de mot de passe a été effectuée pour le 
-        site Alma Lusa. Veuillez cliquer sur le lien suivant : " . $url . '</p>',
+                        site Alma Lusa. Veuillez cliquer sur le lien ci-dessous pour modifier votre mot de passe : "
+                         . $url . '</p>',
                         'text/html'
                     );
                 // Sending mail

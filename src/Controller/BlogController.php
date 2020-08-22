@@ -75,12 +75,21 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/adhesion", name="subscription")
+     * @Route("/adhesion", name="membership")
      */
-    public function Subscription()
+    public function membership()
     {
-        // Return the home view
+        // Render the membership page
         return $this->render('primary/membership.html.twig');
+    }
+
+    /**
+     * @Route("/mentions-legales", name="legalNotice")
+     */
+    public function legalNotice()
+    {
+        // Render the legal notice view
+        return $this->render('modules/notice.html.twig');
     }
 
     /**

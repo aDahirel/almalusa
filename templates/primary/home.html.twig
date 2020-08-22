@@ -28,14 +28,14 @@
 		{# LAST ARTICLE PICTURE #}
 		<a id="primary-link" href="{{ path('article', {'id' : lastArticle.id, 'slug': lastArticle.slug }) }}">
 			{% if lastArticle.fileName == null %}
-			<img class="article_image" src="{{ asset('images/almalusalogo.png') }}" alt="Photo de l'article">
+			<img class="article-image" src="{{ asset('images/almalusalogo.png') }}" alt="Photo de l'article">
 			{% else %}
-			<img class="article_image" src="{{ vich_uploader_asset(lastArticle, 'imageFile') }}"
+			<img class="article-image" src="{{ vich_uploader_asset(lastArticle, 'imageFile') }}"
 				alt="Photo de l'article">
 			{% endif %}
 		</a>
 		{# LAST ARTICLE LABEL #}
-		<div class="article_container">
+		<div class="article-container">
 			<span class="badge badge-success float-right">Nouveau</span>
 			<a href="{{ path('article', {'id' : lastArticle.id, 'slug': lastArticle.slug }) }}">
 				<h4>{{ lastArticle.title }}</h4>
@@ -43,7 +43,7 @@
 			<p>{{ lastArticle.createdAt | date('d/m') }}</p>
 			<li class="category-list">
 				{% for category in lastArticle.categories %}
-				<a class="category-title btn" href="/articles?categories%5B%5D={{ category.id }}&q="
+				<a class="btn" href="/articles?categories%5B%5D={{ category.id }}&q="
 					style="background-color: {{ category.color }};">
 					{{ category.title }}
 				</a>
