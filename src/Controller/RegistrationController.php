@@ -35,6 +35,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
         // If the submit button is pushed and the form is valid
         if ($form->isSubmitted() && $form->isValid()) { 
+            
             // Crypt the passwords
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);

@@ -1,67 +1,95 @@
 {% extends "base.html.twig" %}
 {% block body %}
-	<header>
-		<link rel="stylesheet" href="{{ asset('css/home.css') }}">
-	</header>
-	<div id="reception">
-		<div id="welcome_message">
-			<h1 class="display-4 font-weight-bold">
-				Bem vindo !
-			</h1>
-			<p class="lead">
-				Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a pour objectif																																														                diversifiées : expositions, conférences, chant, voyages, etc.
-			</p>
-		</div>
-		<img id="welcome_picture" src="{{ asset('images/algarve.jpg') }}" alt="Photo de bienvenue">
+
+<head>
+	<link rel="stylesheet" href="{{ asset('css/primary/home.css') }}">
+</head>
+{# WELCOME SECTION #}
+<header>
+	<div id="welcome-message">
+		{# WELCOME BLOCK #}
+		<h1 class="display-4 font-weight-bold">
+			Bem vindo !
+		</h1>
+		<p class="lead">
+			Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a pour objectif
+			diversifiées : expositions, conférences, chant, voyages, etc.
+		</p>
 	</div>
-	<div class="container" style="background-color: white;">
-		<h2 class="py-5 text-uppercase">Nos derniers articles :</h2>
-		{% for lastArticle in lastArticle %}
-			<div class="article">
-				<a href="{{ path('article', {'id' : lastArticle.id, 'slug': lastArticle.slug }) }}" id="primary-link">
-				<img class="article_image" src="{{ vich_uploader_asset(lastArticle, 'imageFile') }}" alt="Photo de l'article">
+	{# WELCOME PICTURE #}
+	<img src="{{ asset('images/algarve.jpg') }}" alt="Photo de bienvenue">
+</header>
+{# ARTICLE SECTION #}
+<section class="container">
+	<h2 class="py-5 text-uppercase">Nos articles</h2>
+	{# LAST ARTICLE #}
+	{% for lastArticle in lastArticle %}
+	<article id="last-article">
+		{# LAST ARTICLE PICTURE #}
+		<a id="primary-link" href="{{ path('article', {'id' : lastArticle.id, 'slug': lastArticle.slug }) }}">
+			{% if lastArticle.fileName == null %}
+			<img class="article_image" src="{{ asset('images/almalusalogo.png') }}" alt="Photo de l'article">
+			{% else %}
+			<img class="article_image" src="{{ vich_uploader_asset(lastArticle, 'imageFile') }}"
+				alt="Photo de l'article">
+			{% endif %}
+		</a>
+		{# LAST ARTICLE LABEL #}
+		<div class="article_container">
+			<span class="badge badge-success float-right">Nouveau</span>
+			<a href="{{ path('article', {'id' : lastArticle.id, 'slug': lastArticle.slug }) }}">
+				<h4>{{ lastArticle.title }}</h4>
+			</a>
+			<p>{{ lastArticle.createdAt | date('d/m') }}</p>
+			<li class="category-list">
+				{% for category in lastArticle.categories %}
+				<a class="category-title btn" href="/articles?categories%5B%5D={{ category.id }}&q="
+					style="background-color: {{ category.color }};">
+					{{ category.title }}
 				</a>
-				<div class="article_container">
-					<span class="badge badge-success float-right">Nouveau</span>
-						<h4>{{ lastArticle.title }}</h4>
-					<p>{{ lastArticle.createdAt | date('d/m') }}</p>
-					<li class="list-unstyled d-flex flex-wrap">
-						{% for category in lastArticle.categories %}
-							<a href="/articles?categories%5B%5D={{ category.id }}&q=" style="background-color: {{ category.color }}; border: solid black 1px;" class="btn m-1">
-								{{ category.title }}
-							</a>
+				{% endfor %}
+			</li>
+		</div>
+	</article>
+	{% endfor %}
+	{# ARTICLES INDEX #}
+	<div class="pt-5 article-list">
+		{% for article in articles|slice(0, 9) %}
+		<article>
+			{# ARTICLE PICTURE #}
+			<a href="{{ path('article', {'id' : article.id, 'slug': article.slug }) }}">
+				<div id="image-container">
+					{% if article.fileName == null %}
+					<img alt="Photo de l'article" src="{{ asset('images/almalusalogo.png') }}">
+					{% else %}
+					<img alt="Photo de l'article" src="{{ vich_uploader_asset(article, 'imageFile') }}">
+					{% endif %}
+				</div>
+			</a>
+			{# ARTICLE CARD #}
+			<div class="article-card">
+				<a href="{{ path('article', {'id' : article.id, 'slug': article.slug }) }}">
+					{# ARTICLE TITLE #}
+					<span>{{ article.title }}</span>
+					{# ARTICLE CATEGORIES #}
+					<li class="category-list">
+						{% for category in article.categories %}
+						<a class="category-title btn" href="/articles?categories%5B%5D={{ category.id }}&q="
+							style="background-color:{{ category.color }};">
+							{{ category.title }}
+						</a>
 						{% endfor %}
 					</li>
-				</div>
+					{# ARTICLE DATE #}
+					<p>{{ article.createdAt | date('d/m') }}</p>
+				</a>
 			</div>
-		
+		</article>
 		{% endfor %}
-		<div class="pt-5 article-list d-flex flex-wrap justify-content-between align-content-between">
-			{% for article in articles|slice(0, 9) %}
-				<div>
-					<a href="{{ path('article', {'id' : article.id, 'slug': article.slug }) }}">
-						<div id="image_container">
-							<img id="article_picture" src="{{ vich_uploader_asset(article, 'imageFile') }}">
-						</div>
-					</a>
-					<div class="article_card d-flex flex-column justify-content-between">
-						<a href="{{ path('article', {'id' : article.id, 'slug': article.slug }) }}">
-						<span style="min-height: 54px;">{{ article.title }}</span>
-						<li class="list-unstyled d-flex flex-wrap">
-							{% for category in article.categories %}
-								<a href="/articles?categories%5B%5D={{ category.id }}&q=" style="background-color:{{ category.color }}; border: solid black 1px" class="btn m-1">
-									{{ category.title }}
-								</a>
-							{% endfor %}
-						</li>
-						<p>{{ article.createdAt | date('d/m') }}</p>
-						</a>
-					</div>
-				</div>
-			{% endfor %}
-			<a class="py-4 ml-auto" href="{{ path('articles') }}">
-				<input class="text-uppercase p-2 btn btn-secondary" value="Tous les articles ->"></input>
-			</a>
-		</div>
+		{# INDEX BUTTON #}
+		<a class="ml-auto" href="{{ path('articles') }}">
+			<input id="next-page" class="text-uppercase p-2 btn btn-secondary" value="Tous les articles ->"></input>
+		</a>
 	</div>
+</section>
 {% endblock %}

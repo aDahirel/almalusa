@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -15,12 +16,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @Vich\Uploadable
- * @UniqueEntity(
- * fields={"email"},
- * message="Email déjà utilisé"
- * )
+ * @UniqueEntity(fields={"email"},message="Email déjà utilisé")
+ * @UniqueEntity(fields={"username"},message="Nom d'utilisateur déjà utilisé")
  */
-class User implements UserInterface
+class User implements UserInterface, Serializable
 {
     /**
      * @ORM\Id()
@@ -264,13 +263,25 @@ class User implements UserInterface
     }
     public function serialize()
     {
-        $this->profileImage = base64_encode($this->imageFile);
+        return serialize (array(
+            $this->id,
+            $this->email,
+            $this->username,
+            $this->password,
+            // $this->profileImage = base64_encode($this->imageFile)
+        ));
     }
 
     public function unserialize($serialized)
     {
-        $this->profileImage = base64_decode($this->imageFile);
+        list(
+            $this->id,
+            $this->email,
+            $this->username,
+            $this->password,
+            // $this->profileImage = base64_encode($this->imageFile),
 
+        ) = unserialize($serialized, array('allowed_classes' => false)) ;
     }
 
     public function getActivationToken(): ?string

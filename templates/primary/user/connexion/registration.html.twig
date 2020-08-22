@@ -5,11 +5,13 @@
     </head>
     <div id="container">
         <div class="text-center signup">
-            <img src="{{ asset('images/almalusalogo.png') }}" height="100px" alt="Logo" class="mb-4">
-            <h1 class="h3 mb-3" style="color: black">Inscription</h1>
+            <h1 class="mb-3" style="color: black">Inscription</h1>
             <form action="{{ path('security_registration') }}" method="post" enctype="multipart/form-data">
             <!-- Inscription form -->
             {{ form_start(formRegister) }}
+                <div class="form-error">
+                    {{ form_errors(formRegister.email) }}
+                </div>
                 <div class="form-group">
                     {{ form_widget(formRegister.username, {'attr': {'placeholder': 'Nom d\'utilisateur'}}) }}
                 </div>
@@ -38,13 +40,13 @@
                     {{ form_widget(formRegister.imageFile) }}
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-lg btn-success w-100">
+                    <button type="submit" class="btn btn-lg btn-success w-100 rounded-0">
                         Inscription
                     </button>
                 </div>
             {{ form_end(formRegister) }}
              </form>
-             <a href="{{ path('security_login') }}"><p class="m-3">Retour</p></a>
+             <a href="{{ path('security_login') }}"><p>Retour</p></a>
             <!-- / Inscription form -->
         </div>
     </div>

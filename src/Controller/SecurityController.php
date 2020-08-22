@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use App\Entity\User;
 use App\Form\ResetPassType;
 use App\Repository\UserRepository;
-use SebastianBergmann\Environment\Console;
+use App\Form\ProfilePictureType;
 
 class SecurityController extends AbstractController
 {
@@ -37,6 +37,35 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * @Route("/profile", name="profile")
+     */
+    public function profile(Request $request, ManagerRegistry $managerRegistry)
+    {
+        // Get the user
+        $user = $this->getUser();
+        // Create the ProfilePictureType form
+        $form = $this->createForm(ProfilePictureType::class, $user);
+        // Take the request
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $managerRegistry->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('success', 'Photo modifiée !');
+        }
+
+        // Return to the same page with user data
+        return $this->render('primary/user/profile/profile.html.twig', [
+            'user' => $user,
+            'form' => $form->createView()
+        ]);
+    }
+
+
+    /**
      * @Route("/deconnexion", name="security_logout")
      */
     public function logout()
@@ -50,12 +79,8 @@ class SecurityController extends AbstractController
     {
         $fileName = $user->getFileName();
 
-        if ($fileName == "default_user.png") 
-        {
-
-        } 
-        else 
-        {
+        if ($fileName == "default_user.png") {
+        } else {
             // Remove the user in the database
             $em = $managerRegistry->getManager();
             $em->remove($user);
@@ -69,7 +94,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/oubli-pass", name="forgotten_password")
+     * @Route("/forgotten_password", name="forgotten_password")
      */
     public function forgottenPass(
         Request $request,

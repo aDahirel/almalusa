@@ -33,6 +33,12 @@ nav{
     font-size: 1.25rem;
 }
 
+input{
+    border-radius: 0px;
+}
+.form-control{
+   border-radius: 0px; 
+}
 /** Pagination style */
 
 .page-link{
@@ -57,4 +63,18 @@ nav{
 
 .page-link:hover {
     color: black;
+}
+
+.category-title{
+    color: black;
+    margin-right: 3px;
+    border: none;
+    border-radius: 0px;
+}
+.category-title:hover{
+    color: white;
+}
+
+.btn{
+    border-radius: 0px;
 }

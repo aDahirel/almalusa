@@ -1,65 +1,72 @@
-#container{
-    background-color: #f5f5f5; 
+#container {
+    background-color: #f5f5f5;
     height: 100vh;
-    display: grid; 
+    display: grid;
     place-items: center;
 }
+
 .navbar {
     display: none;
 }
+
 .form-signin {
     max-width: 500px;
 }
-.input1{
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    margin-bottom: -1px;
+
+input {
+    border-radius: 0px;
 }
-.input2{
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
+
 footer {
     display: none;
 }
 
-.primary-modal{
+.primary-modal {
     display: none;
     position: fixed;
-    z-index:1;
+    z-index: 1;
     left: 0;
     top: 0;
     height: 100%;
     width: 100%;
     overflow: auto;
-    background-color: rgb(0,0,0,0.5);
+    background-color: rgb(0, 0, 0, 0.5);
     text-align: left;
 }
 
-.modal-content{
+.modal-content {
     background-color: white;
     margin: 20% auto;
     padding: 20px;
     width: 500px;
-    box-shadow: 0px 5px 8px 0px rgb(0,0,0,0.2), 0px 7px 20px 0px rgb(0,0,0,0.17);
-    animation-name:modalopen;
+    box-shadow: 0px 5px 8px 0px rgb(0, 0, 0, 0.2), 0px 7px 20px 0px rgb(0, 0, 0, 0.17);
+    animation-name: modalopen;
     animation-duration: 0.5s;
 }
 
-.closeBtn{
+.closeBtn {
     color: #ccc;
     margin-left: auto;
     font-size: 30px;
 }
 
-.closeBtn:hover, .closeBtn:focus
-{
+.closeBtn:hover,
+.closeBtn:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
 }
 
-@keyframes modalopen{
-    from{opacity: 0}
-    to{opacity: 1}
+a:hover {
+    text-decoration: underline;
+}
+
+@keyframes modalopen {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
 }

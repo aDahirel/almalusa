@@ -49,6 +49,7 @@ security:
     access_control:
           - { path: ^/admin, roles: ROLE_ADMIN }
           - { path: ^/user, roles: ROLE_USER }
+          - { path: ^/elfinder, role: ROLE_ADMIN }
  
     role_hierarchy:
         ROLE_ADMIN: [ROLE_ADMIN, ROLE_USER]

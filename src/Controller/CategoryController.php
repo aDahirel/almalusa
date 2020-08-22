@@ -15,14 +15,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryController extends AbstractController
 {
     /**
-     * @Route("/admin/category", name="category_edit", methods="GET|POST")
+     * @Route("/admin/category", name="new_category", methods="GET|POST")
+     * @Route("/admin/category/edit/{id}", name="edit_category", methods="GET|POST")
      *
      * @IsGranted("ROLE_ADMIN")
      */
-    public function category_edit(Request $request, ManagerRegistry $managerRegistry)
+    public function new_category(Category $category =null , Request $request, ManagerRegistry $managerRegistry)
     {
         // Create a new Category object
-        $category = new Category();
+        if(!$category){
+            $category = new Category();
+        }
         // Create the category form
         $form = $this->createForm(CategoryType::class, $category);
         // Inspect the request
@@ -34,9 +37,9 @@ class CategoryController extends AbstractController
             $em->persist($category);
             $em->flush();
             // Add a flash message to the user
-            $this->addFlash('success', 'Votre catégorie a bien été créer');
+            $this->addFlash('success', 'Vos catégories ont bien été mises à jour');
             // Return to the same page
-            return $this->redirectToRoute('category_edit');
+            return $this->redirectToRoute('new_category');
         }
         // Get the category repository
         $repo = $this->getDoctrine()->getRepository(Category::class);
@@ -45,7 +48,8 @@ class CategoryController extends AbstractController
         // Return to the categories page with form
         return $this->render('admin/categories.html.twig', [
             'categories' => $categories,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'editMode' => $category->getId() !== null
         ]);
     }
 
@@ -67,6 +71,6 @@ class CategoryController extends AbstractController
         // Add a flash message to the user
         $this->addFlash('success', 'Vous avez bien supprimé cette catégorie');
         // Redirect to the same page
-        return $this->redirectToRoute('category_edit');
+        return $this->redirectToRoute('new_category');
     }
 }

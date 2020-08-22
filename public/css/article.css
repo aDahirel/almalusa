@@ -7,11 +7,6 @@ a:hover{
     text-decoration: none;
 }
 
-.wording_link{
-    border: solid 1px black;
-    padding: 5px;
-    transition-duration: 0.3s;
-}
 #article_picture
 {
     display: table-cell;
@@ -35,3 +30,4 @@ a:hover{
     min-height: 400px;
     min-width: 400px;
 }
+

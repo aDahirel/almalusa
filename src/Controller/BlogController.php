@@ -9,7 +9,6 @@ use App\Entity\Comment;
 use App\Entity\User;
 use App\Entity\Category;
 use App\Form\CommentType;
-use App\Form\ModificationType;
 use App\Form\SearchType;
 use App\Repository\ArticleRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -125,42 +124,6 @@ class BlogController extends AbstractController
         return $this->render('primary/article/article.html.twig', [
             'article' => $article,
             'commentForm' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/profile", name="profile")
-     */
-    public function profile(Request $request)
-    {
-        // Get the user
-        $user = $this->getUser();
-        // Return to the same page with user data
-        return $this->render('primary/user/profile/profile.html.twig', [
-            'user' => $user
-        ]);
-    }
-
-    /**
-     * @Route("/modify", name="user_modify")
-     */
-    public function user_modify(Request $request, ManagerRegistry $managerRegistry)
-    {
-        // Get the user
-        $user = $this->getUser();
-        // Create the UserType form
-        $form = $this->createForm(ModificationType::class, $user);
-        // Take the request
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            dd($user);
-        }
-
-        // Return to the same page with user data
-        return $this->render('primary/user/profile/modification.html.twig', [
-            'user' => $user,
-            'form' => $form->createView()
         ]);
     }
 
