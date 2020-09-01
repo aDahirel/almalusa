@@ -1,18 +1,18 @@
 {% block body %}
 	<header>
-		<link rel="stylesheet" href="css/footer.css">
+		<link rel="stylesheet" href="css/modules/footer.css">
 	</header>
 	<!-- Footer -->
-<footer class="page-footer font-small mt-5">
+<footer class="font-small mt-5">
     <!-- Footer Links -->
     <div class="container text-center text-md-left">
         <!-- Grid row -->
         <div class="row justify-content-between">
             <!-- Grid column -->
-            <div class="description-footer col-md-4 col-lg-6 col-xs-4 mb-2">
+            <div class="col-md-4 col-lg-6 col-xs-4 mb-2">
                 <!-- Content -->
-                <h5 class="text-uppercase footer-title">Alma Lusa</h5>
-                <p class="footer-p">Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a
+                <h5 class="text-uppercase">Alma Lusa</h5>
+                <p>Créée à RENNES le 14 décembre 2012, L'Association Culturelle Portugaise ALMA LUSA a
                     pour objectif de promouvoir la langue portugaise et la culture lusophone à travers des activités
                     culturelles diversifiées: expositions, conférences, chant, voyages, etc.</p>
             </div>
@@ -21,25 +21,25 @@
             <!-- Grid column -->
             <div class=" col-lg-2 col-md-4 col-xs-4 mb-2">
                 <!-- Links -->
-                <div class="footer-link-div">
-                    <h5 class="text-uppercase footer-tittle">A Propos</h5>
+                <div>
+                    <h5 class="text-uppercase">A Propos</h5>
                     <ul class="list-unstyled">
                         <li>
-                            <a class="footer-a" href="/adhesion">Nous rejoindre</a>
+                            <a href="{{ path('membership')}}">Nous rejoindre</a>
                         </li>
                         <li>
-                            <a class="footer-a" href="#!">Plan du site</a>
+                            <a href="mailto:almalusa@laposte.net">Contact</a>
                         </li>
                         <li>
-                            <a class="footer-a" href="#!">Mentions légales</a>
+                            <a href="{{ path('legalNotice')}}">Mentions légales</a>
                         </li>
                     </ul>
                 </div>
             </div>
             <hr class="clearfix w-100 d-md-none pb-3">
             <!-- Grid column -->
-            <div class=" col-md-4 col-lg-4  col-xs-4 mb-2">
-                <h5 class="text-uppercase footer-tittle">S'inscrire a la newsletter </h5>
+            {# <div class=" col-md-4 col-lg-4  col-xs-4 mb-2">
+                <h5 class="text-uppercase">S'inscrire a la newsletter </h5>
                 <div class="form-group">
                     <div class="form-group">
                         <div class="input-group mb-3 flex-input">
@@ -50,16 +50,16 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> #}
         </div>
         <!-- Grid row -->
     </div>
     <!-- Footer Links -->
     <!-- Copyright -->
-    <div class="footer-copyright text-center py-3"$>© 2020 Copyright:
-        <a class="footer-a" href="https://axeldahirel.fr/"> Axel Dahirel</a>
+    <div class="text-center py-3"$>© 2020 Copyright:
+        <a href="https://axeldahirel.fr/"> Axel Dahirel</a>
         &
-        <a class="footer-a" href="https://www.youtube.com/watch?v=WtO3AHMBePY"> Jean Lagniaux</a>
+        <a href="https://www.youtube.com/watch?v=WtO3AHMBePY"> Jean Lagniaux</a>
     </div>
     <!-- Copyright -->
 </footer>
