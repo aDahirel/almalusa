@@ -1,18 +1,11 @@
 {% extends "base.html.twig" %}
 {% block body %}
+
 <head>
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="{{ asset('css/modules/notice.css') }}">
 </head>
 <div class="container">
-    <h1 class="py-5">Mentions légales</h1>
-    <h2>Définitions</h2>
-    <p>
-
-        Mentions légales
-        Définitions
-        Client : tout professionnel ou personne physique capable au sens des articles 1123 et suivants du Code civil, ou
-        personne morale, qui visite le Site objet des présentes conditions générales.
-    </p>
+    <h1>Mentions légales</h1>
     <h2>1. Présentation du site internet</h2>
     <p>En vertu de l’article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l’économie numérique, il est
         précisé aux utilisateurs du site internet http://almalusa.fr/ l’identité des différents intervenants dans le
@@ -25,9 +18,9 @@
     <p><b>Hébergeur : </b>Nom de l'hébergeur - Adresse - Téléphone</p>
     <h2>2. Conditions générales d’utilisation du site et des services proposés.</h2>
     <p>
-        Le Site constitue une œuvre de l’esprit protégée par les dispositions du Code de la Propriété Intellectuelle et
+        Le site constitue une œuvre de l’esprit protégée par les dispositions du Code de la Propriété Intellectuelle et
         des Réglementations Internationales applicables. Le Client ne peut en aucune manière réutiliser, céder ou
-        exploiter pour son propre compte tout ou partie des éléments ou travaux du Site.
+        exploiter pour son propre compte tout ou partie des éléments ou travaux du site.
     </p>
     <p>L’utilisation du site http://almalusa.fr/ implique l’acceptation pleine et entière des conditions générales
         d’utilisation ci-après décrites. Ces conditions d’utilisation sont susceptibles d’être modifiées ou complétées à
@@ -79,50 +72,58 @@
     </p>
     <h2>6. Limitations de responsabilité</h2>
     <p>
-        http://silamir.com/ agit en tant qu’éditeur du site. http://silamir.com/ est responsable de la qualité et de la
+        http://almalusa.fr/ agit en tant qu’éditeur du site. http://almalusa.fr/ est responsable de la qualité et de la
         véracité du Contenu qu’il publie.
     </p>
     <p>
-        http://silamir.com/ ne pourra être tenu responsable des dommages directs et indirects causés au matériel de
-        l’utilisateur, lors de l’accès au site internet http://silamir.com/, et résultant soit de l’utilisation d’un
+        http://almalusa.fr/ ne pourra être tenu responsable des dommages directs et indirects causés au matériel de
+        l’utilisateur, lors de l’accès au site internet http://almalusa.fr/, et résultant soit de l’utilisation d’un
         matériel ne répondant pas aux spécifications indiquées au point 4, soit de l’apparition d’un bug ou d’une
         incompatibilité.
     </p>
     <p>
-        http://silamir.com/ ne pourra également être tenu responsable des dommages indirects (tels par exemple qu’une
-        perte de marché ou perte d’une chance) consécutifs à l’utilisation du site http://silamir.com/. Des espaces
+        http://almalusa.fr/ ne pourra également être tenu responsable des dommages indirects (tels par exemple qu’une
+        perte de marché ou perte d’une chance) consécutifs à l’utilisation du site http://almalusa.fr/. Des espaces
         interactifs (possibilité de poser des questions dans l’espace contact) sont à la disposition des utilisateurs.
-        http://silamir.com/ se réserve le droit de supprimer, sans mise en demeure préalable, tout contenu déposé dans
+        http://almalusa.fr/ se réserve le droit de supprimer, sans mise en demeure préalable, tout contenu déposé dans
         cet espace qui contreviendrait à la législation applicable en France, en particulier aux dispositions relatives
-        à la protection des données. Le cas échéant, http://silamir.com/ se réserve également la possibilité de mettre
+        à la protection des données. Le cas échéant, http://almalusa.fr/ se réserve également la possibilité de mettre
         en cause la responsabilité civile et/ou pénale de l’utilisateur, notamment en cas de message à caractère
         raciste, injurieux, diffamant, ou pornographique, quel que soit le support utilisé (texte, photographie …).
     </p>
     <h2>7. Gestion des données personnelles</h2>
     <h3>7.1 Finalité des données collectées</h3>
     <p>
-        http://silamir.com/ est susceptible de traiter tout ou partie des données :
+        http://almalusa.fr/ est susceptible de traiter tout ou partie des données :
     </p>
     <ul>
-        <li>pour permettre la navigation sur le Site</li>
+        <li>pour permettre la navigation sur le site</li>
         <li>pour prévenir la lutte contre la fraude informatique</li>
         <li>pour améliorer la navigation du site</li>
     </ul>
-    <p>http://silamir.com/ ne commercialise pas vos données personnelles qui sont donc uniquement utilisées par nécessité ou à des fins statistiques et d’analyses.</p>
+    <p>http://almalusa.fr/ ne commercialise pas vos données personnelles qui sont donc uniquement utilisées par
+        nécessité ou à des fins statistiques et d’analyses.</p>
     <h3>7.2 Droit d’accès, de rectification et d’opposition</h3>
-    <p>Conformément à la réglementation européenne en vigueur, les Utilisateurs de http://silamir.com/ disposent des droits suivants :
+    <p>Conformément à la réglementation européenne en vigueur, les utilisateurs de http://almalusa.fr/ disposent des
+        droits suivants :
     </p>
     <ul>
-        <li>droit d’accès (article 15 RGPD) et de rectification (article 16 RGPD), de mise à jour, de complétude des données des Utilisateurs droit de verrouillage ou d’effacement des données des Utilisateurs à caractère personnel (article 17 du RGPD), lorsqu’elles sont inexactes, incomplètes, équivoques, périmées, ou dont la collecte, l’utilisation, la communication ou la conservation est interdite</li>
+        <li>droit d’accès (article 15 RGPD) et de rectification (article 16 RGPD), de mise à jour, de complétude des
+            données des utilisateurs droit de verrouillage ou d’effacement des données des Utilisateurs à caractère
+            personnel (article 17 du RGPD), lorsqu’elles sont inexactes, incomplètes, équivoques, périmées, ou dont la
+            collecte, l’utilisation, la communication ou la conservation est interdite</li>
         <li>droit de retirer à tout moment un consentement (article 13-2c RGPD)</li>
-        <li>droit à la limitation du traitement des données des Utilisateurs (article 18 RGPD)</li>
-        <li>droit d’opposition au traitement des données des Utilisateurs (article 21 RGPD)
+        <li>droit à la limitation du traitement des données des utilisateurs (article 18 RGPD)</li>
+        <li>droit d’opposition au traitement des données des utilisateurs (article 21 RGPD)
         </li>
-        <li>droit à la portabilité des données que les Utilisateurs auront fournies, lorsque ces données font l’objet de traitements automatisés fondés sur leur consentement ou sur un contrat (article 20 RGPD)</li>
-        <li>droit de définir le sort des données des Utilisateurs après leur mort et de choisir à qui http://silamir.com/ devra communiquer (ou non) ses données à un tiers qu’ils aura préalablement désigné</li>
+        <li>droit à la portabilité des données que les utilisateurs auront fournies, lorsque ces données font l’objet de
+            traitements automatisés fondés sur leur consentement ou sur un contrat (article 20 RGPD)</li>
+        <li>droit de définir le sort des données des utilisateurs après leur mort et de choisir à qui
+            http://almalusa.fr/ devra communiquer (ou non) ses données à un tiers qu’ils aura préalablement désigné</li>
     </ul>
     <h3>7.3 Types de données collectées</h3>
-    <p>http://almalusa.fr/ collecte des informations qui permettent d’améliorer l’expérience utilisateur, en font partie :</p>
+    <p>http://almalusa.fr/ collecte des informations qui permettent d’améliorer l’expérience utilisateur, en font partie
+        :</p>
     <ul>
         <li>Noms d'utilisateurs</li>
         <li>Adresses de courrier électronique</li>
@@ -132,14 +133,17 @@
         <li>Photo de profil</li>
     </ul>
     <h2>8 Sécurité</h3>
-    <p>Lors du traitement des Données Personnelles, http://silamir.com/prend toutes les mesures raisonnables visant à les protéger contre toute perte, utilisation détournée, accès non autorisé, divulgation, altération ou destruction.</p>
-    <h2>9 Cookies</h3>
-    <p>Nous recueillons certaines informations par le biais de fichiers journaux (log file) et de fichiers témoins (cookies). Il s’agit principalement des informations suivantes :</p>
-    <ul>
-        <li>Adresse IP</li>
-        <li>Système d’exploitation</li>
-        <li>Pages visitées et requêtes</li>
-        <li>Heure et jour de connexion</li>
-    </ul>
+        <p>Lors du traitement des Données Personnelles, http://almalusa.fr/ prend toutes les mesures raisonnables visant
+            à les protéger contre toute perte, utilisation détournée, accès non autorisé, divulgation, altération ou
+            destruction.</p>
+        <h2>9 Cookies</h3>
+            <p>Nous recueillons certaines informations par le biais de fichiers journaux (log file) et de fichiers
+                témoins (cookies). Il s’agit principalement des informations suivantes :</p>
+            <ul>
+                <li>Adresse IP</li>
+                <li>Système d’exploitation</li>
+                <li>Pages visitées et requêtes</li>
+                <li>Heure et jour de connexion</li>
+            </ul>
 </div>
 {% endblock %}
