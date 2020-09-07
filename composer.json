@@ -1,0 +1,12 @@
+{
+    "name": "axel/almalusa",
+    "description": "Alma lusa blog project",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Woodyyy",
+            "email": "36766352+Woodyyy@users.noreply.github.com"
+        }
+    ],
+    "require": {}
+}
