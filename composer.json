@@ -1,5 +1,7 @@
 {
     "type": "project",
+    "name" : "adahirel/almalusa",
+    "description" : "Alma lusa blog project",
     "license": "proprietary",
     "require": {
         "php": ">=7.2.5",
