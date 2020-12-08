@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{article.title}}
+{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ asset('css/article.css') }}">
+<!-- Article page -->
+<article class="container d-flex flex-column justify-content-between py-3">
+	<!-- Article title -->
+	<h2>{{ article.title }}</h2>
+	<!-- Article picture -->
+	{% if article.content | length > 200 ? article.content %}
+	<div class="d-flex w-75 py-3">
+		<!-- Article content -->
+		<span>{{ article.content | raw }}</span>
+		{% else %}
+		<div>
+			<!-- Article content -->
+			<div class="py-3">{{ article.content | raw }}</div>
+			{% endif %}
+		</div>
+		<!-- Article date -->
+		<p class="metadata font-weight-bold">Publié le
+			{{ article.createdAt | date('d/m/y') }}
+		</p>
+		<li class="list-unstyled d-flex flex-wrap mb-3">
+			{% for category in article.categories %}
+			<a href="/articles?categories%5B%5D={{ category.id }}&q=" class="category-title btn btn-secondary mt-1"
+				style="background-color:{{ category.color }};">
+				{{ category.title }}
+			</a>
+			{% endfor %}
+		</li>
+		<div>
+			<!-- Redirection to articles -->
+			<a href="{{ path('articles') }}">
+				<button type="button" class="btn btn-outline-secondary">Retour</button>
+			</a>
+			<!-- If a user is connected dislay the modify button -->
+			{% if is_granted('ROLE_ADMIN') %}
+			<a href="{{ path('article_edit', {'id' : article.id, 'slug' : article.slug }) }}">
+				<button type="button" class="btn btn-outline-secondary my-4">Modifier</button>
+			</a>
+			<form method="post" action="{{ path('article_delete', {'id': article.id, 'slug': article.slug} ) }}"
+				style="display: inline-block;" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+				<input type="hidden" name="_method" value="DELETE">
+				<button class="btn btn-danger">Supprimer</button>
+			</form>
+			{% endif %}
+		</div>
+</article>
+<!-- / Article page -->
+
+<!-- Comment section -->
+{% include "primary/article/comment.html.twig" %}
+<!-- / Comment section -->
+{% endblock %}
