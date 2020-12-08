@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+<head>
+	<link rel="stylesheet" href="{{ asset('css/primary/user/profile/profile.css') }}">
+</head>
+<div class="d-flex justify-content-around" id="container">
+	<div class="text-center" style="width: 400px;">
+		<div>
+			<h3>Informations</h3>
+			<div class="card-body text-left">
+				<div class="d-flex">
+					<p>Votre nom :</p>
+					<p class="card-text ml-auto">{{ user.username }}</p>
+				</div>
+				<div class="d-flex">
+					<p>Votre email :</p>
+					<p class="card-text ml-auto">{{ user.email }}</p>
+				</div>
+				<div class="d-flex">
+					<p>Création du compte :</p>
+					<p class="card-text ml-auto">{{ user.createdAt|date("m/d/Y")  }}</p>
+				</div>
+				<div class="d-flex">
+					<p>Statut du compte :</p>
+					{% if user.roles[0] == "ROLE_USER" %}
+					<p class="card-text ml-auto text-danger">Non-Vérifié</p>
+					{% elseif user.roles[0] == "ROLE_VERIFIED_USER" %}
+					<p class="card-text ml-auto text-success">Vérifié</p>
+					{% else %}
+					<p class="card-text ml-auto text-warning">Administrateur</p>
+					{% endif %}
+				</div>
+				{{ form_start(form) }}
+				<div class="d-flex">
+					<p class="w-100">Photo de profil :</p>
+					<p class="card-text ml-auto w-50">{{ form_widget(form.imageFile) }}</p>
+				</div>
+				<button>Modifier Photo</button>
+				{{ form_end(form) }}
+				<div>
+					<form method="post" action="{{ path('delete_user', {'id': user.id}) }}"
+						onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+						<input type="hidden" name="_method" value="DELETE">
+						<button class="btn btn-danger mt-3">
+							Supprimer le compte
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

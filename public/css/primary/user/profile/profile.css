@@ -1,0 +1,13 @@
+#container{
+    margin-top: -67px;
+    display: grid;
+    height: 100vh;
+    place-items: center;
+}
+.custom-file-label {
+    opacity: 0;
+}
+
+.custom-file-input {
+    opacity: 1;
+}
