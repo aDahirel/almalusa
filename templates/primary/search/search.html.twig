@@ -1,0 +1,19 @@
+<head>
+	<link rel="stylesheet" href="{{ asset('css/primary/search/search.css') }}">
+</head>
+<article id="search" class="p-3 d-flex mb-5">
+	{{ form_start(form) }}
+	<div class="search-container d-flex justify-content-between">
+		<div>
+			<h4>Catégories</h4>
+			{{ form_row(form.categories) }}
+		</div>
+		<div>
+			{{ form_row(form.q) }}
+		</div>
+	</div>
+	<div class="d-flex">
+		<button type="submit" class="btn btn-secondary mr-3">Filtrer</button>
+	</div>
+	{{ form_end(form) }}
+</article>

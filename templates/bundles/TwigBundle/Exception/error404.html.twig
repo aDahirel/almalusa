@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block title %}Erreur 404{% endblock %}
+
+{% block body %}
+<div>
+    <div class="container">
+        <span style="font-size: 15rem">404</span>
+        <h1>La page n'existe pas</h1>
+        <p>
+            La page recherchée n'existe pas... Nous sommes désolés, mais vous pouvez toujours voir nos derniers article.
+        </p>
+        <div class="d-flex justify-content- pl-3 pb-3">
+            <button onclick="redirectTemplate()" type="button" class="btn btn-secondary">voir les article</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        function redirectTemplate() {
+            document.location.href = "{{ path('blog') }}";
+        }
+    </script>
+{% endblock %}
+

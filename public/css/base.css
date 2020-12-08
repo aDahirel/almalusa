@@ -1,0 +1,71 @@
+@font-face {
+    font-family: 'MadeTommy';
+    src: url("fonts/made_tommy/MADE_TOMMY_Regular_PERSONAL_USE.otf") format('opentype');
+}
+
+html, body
+{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "MadeTommy";
+}
+
+body{
+    background-color: #eee;
+}
+
+a{
+    color:#212529;
+}
+
+a:hover{
+    color:#212529;
+    text-decoration: none;
+}
+
+input{
+    border-radius: 0px;
+}
+.form-control{
+   border-radius: 0px; 
+}
+/** Pagination style */
+
+.page-link{
+    border: none;
+    background-color: transparent;
+    color: black;
+}
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: transparent;
+}
+.page-item.active .page-link {
+    background-color: transparent;
+    color: black;
+    font-size: 1.5rem;
+}
+
+.page-item.disabled .page-link {
+    background-color: transparent;
+}
+
+.page-link:hover {
+    color: black;
+}
+
+.category-title{
+    color: black;
+    margin-right: 3px;
+    border: none;
+    border-radius: 0px;
+}
+.category-title:hover{
+    color: white;
+}
+
+.btn{
+    border-radius: 0px;
+}

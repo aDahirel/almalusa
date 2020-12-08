@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<head>
+	<link rel="stylesheet" href="{{ asset('css/primary/articles.css') }}">
+</head>
+<!-- Articles section -->
+<section class="container">
+	<!-- Display all the articles in database -->
+	<div class="d-flex justify-content-between">
+		<div class="flex-grow-1">
+			{% include 'primary/search/search.html.twig' with {form: form} only %}
+			{% for article in articles %}
+			<article class="d-flex p-3 my-3">
+				<div class="d-flex flex-column justify-content-between">
+					<a class="article-title" href="{{ path('article', {'id' : article.id, 'slug': article.slug }) }}">
+						<h3>{{ article.title }}</h3>
+					</a>
+					<li class="list-unstyled d-flex flex-wrap">
+						{% for category in article.categories %}
+						<a href="/articles?categories%5B%5D={{ category.id }}&q="
+							class="btn btn-secondary category-title" style="background-color:{{ category.color }};">
+							{{ category.title }}
+						</a>
+						{% endfor %}
+					</li>
+					<p class="text-muted">{{ article.createdAt | date('d/m/y') }}</p>
+				</div>
+				{% if article.fileName == null %}
+				<div id="image-container">
+					<a href="{{ path('article', {'id' : article.id, 'slug': article.slug }) }}">
+						<img id="article-picture" src="{{ asset('images/almalusalogo.png') }}"
+							alt="Photo de l'article">
+					</a>
+				</div>
+				{% else %}
+				<div id="image-container">
+					<a href="{{ path('article', {'id' : article.id, 'slug': article.slug }) }}">
+						<img id="article-picture" src="{{ vich_uploader_asset(article, 'imageFile') }}"
+							alt="Photo de l'article">
+					</a>
+				</div>
+				{% endif %}
+			</article>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="btn-group">{{ knp_pagination_render(articles) }}</div>
+</section>
+<!-- / Articles section -->
+{% endblock %}

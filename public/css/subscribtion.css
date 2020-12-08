@@ -1,0 +1,89 @@
+.pdf-view{
+    display: none;
+    height: 70vh;
+}
+
+.online-view{
+    display: none;
+}
+#image_container{
+    width: 1800px;
+}
+
+#mosaic{
+    display: table-cell;
+    vertical-align: middle;
+    object-fit: cover;
+    max-width: 100%;
+}
+
+.information{
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+.cover-container{
+    padding-left: 3rem;
+    padding-right: 3rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
+}
+
+.main_container{
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.contact{
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+#nav-subscription{
+    color: black;
+}
+
+
+/* responsive */
+
+
+@media screen and (max-width: 992px) {
+    .main_container{
+        flex-direction: column;
+        padding: 0;
+    }
+    #image_container{
+        opacity: 1;
+        width: 100px;
+        display: none;
+    }
+    .cover-container{
+        margin: 0;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    #contact_container{
+        flex-direction: column;
+    }
+    h1{
+        font-size: 1.6rem;
+    }
+    .information{
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .lead{
+        font-size: 1rem;
+    }
+
+    object{
+        height: 100%;
+        width: 100%;
+        border: solid black 1px;
+        margin-bottom: 25px;
+    }
+
+    .contact{
+        padding-left: 0px;
+    }
+}

@@ -1,0 +1,70 @@
+{% block body %}
+	<section class="container py-3">
+		<!-- Display the amount of comments -->
+		<h4>
+			Commentaires ({{ article.comments | length }}) :
+		</h4>
+		<hr>
+
+		<!-- If a user is connected, display the comment form -->
+		{% if is_granted('ROLE_VERIFIED_USER') %}
+            {{ form_start(commentForm) }}
+			{{ form_row(commentForm.content) }}
+			
+			<button id="commentButton" type="submit" class="btn btn-secondary mb-3">Publier</button>
+
+			{{ form_end(commentForm) }}
+			{% elseif is_granted('ROLE_USER') %}
+			<p>Merci de vérifier votre compte pour poster</p>
+			<!-- Else display a connexion button -->
+		{% else %}
+			<h5><a href="{{ path('security_login') }}" style="color: grey;">Se connecter</a> pour commenter</h5>
+		{% endif %}
+		<!-- Display the comments -->
+		{% for comment in article.comments %}
+			<div class="media px-3 pt-3">
+				{% if comment.user.filename == null %}
+				<img src="{{ asset('images/default_user.png') }}" alt="{{ comment.user.username }} picture" class="mr-2 rounded-circle" style="width: 40px; height: 40px;">
+				{% else %}
+				<img src="{{ vich_uploader_asset( comment.user, 'imageFile') }}" alt="{{ comment.user.username }} picture" class="mr-2 rounded-circle" style="width: 40px; height: 40px;">
+				{% endif %}
+				<div class="media-body">
+					<h5 class="mb-0">{{ comment.user.username }}</h5>
+						<span class="mb-2 blockquote-footer" >{{ comment.createdAt | date('\\l\\e d/m/Y à H:i') }}</span>
+					<p>{{ comment.content | raw }}</p>
+				</div>
+				{% if is_granted('ROLE_ADMIN') or app.user and app.user.id == comment.user.id  %}
+					<form method="post" action="{{ path('delete_comment', {'id': comment.id, 'slug': comment.article.slug, 'idarticle': comment.article.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer ce commentaire ?')">
+						<input type="hidden" name="_method" value="DELETE">
+						<button class="close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+                    </form>
+				{% endif %}
+			</div>
+		{% endfor %}
+	</section>
+	<style>
+		#commentButton{
+			display: none;
+		}
+		#comment_content{
+			width: 50%;
+			height: 40px;
+		}
+		.blockquote-footer::before {
+			content: none;
+		}
+	</style>
+	<script>
+
+		var input = document.getElementById('comment_content');
+		var button = document.getElementById('commentButton');
+
+		input.addEventListener('click', displayPost);
+
+		function displayPost(){
+			button.style.display = 'block';
+		}
+	</script>
+{% endblock %}
